@@ -24,13 +24,15 @@ function PlotBestRansacResult( data, model_center, model_radius, tau, ...
     outlier_vectors = data(abs(pdist2(data, ransac_circle_center) - ransac_circle_radius) > tau, :);
     
     % plotting 
-    plot(x_syntetic, y_syntetic, 'g-')
-    hold on
     plot(inlier_vectors(:, 1), inlier_vectors(:, 2), 'bo')
+    hold on
     plot(outlier_vectors(:, 1), outlier_vectors(:, 2), 'ro')
     plot(x_ransac, y_ransac, 'k-')
+    plot(x_syntetic, y_syntetic, 'g-')
     hold off
+    axis equal tight
     axis(domain)
+    legend('RANSAC inliers', 'RANSAC outliers', 'RANSAC model', 'synth. model', 'location', 'southoutside')
   
 end
 

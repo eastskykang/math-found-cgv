@@ -62,11 +62,12 @@ function [ inlier_vectors ] = GenerateInlierData(model ,N, r, tau, domain_param,
             continue
         end
         
-        if ~VerifyInlier(model, model_param, tau, [x_vec_temp, y_vec_temp])
-            % check nodise added vector is not over threshold
+        if VerifyInlier(model, model_param, tau, [x_vec_temp, y_ve)
             continue
         end
-       
+        
+            
+        % check nodise added vector is not over threshold
         x_vec_noise_added(idx) = x_vec_temp;
         y_vec_noise_added(idx) = y_vec_temp;
         idx = idx + 1;
