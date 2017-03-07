@@ -13,7 +13,7 @@ function cost = Cost(cost_model, sample, model_param )
     y_i = sample(:,2);
     
     if strcmp(cost_model, 'vertical')
-        cost = y_i - (a * x_i + b);
+        cost = abs(y_i - (a * x_i + b));
     else
         error('wrong argument for cost_for_line_fitting')
     end
