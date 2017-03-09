@@ -27,7 +27,8 @@ if a*x_max + b > y_max || a*x_min + b < y_min
 end
 
 % IRLS parameter
-tol = 0.01;
+tol = 0.001;
+max_iter = 10000;
 
 %% DATA GENERATION, IRLS & L1, LP & L1, LP & Linf
 data = zeros(N, 2, size(r_array, 2));
@@ -71,15 +72,16 @@ for i=1:size(r_array, 2)
     data(:,:,i) = [inlier_vectors; outlier_vectors];
     
     %% IRLS & L1
-    disp('======================================')
     disp('IRSL with L1 norm')
     
-    x_IRLS(:,:,i) = IRLSWithL1Norm(data(:,:,i), tol);
+    [x_IRLS(:,:,i), num_iter_IRLS] = IRLSWithL1Norm(data(:,:,i), tol, max_iter);
+    
     disp('Result = ')
     disp(x_IRLS(:,:,i))
+    disp(['(# of iter = ', num2str(num_iter_IRLS), ')']);
+    disp(' ')
     
     %% LP & L1
-    disp('======================================')
     disp('Linear Programming with L1 norm')
     
     x_LP_L1(:,:,i) = LinProgWithLqNorm('L1', data(:,:,i));
@@ -87,7 +89,6 @@ for i=1:size(r_array, 2)
     disp(x_LP_L1(:,:,i))
     
     %% LP & Linf
-    disp('======================================')
     disp('Linear Programming with Linf norm')
     
     x_LP_Linf(:,:,i) = LinProgWithLqNorm('Linf', data(:,:,i));

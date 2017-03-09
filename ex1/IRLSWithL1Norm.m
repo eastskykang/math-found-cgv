@@ -1,4 +1,4 @@
-function [ x ] = IRLSWithL1Norm( data, tol )
+function [ x, num_iter ] = IRLSWithL1Norm( data, tol, max_iter )
     %IRLSWITHL1NORM
     
     % data   N x 2 matrix. each row vector is [x, y]
@@ -13,7 +13,7 @@ function [ x ] = IRLSWithL1Norm( data, tol )
     % result [a, b]
     x = zeros(1, 2);
     
-    while true
+    for i=1:max_iter
         % min (Ax - b)' * W * (Ax - b)
         % solve weighted least square problem
         A = [data_x, ones(N, 1)];
@@ -36,5 +36,7 @@ function [ x ] = IRLSWithL1Norm( data, tol )
             break
         end
     end
+    
+    num_iter = i;
 end
 
