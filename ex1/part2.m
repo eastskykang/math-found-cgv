@@ -2,7 +2,7 @@ clc
 clear all
 
 % random seed initialization
-% TODO
+rng('shuffle','twister');
 
 % data parameters
 N = 100;
@@ -17,9 +17,14 @@ y_min = -10;
 domain = [x_min, x_max, y_min, y_max];
 
 % model parameters
-a = 1;
+a = 0.5;
 b = 0;
 noise_radius = 0.1;
+
+% check model parameter
+if a*x_max + b > y_max || a*x_min + b < y_min
+    error('synthetic model parameter is not feasible. data is out of domain.');
+end
 
 % IRLS parameter
 tol = 0.01;
@@ -66,13 +71,29 @@ for i=1:size(r_array, 2)
     data(:,:,i) = [inlier_vectors; outlier_vectors];
     
     %% IRLS & L1
+    disp('======================================')
+    disp('IRSL with L1 norm')
+    
     x_IRLS(:,:,i) = IRLSWithL1Norm(data(:,:,i), tol);
+    disp('Result = ')
+    disp(x_IRLS(:,:,i))
     
     %% LP & L1
+    disp('======================================')
+    disp('Linear Programming with L1 norm')
+    
     x_LP_L1(:,:,i) = LinProgWithLqNorm('L1', data(:,:,i));
+    disp('Result = ')
+    disp(x_LP_L1(:,:,i))
     
     %% LP & Linf
+    disp('======================================')
+    disp('Linear Programming with Linf norm')
+    
     x_LP_Linf(:,:,i) = LinProgWithLqNorm('Linf', data(:,:,i));
+    disp('Result = ')
+    disp(x_LP_Linf(:,:,i))
+    
 end
 
 %% PLOTS
@@ -82,7 +103,7 @@ disp('plot...')
 % var x for plot
 x_syn = x_min:0.01:x_max;
 
-figure(2) 
+figure(3) 
 for i=1:size(r_array, 2)    
 
     % subplot1/4 (IRLS with L1 norm)
