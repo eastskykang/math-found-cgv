@@ -1,6 +1,9 @@
 clc
 clear all
 
+% functions
+addpath('functions')
+
 % random seed initialization
 rng('shuffle','twister');
 

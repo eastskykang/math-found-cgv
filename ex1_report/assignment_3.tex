@@ -1,0 +1,247 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+
+% my packages
+\usepackage{commath}
+
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\newcommand{\filename}[1]{\textbf{\textit{#1}}}
+\newcommand{\funcname}[1]{\textbf{#1}}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Mathematical foundations of computer graphics and vision} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Exercise 1. Robust Estimation and Optimization \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dongho Kang} % Your name
+
+\date{\normalsize March 12, 2017} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	README
+%----------------------------------------------------------------------------------------
+
+The "code" directory contains followings:
+
+\begin{itemize}
+	\item \filename{part1.m} \quad Script .m file for part1.
+	\item \filename{part2.m} \quad Script .m file for part2.
+	\item \filename{functions dir} \quad Function .m files 
+		\begin{itemize}
+			\item ...
+			\item ...
+		\end{itemize}
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{exercise part 1: ransac for circle fitting}
+
+%----------------------------------------------------------------------------------------
+%	DESCRIPTION
+%----------------------------------------------------------------------------------------
+\subsection{Description}
+
+In exercise part 1, RANSAC algorithm was used for circular model fitting with $N$ number of 2D data points which were corrupted by noise and certain ration of outliers. The implementation of part 1 corresponds to the .m script file \filename{part1.m} and the script consists of several parts which can be executed separately: 
+
+\begin{itemize}
+\item Data generation and verification
+\item Run RANSAC algorithm for circular model fitting
+\item Run exhaustive search for circular model fitting
+\item Plot the result
+\end{itemize}  
+
+%----------------------------------------------------------------------------------------
+\subsubsection{Data generation and verification}
+
+For certain outlier ratio $r  (\%)$ and $N$ number of 2D data points, the number of inliers ($n_{inlier}$)and outliers($n_{outlier}$) are as follows:
+
+\begin{center}
+$n_{inlier} = N \times \frac{1 - r}{100} $ \\
+$n_{outlier} = N \times \frac{r}{100} $  
+\end{center}
+
+\begin{center}
+$N = 100$, $r \in \{5, 20, 30, 70\}$
+\end{center}
+
+In order to generate $n_{inlier}$ inliers and $n_{outlier}$ outliers, the function \funcname{GenerateInlierData} and \funcname{GenerateOutlierData} are implemented. \funcname{GenerateInlierData} generates noise-added data points which is not over the inlier distance threshold $\tau = 0.1$ from synthetic model and \funcname{GenerateOutlierData} generates data points which is over $\tau$. It can be described as follows. $d\big(p_{1}, p_{2}\big)$ is euclidean distance function between two 2D points $p_{1} and p_{2}$:
+
+\begin{center}
+$\abs{d \big( (x_{i}, y_{i}), (x_{c}, y_{c}) \big) - R_{c}} \leq \tau$  \qquad for $(x_{i}, y_{i}) \in Set_{inlier}$ \\
+$\abs{d \big( (x_{j}, y_{j}), (x_{c}, y_{c}) \big) - R_{c}} > \tau $ \qquad for $(x_{i}, y_{i}) \in Set_{outlier}$ 
+\end{center}
+
+
+After generating inliers/outliers, verified whether generated inliers is ~ threshold and also generated outliers . For this purpose, the function \funcname{VerifyInlier} is used. The specific descriptions for each functions are following:
+
+\paragraph{Inlier generation}
+
+A 2D point $(\tilde{x_{i}}, \tilde{y_{i}})$ on the circular model $(x-x_{c})^{2} + (y-y_c)^{2} = R_{c}^{2}$ which of center $(x_{c}, y_{c})$, and radius $R_{c}$ can be described as follows:
+
+\begin{center}
+$(\tilde{x_{i}}, \tilde{y_{i}}) = (x_{c}, y_{c}) + R_{c} \times (\cos \theta_{i}, \sin \theta_{i})$ \qquad $\theta_{i} \in [0, 2 \pi]$, $i \in \{1, 2, \dots n_{inlier} \}$
+\end{center}
+
+Thus, picked $n_{inlier}$ number of random float numbers from the range of  $[0, 2 \pi]$ by \funcname{rand} and as using these numbers as $\theta_{i}$, generated $(x_{i}, y_{i})$ for $i \in \{1, 2, \dots n_{inlier} \}$.  
+
+Random noise $(\sigma_{x_{i}}, \sigma_{y_{i}})$ is added on the data point $(x_{i}, y_{i})$ as follows:
+
+\begin{center}
+$(x_{i}, y_{i}) = (\tilde{x_{i}}, \tilde{y_{i}}) + (\sigma_{x_{i}}, \sigma_{y_{i}})$ \\
+s.t. $\sigma_{x_{i}}, \sigma_{y_{i}} \in [-0.1, 0.1], \quad \abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}} \leq \tau $
+\end{center}
+
+To implement this, two random float numbers by \funcname{rand} were picked for $(\sigma_{x_{i}}, \sigma_{y_{i}})$ iteratively, until it satisfies $\abs{d((x_{i}, y_{i}), (x_{c}, y_{c})) - R_{c}} \leq \tau$ and repeated it for $i=1...n_{inlier}$ to generate $n_{inlier}$ number of inliers.
+
+\paragraph{outlier generation}
+
+In order to generate one outlier point $(x_{j}, y_{j})$, two random float numbers were generated by \funcname{rand} in the domain of $[-10, 10] \times [-10, 10]$ and generated $(x_{j}, y_{j})$ was checked whether it satisfies $\abs{d((x_{i}, y_{i}), (x_{c}, y_{c})) - R_{c}} > \tau$. If not, generated $(x_{j}, y_{j})$ again. Repeated this for $n_{outlier}$ times to generate $n_{outlier}$ number of outliers.
+
+\paragraph{data verification}
+
+Checked whether synthesized inliers are indeed inliers and outliers are indeed outliers. The function \funcname{VerifyInlier} was used. The function calculates $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}}$ for each data points and check if there is a inlier point which of $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}} > \tau$ or an outlier point which of $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}} \leq \tau$. In this case, error is returned and the script halts. 
+
+%----------------------------------------------------------------------------------------
+\subsubsection{RANSAC for circular model fitting}
+
+
+
+\subsection{Running}
+
+parameters
+debug
+
+
+\subsection{Result}
+
+\begin{align} 
+\begin{split}
+(x+y)^3 	&= (x+y)^2(x+y)\\
+&=(x^2+2xy+y^2)(x+y)\\
+&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
+&=x^3+3x^2y+3xy^2+y^3
+\end{split}					
+\end{align}
+
+Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies
+
+%------------------------------------------------
+
+\subsection{Heading on level 2 (subsection)}
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
+\begin{align}
+A = 
+\begin{bmatrix}
+A_{11} & A_{21} \\
+A_{21} & A_{22}
+\end{bmatrix}
+\end{align}
+Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+
+%------------------------------------------------
+
+\subsubsection{Heading on level 3 (subsubsection)}
+
+\lipsum[3] % Dummy text
+
+\paragraph{Heading on level 4 (paragraph)}
+
+\lipsum[6] % Dummy text
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\section{Lists}
+
+%------------------------------------------------
+
+\subsection{Example of list (3*itemize)}
+\begin{itemize}
+	\item First item in a list 
+		\begin{itemize}
+		\item First item in a list 
+			\begin{itemize}
+			\item First item in a list 
+			\item Second item in a list 
+			\end{itemize}
+		\item Second item in a list 
+		\end{itemize}
+	\item Second item in a list 
+\end{itemize}
+
+%------------------------------------------------
+
+\subsection{Example of list (enumerate)}
+\begin{enumerate}
+\item First item in a list 
+\item Second item in a list 
+\item Third item in a list
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
