@@ -11,11 +11,7 @@ function [ best_result ] = RansacForCircularModel( data, succ_rate, r, tau, n_sa
     % result            1 x 5 matrix. best result of RANSAC interation. 
     
     n_iter = ceil(log(1 - succ_rate) / log(1 - (1 - r/100)^n_sample_ransac));
-    
-    if debug 
-        disp(['# of ransac iter = ', num2str(n_iter)]);
-    end
-    
+        
     % results [n_inlier, n_outlier, a, b, c] 
     % a, b, c are parameters for circle 
     best_result = zeros(1, 5);

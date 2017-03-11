@@ -90,8 +90,9 @@ for i=1:size(r_array, 2)
     data(:,:,i) = [inlier_vectors; outlier_vectors];
     
     %% RANSAC
-    disp(['RANSAC... (# of test = ', num2str(n_test_ransac), ')'])
-    
+    n_iter = ceil(log(1 - succ_rate) / log(1 - (1 - r/100)^n_sample_ransac));
+    disp(['RANSAC... (# of test = ', num2str(n_test_ransac), ', # of iteration = ', num2str(n_iter), ')'])
+   
     for j=1:n_test_ransac
         result_ransac(j,:,i) = RansacForCircularModel(data(:,:,i), succ_rate, r, tau, n_sample_ransac, debug);
         
@@ -111,7 +112,7 @@ for i=1:size(r_array, 2)
     best_result_exh_search(:,:,i) = ExhSearchForCircularModel(data(:,:,i), tau, n_sample_ransac);
     
     disp('best result of exhaustive search = ')
-    disp(best_result_ransac(:,:,i))
+    disp(best_result_exh_search(:,:,i))
 end
 
 %% PLOTS

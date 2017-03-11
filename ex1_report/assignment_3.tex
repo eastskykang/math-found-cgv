@@ -34,6 +34,8 @@
 
 % my packages
 \usepackage{commath}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
 \pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
 \fancyhead{} % No page header - if you want one, create it in the same way as the footers below
@@ -50,9 +52,13 @@
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
 
+% new commands
 \newcommand{\filename}[1]{\textbf{\textit{#1}}}
 \newcommand{\funcname}[1]{\textbf{#1}}
+\newcommand{\inv}{^{\raisebox{.2ex}{$\scriptscriptstyle-1$}}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
 
+\DeclareMathOperator*{\argmin}{arg\,min} % Jan Hlavacek
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -80,6 +86,10 @@
 %	README
 %----------------------------------------------------------------------------------------
 
+The version of MATLAB which was used and tested is as follows:
+
+
+
 The "code" directory contains followings:
 
 \begin{itemize}
@@ -91,6 +101,8 @@ The "code" directory contains followings:
 			\item ...
 		\end{itemize}
 \end{itemize}
+
+For running a exercise part, adjust several parameters and run corresponding script on the MATLAB environment. More details are stated in the \textit{Running} section of each exercise part.
 
 %----------------------------------------------------------------------------------------
 %	PROBLEM 1
@@ -107,9 +119,9 @@ In exercise part 1, RANSAC algorithm was used for circular model fitting with $N
 
 \begin{itemize}
 \item Data generation and verification
-\item Run RANSAC algorithm for circular model fitting
-\item Run exhaustive search for circular model fitting
-\item Plot the result
+\item Running RANSAC algorithm for circular model fitting
+\item Running exhaustive search for circular model fitting
+\item Plotting the result
 \end{itemize}  
 
 %----------------------------------------------------------------------------------------
@@ -117,130 +129,455 @@ In exercise part 1, RANSAC algorithm was used for circular model fitting with $N
 
 For certain outlier ratio $r  (\%)$ and $N$ number of 2D data points, the number of inliers ($n_{inlier}$)and outliers($n_{outlier}$) are as follows:
 
-\begin{center}
-$n_{inlier} = N \times \frac{1 - r}{100} $ \\
-$n_{outlier} = N \times \frac{r}{100} $  
-\end{center}
+\begin{align*}
+n_{inlier} &= N \times \frac{1 - r}{100}  \\
+n_{outlier} &= N \times \frac{r}{100} 
+\end{align*}
 
 \begin{center}
-$N = 100$, $r \in \{5, 20, 30, 70\}$
+$(N = 100$, $r \in \{5, 20, 30, 70\})$
 \end{center}
 
 In order to generate $n_{inlier}$ inliers and $n_{outlier}$ outliers, the function \funcname{GenerateInlierData} and \funcname{GenerateOutlierData} are implemented. \funcname{GenerateInlierData} generates noise-added data points which is not over the inlier distance threshold $\tau = 0.1$ from synthetic model and \funcname{GenerateOutlierData} generates data points which is over $\tau$. It can be described as follows. $d\big(p_{1}, p_{2}\big)$ is euclidean distance function between two 2D points $p_{1} and p_{2}$:
 
-\begin{center}
-$\abs{d \big( (x_{i}, y_{i}), (x_{c}, y_{c}) \big) - R_{c}} \leq \tau$  \qquad for $(x_{i}, y_{i}) \in Set_{inlier}$ \\
-$\abs{d \big( (x_{j}, y_{j}), (x_{c}, y_{c}) \big) - R_{c}} > \tau $ \qquad for $(x_{i}, y_{i}) \in Set_{outlier}$ 
-\end{center}
+\begin{align*}
+\abs{d \big( (x_{i}, y_{i}), (x_{c}, y_{c}) \big) - R_{c}} &\leq \tau  \qquad for (x_{i}, y_{i}) \in Set_{inlier} \\
+\abs{d \big( (x_{j}, y_{j}), (x_{c}, y_{c}) \big) - R_{c}} &> \tau \qquad for (x_{i}, y_{i}) \in Set_{outlier} 
+\end{align*}
 
 
 After generating inliers/outliers, verified whether generated inliers is ~ threshold and also generated outliers . For this purpose, the function \funcname{VerifyInlier} is used. The specific descriptions for each functions are following:
 
+%----------------------------------------------------------------------------------------
 \paragraph{Inlier generation}
 
 A 2D point $(\tilde{x_{i}}, \tilde{y_{i}})$ on the circular model $(x-x_{c})^{2} + (y-y_c)^{2} = R_{c}^{2}$ which of center $(x_{c}, y_{c})$, and radius $R_{c}$ can be described as follows:
 
-\begin{center}
-$(\tilde{x_{i}}, \tilde{y_{i}}) = (x_{c}, y_{c}) + R_{c} \times (\cos \theta_{i}, \sin \theta_{i})$ \qquad $\theta_{i} \in [0, 2 \pi]$, $i \in \{1, 2, \dots n_{inlier} \}$
-\end{center}
+\begin{equation*}
+(\tilde{x_{i}}, \tilde{y_{i}}) = (x_{c}, y_{c}) + R_{c} \times (\cos \theta_{i}, \sin \theta_{i}) \qquad \theta_{i} \in [0, 2 \pi], i \in \{1, 2, \dots n_{inlier} \}
+\end{equation*}
 
-Thus, picked $n_{inlier}$ number of random float numbers from the range of  $[0, 2 \pi]$ by \funcname{rand} and as using these numbers as $\theta_{i}$, generated $(x_{i}, y_{i})$ for $i \in \{1, 2, \dots n_{inlier} \}$.  
+Thus, picked $n_{inlier}$ number of random float numbers from the range of  $[0, 2 \pi]$ by MATLAB function \funcname{rand} and as using these numbers as $\theta_{i}$, generated $(x_{i}, y_{i})$ for $i \in \{1, 2, \dots n_{inlier} \}$.  
 
-Random noise $(\sigma_{x_{i}}, \sigma_{y_{i}})$ is added on the data point $(x_{i}, y_{i})$ as follows:
+Random noise $(\sigma_{x_{i}}, \sigma_{y_{i}})$ is added on the data point $(\tilde{x_{i}}, \tilde{y_{i}})$ as follows:
 
-\begin{center}
-$(x_{i}, y_{i}) = (\tilde{x_{i}}, \tilde{y_{i}}) + (\sigma_{x_{i}}, \sigma_{y_{i}})$ \\
-s.t. $\sigma_{x_{i}}, \sigma_{y_{i}} \in [-0.1, 0.1], \quad \abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}} \leq \tau $
-\end{center}
+\begin{equation*}
+(x_{i}, y_{i}) = (\tilde{x_{i}}, \tilde{y_{i}}) + (\sigma_{x_{i}}, \sigma_{y_{i}}) 
+\quad s.t. \quad \sigma_{x_{i}}, \sigma_{y_{i}} \in [-0.1, 0.1], \quad \abs{d \big( (x_{i}, y_{i}), (x_{c}, y_{c}) \big) - R_{c}} \leq \tau 
+\end{equation*}
 
-To implement this, two random float numbers by \funcname{rand} were picked for $(\sigma_{x_{i}}, \sigma_{y_{i}})$ iteratively, until it satisfies $\abs{d((x_{i}, y_{i}), (x_{c}, y_{c})) - R_{c}} \leq \tau$ and repeated it for $i=1...n_{inlier}$ to generate $n_{inlier}$ number of inliers.
+To implement this, two random float numbers by \funcname{rand} were picked for $(\sigma_{x_{i}}, \sigma_{y_{i}})$ iteratively, until it satisfies $\abs{d \big( (x_{i}, y_{i}), (x_{c}, y_{c}) \big) - R_{c}} \leq \tau$ and repeated it for $i=1...n_{inlier}$ to generate $n_{inlier}$ number of inliers. Also, $(x_{i}, y_{i})$ is checked whether it is in the domain $[-10, 10]$.
 
-\paragraph{outlier generation}
+%----------------------------------------------------------------------------------------
+\paragraph{Outlier generation}
 
-In order to generate one outlier point $(x_{j}, y_{j})$, two random float numbers were generated by \funcname{rand} in the domain of $[-10, 10] \times [-10, 10]$ and generated $(x_{j}, y_{j})$ was checked whether it satisfies $\abs{d((x_{i}, y_{i}), (x_{c}, y_{c})) - R_{c}} > \tau$. If not, generated $(x_{j}, y_{j})$ again. Repeated this for $n_{outlier}$ times to generate $n_{outlier}$ number of outliers.
+In order to generate one outlier point $(x_{j}, y_{j})$, two random float numbers were generated by \funcname{rand} in the domain of $[-10, 10] \times [-10, 10]$ and generated $(x_{j}, y_{j})$ was checked whether it satisfies $\abs{d((x_{j}, y_{j}), (x_{c}, y_{c})) - R_{c}} > \tau$. If not, generated $(x_{j}, y_{j})$ again. Repeated this for $n_{outlier}$ times to generate $n_{outlier}$ number of outliers.
 
-\paragraph{data verification}
+%----------------------------------------------------------------------------------------
+\paragraph{Data verification}
 
-Checked whether synthesized inliers are indeed inliers and outliers are indeed outliers. The function \funcname{VerifyInlier} was used. The function calculates $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}}$ for each data points and check if there is a inlier point which of $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}} > \tau$ or an outlier point which of $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}} \leq \tau$. In this case, error is returned and the script halts. 
+Checked whether synthesized inliers are indeed inliers and outliers are indeed outliers. The function \funcname{VerifyInlier} was used. The function calculates $\abs{d((\tilde{x}_{i}, \tilde{y}_{i}), (x_{c}, y_{c})) - R_{c}}$ for each data points and check if there is a inlier point which of $\abs{d((x_{i}, y_{i}), (x_{c}, y_{c})) - R_{c}} > \tau$ or an outlier point which of $\abs{d((x_{j}, y_{j}), (x_{c}, y_{c})) - R_{c}} \leq \tau$. In this case, error is returned and the script halts. 
 
 %----------------------------------------------------------------------------------------
 \subsubsection{RANSAC for circular model fitting}
 
+For generated data point $(x_{i}, y_{i})$ $i \in {1,2\dots,N}$, RANSAC algorithm applied to get the best model parameter which of maximum number of inliers within $n_{iter}$ RANSAC iterations.
 
+\funcname{RansacForCircularModel} was implemented for RANSAC algorithm and the algorithm is applied for 1000 times for each outlier ratio to find the distribution of the number of inliers found by RANSAC. 
+ \\
 
+The number of RANSAC iterations $n_{iter}$ for success rate $p$ ($0 \leq p < 1$, for this exercise, $p = 0.99$), outlier ratio $r  (\%)$ and sample size $s$ ($=3$ for circular model: two for x, y coordinates of center and one for radius) is defined as follows: 
+
+\begin{equation*}
+n_{iter} = \ceil{ \frac{log(1 - p)}{log(1 - (1 - \frac{r}{100}) ^ {s})} }
+\end{equation*}
+
+Thus, $n_{iter} = 3$ for $r = 5\%$, $n_{iter} = 7$ for $r = 20\%$, $n_{iter} = 11$ for $r = 30\%$ and $n_{iter} = 169$ for $r = 70\%$. During $n_{iter}$ iterations, found best result of RANSAC which of maximum number of inliers. \\
+
+For each RANSAC iteration, sampled $s = 3$ data points without replacement. If the same data points are sampled, model fitting could be failed because it is under-determined problem. 
+
+\paragraph{Circular model fitting}
+
+With respect to sampled data points $(x_{1}', y_{1}'), (x_{2}', y_{2}'), (x_{3}', y_{3}')$, used \funcname{CircularModelFitting} for model fitting. The function solves the following equation (variables $a, b, c$ are parameter for fitted model which correspond to $x_c, y_c$ and $R_c$ each):
+
+\begin{align*}
+(x_{1}' - a)^{2} + (y_{1}' - b)^{2} &= c^{2} \\
+(x_{2}' - a)^{2} + (y_{2}' - b)^{2} &= c^{2} \\
+(x_{3}' - a)^{2} + (y_{3}' - b)^{2} &= c^{2}
+\end{align*}
+
+As eliminating variable $c$, the equation can be expressed to linear equation as follows:
+
+% A = [-2(x1 - x2), -2(y1 - y2); -2(x2 - x3), -2(y2 - y3)]
+% B = [x2^2 - x1^2 + y2^2 - y1^2; x3^2 - x2^2 + y3^2 - y2^2]
+
+\begin{equation*}
+\begin{bmatrix}
+    -2(x_{1}' - x_{2}')       &     -2(y_{1}' - y_{2}') \\
+    -2(x_{2}' - x_{3}')       &     -2(y_{2}' - y_{3}') 
+\end{bmatrix}
+\begin{bmatrix}
+    a \\
+    b
+\end{bmatrix}
+=
+\begin{bmatrix}
+    x_{2}'^{2} - x_{1}'^{2} +  y_{2}'^{2} - y_{1}^{2} \\
+    x_{3}'^{2} - x_{2}'^{2} +  y_{3}'^{2} - y_{2}^{2}
+\end{bmatrix}
+\end{equation*}
+
+For $Ax = b$, if $A$ is square matrix and not singular $x = A \inv b$. Thus $x = [a \quad b]^{T}$ can be obtained and c also be calculated by the following equation: 
+
+\begin{equation*}
+c = \sqrt{x_{1}^{2} - 2 a x_{1} +  a^{2} + y_{1}^{2} - 2 b y_{1} + b^{2}}
+\end{equation*}
+
+As $a, b$ and $c$ (center and radius of the fitted circle) is determined, set of inliers and outliers can be determined as being done for data verification. This circular model fitting algorithm can be used for not only RANSAC but also for the exhaustive search.
+
+%----------------------------------------------------------------------------------------
+\subsubsection{Exhaustive search}
+
+Another option for model fitting is trying every combination of data points and choosing the best combination. In order to do this, MATLAB function \funcname{nchoosek} was used. For $N = 100$ and $s = 3$, the number of all possible combination is as follows:
+
+\begin{equation*}
+n_{comb} = \binom{100}{3}=\frac{100!}{3! \times 97!}=161700
+\end{equation*}
+
+For each combination, used \funcname{CircularModelFitting} for model fitting and finding the number of inliers for the fitted model. Finally, as compared result of each combinations, the best result of exhaustive search can be obtained. This was implemented as the function \funcname{ExhSearchForCircularModel}.
+
+%----------------------------------------------------------------------------------------
+%	RUNNING
+%----------------------------------------------------------------------------------------
 \subsection{Running}
 
-parameters
-debug
+Several parameters can be changed for running the script but only changing model parameters (i.e. variables x\_c, y\_c, radius, noise\_radius) is allowed to guarantee proper execution. If model parameter combination is not feasible(e.g. out of domain bound), error would be returned. \\
 
-
+%----------------------------------------------------------------------------------------
+%	RESULT
+%----------------------------------------------------------------------------------------
 \subsection{Result}
 
-\begin{align} 
-\begin{split}
-(x+y)^3 	&= (x+y)^2(x+y)\\
-&=(x^2+2xy+y^2)(x+y)\\
-&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
-&=x^3+3x^2y+3xy^2+y^3
-\end{split}					
-\end{align}
+image
 
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies
 
-%------------------------------------------------
+%----------------------------------------------------------------------------------------
+%	DISCUSSION
+%----------------------------------------------------------------------------------------
+\subsection{Discussion}
 
-\subsection{Heading on level 2 (subsection)}
+The answers of the questions regarding RANSAC and exhaustive search are as follows:
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
-\begin{align}
-A = 
-\begin{bmatrix}
-A_{11} & A_{21} \\
-A_{21} & A_{22}
-\end{bmatrix}
-\end{align}
-Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-
-%------------------------------------------------
-
-\subsubsection{Heading on level 3 (subsubsection)}
-
-\lipsum[3] % Dummy text
-
-\paragraph{Heading on level 4 (paragraph)}
-
-\lipsum[6] % Dummy text
+\begin{itemize}
+\item The number of combinations for $N = 100$ 
+    \begin{equation*}
+    n_{comb} = \binom{100}{3}=\frac{100!}{3! \times 97!}=161700
+    \end{equation*}
+\item The number of RANSAC iterations for each outlier ratio for $N = 100$
+    \begin{equation*}
+    n_{iter} = \ceil{ \frac{log(1 - p)}{log(1 - (1 - \frac{r}{100}) ^ {s})} }
+    \end{equation*}
+    \begin{center}
+        \begin{tabular}{ | l | l | l | l | l | }
+        \hline
+        $r =$ & 5\% & 20\% & 30\% & 70\% \\ \hline
+        $n_{iter} = $ & 3 & 7 & 11 & 169 \\ \hline
+        \end{tabular}
+    \end{center}
+\item The number of combinations for $N = 100,000$ 
+\begin{equation*}
+n_{comb} = \binom{100000}{3}=\frac{100000!}{3! \times 99997!}=166661666700000
+\end{equation*}
+\item The number of RANSAC iterations for $N = 100,000$ is same as the case of $N = 100$
+\item TODO
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 %	PROBLEM 2
 %----------------------------------------------------------------------------------------
 
-\section{Lists}
+\section{exercise part 2: IRLS and norms for line fitting}
 
-%------------------------------------------------
+%----------------------------------------------------------------------------------------
+%	DESCRIPTION
+%----------------------------------------------------------------------------------------
+\subsection{Description}
 
-\subsection{Example of list (3*itemize)}
+In exercise part 2, IRLS and Linear Programming algorithm was used for line model fitting with $N$ number of 2D data points which were corrupted by noise and certain ration of outliers. The implementation of part 2 corresponds to the .m script file \filename{part2.m} and the script consists of several parts: 
+
 \begin{itemize}
-	\item First item in a list 
-		\begin{itemize}
-		\item First item in a list 
-			\begin{itemize}
-			\item First item in a list 
-			\item Second item in a list 
-			\end{itemize}
-		\item Second item in a list 
-		\end{itemize}
-	\item Second item in a list 
-\end{itemize}
+\item Data generation and verification
+\item Run IRLS with $L_{1}$ norm
+\item Run LP with $L_{1}$ norm 
+\item Run LP with $L_{\infty}$ norm 
+\item Plot the result
+\end{itemize}  
 
-%------------------------------------------------
+%----------------------------------------------------------------------------------------
+\subsubsection{Data generation and verification}
 
-\subsection{Example of list (enumerate)}
-\begin{enumerate}
-\item First item in a list 
-\item Second item in a list 
-\item Third item in a list
-\end{enumerate}
+To generate data points on a line, the new cost function(vertical cost: \funcname{Cost}) was used instead of euclidean distance function. For data point $(x_{i}, y_{i})$ and line model $y = ax + b$, it is defined as follows:
+
+\begin{equation*}
+d\big((x_{i}, y_{i}), (a, b)\big) = \abs{y_{i} - (ax_{i} + b)}
+\end{equation*}
+
+Thus, inliers and outliers are defined as  follows:
+
+\begin{align*}
+d \big( (x_{i}, y_{i}), (a, b) \big) &\leq \tau  \qquad for (x_{i}, y_{i}) \in Set_{inlier} \\
+d \big( (x_{j}, y_{j}), (a, b) \big) &> \tau \qquad for (x_{i}, y_{i}) \in Set_{outlier} 
+\end{align*}
+
+The strategy of data generation is almost same as exercise part 1 but line model and the new cost are adapted.
+
+%----------------------------------------------------------------------------------------
+\paragraph{Inlier generation}
+
+A 2D point $(\tilde{x_{i}}, \tilde{y_{i}})$ on the line model $y = ax + b$ can be described as follows:
+
+\begin{equation*}
+\tilde{y_{i}} = a\tilde{x_{i}} + b \qquad \tilde{x_{i}} \in [-10, 10]
+\end{equation*}
+
+Random noise $(\sigma_{x_{i}}, \sigma_{y_{i}})$ is added on the data point $(\tilde{x_{i}}, \tilde{y_{i}})$ as follows:
+
+\begin{equation*}
+(x_{i}, y_{i}) = (\tilde{x_{i}}, \tilde{y_{i}}) + (\sigma_{x_{i}}, \sigma_{y_{i}}) \quad
+s.t. \quad \sigma_{x_{i}}, \sigma_{y_{i}} \in [-0.1, 0.1], \quad d \big( (x_{i}, y_{i}), (a, b) \big) \leq \tau 
+\end{equation*}
+
+
+%----------------------------------------------------------------------------------------
+\paragraph{Outlier generation}
+
+An outlier point $(x_{j}, y_{j})$ is generated by two random float numbers and should be in the domain of $[-10, 10] \times [-10, 10]$ Also it is checked whether it satisfies $d \big( (x_{j}, y_{j}), (x_{c}, y_{c}) \big) > \tau$. 
+
+%----------------------------------------------------------------------------------------
+\paragraph{Data verification}
+
+Inliers and outliers are verified whether satisfies the following conditions:
+\begin{align*}
+d \big( (x_{i}, y_{i}), (a, b) \big) &\leq \tau  \qquad for (x_{i}, y_{i}) \in Set_{inlier} \\
+d \big( (x_{j}, y_{j}), (a, b) \big) &> \tau \qquad for (x_{i}, y_{i}) \in Set_{outlier} 
+\end{align*}
+
+%----------------------------------------------------------------------------------------
+\subsubsection{IRLS with $L_{1}$ norm}
+
+For model parameter $\vec{x} = (a, b)^{T}$ and data $\vec{y}_{i} = (x_{i}, y_{i})^{T}$ for $i = 1, 2 \dots\ N$, the line fitting problem can be expressed with $L_{1}$ norm:
+
+\begin{gather*}
+\argmin_{\vec{x}} C_{\rho}(\vec{x}) \\ 
+where \quad C_{\rho}(\vec{x}) = \sum_{i=1}^{N} \rho \circ f_{i}(\vec{x}) = \sum_{i=1}^{N} d(\vec{y}_{i}, \vec{x}) \\
+\end{gather*}
+
+The form above can be changed to weighted least squares problem as defining $f_{i}(\vec{x}) = d(\vec{y}_{i}, \vec{x})^{2}$ and $\rho(s) = \sqrt{s}$ and solved by IRLS(Iteratively Reweighted Least Squares):
+
+\begin{gather*} 
+\vec{x}^{t+1} = \argmin_{\vec{x}} C(\vec{x}, \vec{w}^{t}) = \argmin_{\vec{x}} \sum_{i=1}^{N}w_{i}^{t}f_{i}(\vec{x}) \\ 
+where \quad w_{i}^{t} = \frac{1}{2}d(\vec{y}_{i}, \vec{x}^{t})^{-1}
+\end{gather*}
+
+In the function \funcname{IRLSWithL1Norm}, the problem was described as linear equation:
+
+\begin{gather*} 
+\vec{x}^{t+1} = \argmin_{\vec{x}} C(\vec{x}, \vec{w^{t}}) = \argmin_{\vec{x}} \sum_{i=1}^{n}w_{i}^{t}f_{i}(\vec{x}) 
+	= \argmin_{\vec{x}}(A\vec{x} - b)^{T} W^{t} (A\vec{x} - b) = (A^{T}W^{t}A)\inv A^{T}W^{t}b\\
+where \\
+W^{t} = diag({w_{1}^{t}, w_{2}^{t}, \dots, w_{N}^{t}}), 
+\quad 
+A = 
+\begin{bmatrix}
+    x_{1}	&	1 \\
+    x_{2}	&	1 \\
+    \vdots	& \vdots	\\
+    x_{N}	&	1
+\end{bmatrix},
+\quad b = 
+\begin{bmatrix}
+    y_{1}	\\
+    y_{2}	\\
+    \vdots	\\
+    y_{N}
+\end{bmatrix}
+\end{gather*}
+
+As iterating until $\norm{\vec{x}^{t+1} - \vec{x}^{t}} < tol$ ($tol$ is an error tolerance), $\vec{x} = (a, b)^{T}$ can be obtained.
+
+%----------------------------------------------------------------------------------------
+\subsubsection{LP with $L_{1}$ norm }
+
+The line fitting problem with $L_{1}$ norm: 
+
+\begin{gather*}
+\argmin_{\vec{x}} \sum_{i=1}^{N} d(\vec{y}_{i}, \vec{x}) = \argmin_{\vec{x}} \norm{A\vec{x} - b}_{1}  = 
+\argmin_{\vec{x}} \sum_{i=1}^{N} \abs{A_{i}\vec{x} - b_{i}} \\
+where \\
+A_{i} = 
+\begin{bmatrix}
+    x_{i}	&	1 
+\end{bmatrix},
+\quad b_{i} = 
+\begin{bmatrix}
+    y_{i}	
+\end{bmatrix}
+\end{gather*}
+
+It can be solved by linear programming algorithm:
+
+\begin{gather*}
+\min_{\vec{x}, t_{1}, \dots, t_{N}} \sum_{i=1}^{N} t_{i} \\
+ s.t. \quad \abs{A_{i}\vec{x} - b_{i}} \leq t_{i}, \quad i = 1, \dots, N
+\end{gather*}
+
+The MATLAB function \funcname{linprog(A, b, f)} can be used:
+
+\begin{gather*}
+\textbf{A} = \left[
+\begin{array}{c|c}
+    \begin{array}{c c}
+        -x_{1}	&	-1\\
+        -x_{2}	&	-1\\
+        \vdots	& \vdots \\
+        -x_{N}	&	-1
+    \end{array}
+    &
+    - \mathbb{1}_{N \times N} \\
+    \hline
+    \begin{array}{c c}
+        x_{1}	&	1\\
+        x_{2}	&	1\\
+        \vdots	& \vdots \\
+        x_{N}	&	1
+    \end{array}
+    &
+    - \mathbb{1}_{N \times N} 
+\end{array} \right],
+\quad \textbf{b} = \left[
+\begin{array}{c}
+    -y_{1}	\\
+    -y_{2}	\\
+    \vdots	\\
+    -y_{N}	\\
+    \hline	
+    y_{1}	\\
+    y_{2}	\\
+    \vdots	\\
+    y_{N}
+\end{array} \right], 
+\quad \textbf{f} = 
+    \begin{bmatrix}
+    0\\
+    0\\
+    1\\
+    \vdots	\\
+    1
+    \end{bmatrix}, 
+\quad \textbf{x'} = 
+    \begin{bmatrix}
+    a\\
+    b\\
+    t_{1}\\
+    \vdots	\\
+    t_{N}
+    \end{bmatrix}
+\end{gather*}
+
+As \funcname{linprog(A, b, f)} solves $\min_{\textbf{x'}} \textbf{f}^{T} \textbf{x'}$ such that $\textbf{A x} \leq \textbf{b}$, the line parameter $\vec{x} = (a, b)^{T}$ can be obtained from \textbf{x'}.
+
+%----------------------------------------------------------------------------------------
+\subsubsection{LP with $L_{\infty}$ norm}
+
+The line fitting problem with $L_{\infty}$ norm: 
+
+\begin{gather*}
+\argmin_{\vec{x}} \norm{A\vec{x} - b}_{\infty}  = 
+\argmin_{\vec{x}} \max_{i = 1, \dots, N} \abs{A_{i}\vec{x} - b_{i}} \\
+where \\
+A_{i} = 
+\begin{bmatrix}
+    x_{i}	&	1 
+\end{bmatrix},
+\quad b_{i} = 
+\begin{bmatrix}
+    y_{i}	
+\end{bmatrix}
+\end{gather*}
+
+It can be solved by linear programming algorithm:
+
+\begin{gather*}
+\min_{\vec{x}, t} t \\
+ s.t. \quad \abs{A_{i}\vec{x} - b_{i}} \leq t, \quad i = 1, \dots, N
+\end{gather*}
+
+Thus, \textbf{A}, \textbf{B}, \textbf{f} and \textbf{x'} for \funcname{linprog(A, b, f)} are as follows:
+
+\begin{gather*}
+\textbf{A} = \left[
+\begin{array}{c}
+    \begin{array}{c c c}
+        -x_{1}	&	-1	&	-1\\
+        -x_{2}	&	-1	&	-1\\
+        \vdots	& \vdots	&	\vdots \\
+        -x_{N}	&	-1	&	-1
+    \end{array} \\
+    \hline 
+    \begin{array}{c c c}
+        x_{1}	&	1	&	-1\\
+        x_{2}	&	1	&	-1\\
+        \vdots	& \vdots	&	\vdots \\
+        x_{N}	&	1	&	-1
+    \end{array}
+\end{array} \right],
+\quad \textbf{b} = \left[
+\begin{array}{c}
+    -y_{1}	\\
+    -y_{2}	\\
+    \vdots	\\
+    -y_{N}	\\
+    \hline	
+    y_{1}	\\
+    y_{2}	\\
+    \vdots	\\
+    y_{N}
+\end{array} \right], 
+\quad \textbf{f} = 
+    \begin{bmatrix}
+    0\\
+    0\\
+    1
+    \end{bmatrix}, 
+\quad \textbf{x'} = 
+    \begin{bmatrix}
+    a\\
+    b\\
+    t
+    \end{bmatrix}
+\end{gather*}
+
+The line parameter $\vec{x} = (a, b)^{T}$ can be obtained from \textbf{x'}
+
+%----------------------------------------------------------------------------------------
+%	RUNNING
+%----------------------------------------------------------------------------------------
+\subsection{Running}
+
+
+%----------------------------------------------------------------------------------------
+%	RESULT
+%----------------------------------------------------------------------------------------
+\subsection{Result}
+
+image
+
+
+%----------------------------------------------------------------------------------------
+%	DISCUSSION
+%----------------------------------------------------------------------------------------
+\subsection{Discussion}
+
 
 %----------------------------------------------------------------------------------------
 
