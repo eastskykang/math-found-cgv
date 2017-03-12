@@ -20,7 +20,7 @@ y_min = -10;
 domain = [x_min, x_max, y_min, y_max];
 
 % model parameters
-a = 0.5;
+a = 1;
 b = 0;
 noise_radius = 0.1;
 
