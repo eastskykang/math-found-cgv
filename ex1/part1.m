@@ -1,4 +1,5 @@
 clc
+close all
 clear all
 
 % functions

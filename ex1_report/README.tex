@@ -682,8 +682,8 @@ Comparing IRSL with $L_{1}$, LP with $L_{1}$ and LP with $L_{\infty}$:
 \item For $r = 0$, three algorithms shows equally good results. 
 \item For $r = 10$, \textbf{algorithms using $L_{1}$ norm are robust to outliers but $L_{\infty}$ is not.}
 	\begin{itemize}
-		\item Using $L_{\infty}$, optimization algorithm(here, LP) tries to minimize only maximum value of $d(\vec{y}_{i}, \vec{x})$ i.e. it over-penalizes outliers.
-		\item Over-penalizing tends to be worse as using $L_{q}$ norm with larger $q$.
+		\item Using $L_{\infty}$, optimization algorithm(here, LP) tries to minimize only maximum value of $d(\vec{y}_{i}, \vec{x})$ for $i = 1, \dots, N$. Thus, it is not robust to outliers.
+		\item In other words, using $L_{\infty}$ is the extreme case of over-penalizing outlier. Over-penalizing outliers tends to be worse as using $L_{q}$ norm with larger $q$.
 	\end{itemize} 
 \item Concerning running time, tried to check running time of each algorithms with $r = 0, 10, 70$ and the result is as follows:
 
