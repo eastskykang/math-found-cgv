@@ -1,4 +1,4 @@
-function [ x ] = LinProgWithLqNorm( norm, data )
+function [ x, res ] = LinProgWithLqNorm( norm, data )
     %LINPROGWITHLQNORM 
     
     % data   N x 2 matrix. each row vector is [x, y]
@@ -24,7 +24,7 @@ function [ x ] = LinProgWithLqNorm( norm, data )
         f = [zeros(2, 1); ones(N, 1)];
         
         % linear programming
-        x = linprog(f, A, b);
+        [x, res] = linprog(f, A, b);
         
     elseif strcmp(norm, 'Linf')
         % solving (min f'x) w.r.t (Ax <= b)
@@ -42,7 +42,7 @@ function [ x ] = LinProgWithLqNorm( norm, data )
         f = [0; 0; 1];
         
         % linear programming
-        x = linprog(f, A, b);
+        [x, res] = linprog(f, A, b);
         
     else
         error('wrong argument for lin_prog_with_lq_norm')

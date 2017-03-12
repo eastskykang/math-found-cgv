@@ -77,26 +77,43 @@ for i=1:size(r_array, 2)
     %% IRLS & L1
     disp('IRSL with L1 norm')
     
-    [x_IRLS(:,:,i), num_iter_IRLS] = IRLSWithL1Norm(data(:,:,i), tol, max_iter);
+    tic;
+    [x_IRLS(:,:,i), num_iter_IRLS, res] = IRLSWithL1Norm(data(:,:,i), tol, max_iter);
+    t = toc;
     
     disp('Result = ')
     disp(x_IRLS(:,:,i))
     disp(['(# of iter = ', num2str(num_iter_IRLS), ')']);
+    disp(['residual = ', num2str(res)])
+    disp(['time = ', num2str(t)]);
     disp(' ')
     
     %% LP & L1
     disp('Linear Programming with L1 norm')
     
-    x_LP_L1(:,:,i) = LinProgWithLqNorm('L1', data(:,:,i));
+    tic;
+    [x_LP_L1(:,:,i), res] = LinProgWithLqNorm('L1', data(:,:,i));
+    t = toc;
+    
     disp('Result = ')
     disp(x_LP_L1(:,:,i))
+    disp(['residual = ', num2str(res)])
+    disp(['time = ', num2str(t)]);
+    disp(' ')
+
     
     %% LP & Linf
     disp('Linear Programming with Linf norm')
     
-    x_LP_Linf(:,:,i) = LinProgWithLqNorm('Linf', data(:,:,i));
+    tic;
+    [x_LP_Linf(:,:,i), res] = LinProgWithLqNorm('Linf', data(:,:,i));
+    t = toc;
+    
     disp('Result = ')
     disp(x_LP_Linf(:,:,i))
+    disp(['residual = ', num2str(res)])
+    disp(['time = ', num2str(t)])
+    disp(' ')
     
 end
 

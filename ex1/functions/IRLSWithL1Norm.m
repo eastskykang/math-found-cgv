@@ -1,4 +1,4 @@
-function [ x, num_iter ] = IRLSWithL1Norm( data, tol, max_iter )
+function [ x, num_iter, res ] = IRLSWithL1Norm( data, tol, max_iter )
     %IRLSWITHL1NORM
     
     % data   N x 2 matrix. each row vector is [x, y]
@@ -38,5 +38,6 @@ function [ x, num_iter ] = IRLSWithL1Norm( data, tol, max_iter )
     end
     
     num_iter = i;
+    res = (A * x - b)' * W * (A * x - b);
 end
 

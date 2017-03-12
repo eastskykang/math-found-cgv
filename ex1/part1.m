@@ -56,6 +56,10 @@ result_ransac = zeros(n_test_ransac, 5, size(r_array, 2));
 best_result_ransac = zeros(1, 5, size(r_array, 2));
 best_result_exh_search = zeros(1, 5, size(r_array, 2));
 
+% timers
+t_ransac = zeros(n_test_ransac, size(r_array, 2));
+t_exh = zeros(1, size(r_array, 2));
+
 for i=1:size(r_array, 2)
     %% DATA GENERATION
     % outlier_ratio
@@ -94,7 +98,10 @@ for i=1:size(r_array, 2)
     disp(['RANSAC... (# of test = ', num2str(n_test_ransac), ', # of iteration = ', num2str(n_iter), ')'])
    
     for j=1:n_test_ransac
+     
+        tic;   
         result_ransac(j,:,i) = RansacForCircularModel(data(:,:,i), succ_rate, r, tau, n_sample_ransac, debug);
+        t_ransac(j, i) = toc;
         
         if result_ransac(j,1,i) > best_result_ransac(1,1,i)
             % best result update
@@ -105,11 +112,18 @@ for i=1:size(r_array, 2)
     disp('best result of ransac = ')
     disp(best_result_ransac(:,:,i))
     
+    disp(['mean n_inlier = ', num2str(mean(result_ransac(:,1,i)))])
+    disp(['median n_inlier = ', num2str(median(result_ransac(:,1,i)))])
+    disp(['std n_inlier = ', num2str(std(result_ransac(:,1,i)))])
+    disp(' ')
+    
     %% EXHAUSTIVE SEARCH
     n_exhaustive_search = nchoosek(N, n_sample_ransac);
     
     disp(['exhuastive search... (# of test = ', num2str(n_exhaustive_search), ')'])
+    tic;
     best_result_exh_search(:,:,i) = ExhSearchForCircularModel(data(:,:,i), tau, n_sample_ransac);
+    t_exh(i) = toc;
     
     disp('best result of exhaustive search = ')
     disp(best_result_exh_search(:,:,i))
