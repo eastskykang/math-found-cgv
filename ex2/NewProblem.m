@@ -9,8 +9,8 @@ function [ newProb ] = NewProblem( thetaLowerBound, thetaUpperBound )
         error('wrong argument for newProblem: thetaUpperBound');
     end
     
-    if thetaLowerBound(1) >= thetaUpperBound(1) || ...
-            thetaLowerBound(2) >= thetaUpperBound(2)
+    if thetaLowerBound(1) == thetaUpperBound(1) || ...
+            thetaLowerBound(2) == thetaUpperBound(2)
         error('wrong argument for newProblem: upper bound should be larger than lower bound');
     end
     

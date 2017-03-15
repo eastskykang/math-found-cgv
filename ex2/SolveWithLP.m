@@ -1,18 +1,18 @@
-function [ T_x, T_y, cost ] = SolveWithLP( p_left, p_right, prob, thres )
-    %SOLVEWITHLP 
+function [ prob ] = SolveWithLP( p_left, p_right, prob, thres )
+    %SOLVEWITHLP
     
     % x = [T_x, T_y, z1, ..., zn, w1x, ..., wnx, w1y, ..., wny]
     n = size(p_left, 1);
     
     % threshold
-  
-    % A_i_1 = 
-    %   0 0 | 0 ... ( xi - xi' - thres) ... 0 | 0 ...  1 ... 0 | 0 ...  0 ... 0     
-    %   0 0 | 0 ... (-xi + xi' - thres) ... 0 | 0 ... -1 ... 0 | 0 ...  0 ... 0
-    %   0 0 | 0 ... ( yi - yi' - thres) ... 0 | 0 ...  0 ... 0 | 0 ...  1 ... 0 
-    %   0 0 | 0 ... (-yi + yi' - thres) ... 0 | 0 ...  0 ... 0 | 0 ... -1 ... 0 
     
-    % b_i_1 = [0 0 0 0]' 
+    % A_i_1 =
+    %   0 0 | 0 ... ( xi - xi' - thres) ... 0 | 0 ...  1 ... 0 | 0 ...  0 ... 0
+    %   0 0 | 0 ... (-xi + xi' - thres) ... 0 | 0 ... -1 ... 0 | 0 ...  0 ... 0
+    %   0 0 | 0 ... ( yi - yi' - thres) ... 0 | 0 ...  0 ... 0 | 0 ...  1 ... 0
+    %   0 0 | 0 ... (-yi + yi' - thres) ... 0 | 0 ...  0 ... 0 | 0 ... -1 ... 0
+    
+    % b_i_1 = [0 0 0 0]'
     
     x_xd_delta = p_left(:, 1) - p_right(:, 1) - thres;
     y_yd_delta = p_left(:, 2) - p_right(:, 2) - thres;
@@ -22,7 +22,7 @@ function [ T_x, T_y, cost ] = SolveWithLP( p_left, p_right, prob, thres )
     
     A1 = [...
         zeros(n, 2), diag(x_xd_delta), eye(n), zeros(n);
-        zeros(n, 2), diag(xd_x_delta), -eye(n), zeros(n); 
+        zeros(n, 2), diag(xd_x_delta), -eye(n), zeros(n);
         zeros(n, 2), diag(y_yd_delta), zeros(n), eye(n);
         zeros(n, 2), diag(yd_y_delta), zeros(n), -eye(n)];
     
@@ -36,7 +36,7 @@ function [ T_x, T_y, cost ] = SolveWithLP( p_left, p_right, prob, thres )
     % zi * Ty <= max( ^zi * Ty + Ty_ * zi - ^zi * Ty_, zi_ * Ty + ^Ty * zi - zi_ * ^Ty)
     
     Tx_lb = prob.ThetaLowerBound(1);
-    Ty_lb = prob.ThetaLowerBound(2); 
+    Ty_lb = prob.ThetaLowerBound(2);
     Tx_ub = prob.ThetaUpperBound(1);
     Ty_ub = prob.ThetaUpperBound(2);
     
@@ -68,13 +68,21 @@ function [ T_x, T_y, cost ] = SolveWithLP( p_left, p_right, prob, thres )
     % ub = [Tx_ub; Ty_ub; 1 ... 1; no const for w]
     ub = [Tx_ub; Ty_ub; ones(n, 1); inf(2*n, 1)];
     
-    % min f'x 
+    % min f'x
     % s.t. Ax <= b
-    %      lb <= x <= ub 
-    x = linprog(f, A, b, [], [], lb, ub);
+    %      lb <= x <= ub
+    [x, cost] = linprog(f, A, b, [], [], lb, ub);
     
     T_x = x(1);
     T_y = x(2);
-    cost = - f' * x;
+    cost = - cost;
+    
+    % problem update
+    n_inlier_ub = cost;
+    n_inlier_lb = ComputeInlierLb(p_left, p_right, T_x, T_y, thres);
+    
+    prob.ThetaOptimizer = [T_x, T_y];
+    prob.ObjLowerBound = n_inlier_lb;
+    prob.ObjUpperBound = n_inlier_ub;
 end
 
