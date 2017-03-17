@@ -2,13 +2,22 @@ clc
 close all
 clear all
 
+% functions
+addpath('functions')
+
 % parameters
 threshold = 3;  % 3 px
+
+% visualization 
+padding = 10;
 
 % debug
 debug = true;
 
 %% DATA LOAD
+disp('===================================================================')
+disp('data loading...')
+
 addpath('data');
 load('data/ListInputPoints.mat', 'ListInputPoints');
 
@@ -25,68 +34,63 @@ img_right = imread('data/InputRightImage.png');
 [img_left_h, img_left_w, ~] = size(img_left);
 [img_right_h, img_right_w, ~] = size(img_right);
 
-%% VISUALIZE CORRESPONDENCE
-padding = 10;   % black padding
-img = [img_left, zeros(img_left_h, padding, 3), img_right];
-
-pt_l = p_left;
-pt_r = p_right + [img_left_w, 0] + [padding, 0];
-
-figure(1)
-imshow(img);
-hold on
-line([pt_l(:,1)'; pt_r(:,1)'], [pt_l(:,2)'; pt_r(:,2)'], 'Color', 'blue');
-hold off
-
 %% DEFINE P0  
+disp('===================================================================')
+disp('defining P0...')
+
 % make P0 problem
 P0 = NewProblem([-img_left_w, -img_left_h], [img_left_w, img_left_h]);
 
 % solve P0 problem
 P0 = SolveWithLP(p_left, p_right, P0, threshold);
+disp('P0: ')
+disp(P0)
 
 % list of problems (stack);
 problem_stack = zeros(1, 0);
 problem_stack = PushToStack(problem_stack, P0);
 
 % upper and lower bound found by iteration
-optimal_solution = [inf -inf];
+optimal_inlier = [inf -inf];
+optimal_solution = zeros(1, 2);
 
 % record update history (optimal_solution, iteration_solution)
-optimal_solution_history = [inf, -inf, inf, -inf];
+if debug 
+    optimal_inlier_history = [inf, -inf, inf, -inf];
+else 
+    optimal_inlier_history = [inf, -inf];
+end
 
 %% BRANCH AND BOUND (WITH DFS)
 
 % finding global optimal solution! 
 % i.e. iteration until empty stack, not convergence
+disp('===================================================================')
+disp('branch and bound...')
 
 while(size(problem_stack, 2) > 0) 
     % depth first search
     
     % find the best candidate and remove it from the stack 
     % i.e. pop from stack
-    [P_parent, problem_stack] = PopFromStack(problem_stack);
+    [P_parent, problem_stack] = PopFromStack(problem_stack, debug);
     
-    if debug
-        disp(P_parent)
-        disp(problem_stack)
-    end
-    
-    % update optima 
-    if P_parent.ObjLowerBound >= optimal_solution(2)
-        % updated (P_parent's optimal solution is better)
-        optimal_solution = [P_parent.ObjUpperBound, P_parent.ObjLowerBound];
-    end
-    
-    optimal_solution_history = [optimal_solution_history; optimal_solution];
-
-    % P_parent doesnot contain optimum 
-    % i.e. P_parent.ObjUpperBound < m* (lower bound of optimum)
-    if P_parent.ObjUpperBound < optimal_solution(2)
-        % do not push P_parent's children
+    % P_parent obviously doesnot contain optimum in this case
+    if P_parent.ObjUpperBound < optimal_inlier(2)
+        % P_parent.ObjUpperBound < m* (lower bound of optimum)
         continue;
     end
     
+    % update optima 
+    if P_parent.ObjLowerBound >= optimal_inlier(2)
+        % updated (P_parent's optimal solution is better)
+        optimal_inlier = [P_parent.ObjUpperBound, P_parent.ObjLowerBound];
+        optimal_solution = P_parent.ThetaOptimizer;
+    end
+    
+    % record to optimal history
+    optimal_inlier_history = SaveOptHistory(optimal_inlier_history, P_parent, optimal_inlier, debug);
+
     %  if number of inlier converged, not terminate but continue to next
     %  iteration.
     if P_parent.ObjUpperBound - P_parent.ObjLowerBound < 1
@@ -104,7 +108,9 @@ while(size(problem_stack, 2) > 0)
     P_right_child = SolveWithLP(p_left, p_right, P_right_child, threshold);
     
     if debug
+        disp('push left child: ')
         disp(P_left_child)
+        disp('push right child: ')
         disp(P_right_child)
     end
     
@@ -116,10 +122,47 @@ while(size(problem_stack, 2) > 0)
     
     % push better candidate to stack
     problem_stack = PushToStack(problem_stack, P_better);
-    
-    if debug
-        disp(P_better)
-        disp(P_worse)
-        disp(problem_stack)
-    end
 end
+
+%% OPTIMAL SOLUTION
+disp('===================================================================')
+disp('optimal solution:')
+
+assert(optimal_inlier(1) - optimal_inlier(2) < 1)
+
+disp(['Tx = ', num2str(optimal_solution(1))])
+disp(['Ty = ', num2str(optimal_solution(2))])
+disp(['# of inlier = ( ', num2str(optimal_inlier(1)),...
+    ', ', num2str(optimal_inlier(2)), ' )'])
+
+% find inliers by optimal Tx, Ty
+inlier_mask = FindInliers(p_left, p_right, optimal_solution(1), optimal_solution(2), threshold);
+
+inliers_left = p_left(inlier_mask, :);
+inliers_right = p_right(inlier_mask, :);
+
+outliers_left = p_left(~inlier_mask, :);
+outliers_right = p_right(~inlier_mask, :);
+
+if(debug)
+    % index of inliers 
+    disp('mask of inliers = ')
+    disp(inlier_mask);
+end
+
+%% VISUALIZATION
+disp('===================================================================')
+disp('visualizing...')
+VisualizeMatch(padding, img_left, img_right, p_left, p_right, ...
+    inliers_left, inliers_right, outliers_left, outliers_right);
+
+figure(2)
+% upper bound
+plot(optimal_inlier_history(2:end, 1), '.r-')
+hold on 
+% lower bound
+plot(optimal_inlier_history(2:end, 2), '.b-')
+hold off
+xlabel('Iterations') 
+ylabel('Upper and loewr bounds')
+legend('upper', 'lower')

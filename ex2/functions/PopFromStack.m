@@ -1,4 +1,4 @@
-function [ ret, stack ] = PopFromStack( stack )
+function [ ret, stack ] = PopFromStack( stack, debug )
     %POPFROMSTACK 
     
     % stack is [1 n] size array
@@ -16,7 +16,9 @@ function [ ret, stack ] = PopFromStack( stack )
     stack(top) = [];
     
     if debug
+        disp('pop from stack: ')
         disp(ret)
+        disp('remains in stack:')
         disp(stack)
     end
 end
