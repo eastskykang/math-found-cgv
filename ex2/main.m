@@ -12,7 +12,7 @@ threshold = 3;  % 3 px
 padding = 10;
 
 % debug
-debug = true;
+debug = false;
 
 %% DATA LOAD
 disp('===================================================================')
@@ -51,7 +51,7 @@ problem_stack = zeros(1, 0);
 problem_stack = PushToStack(problem_stack, P0);
 
 % upper and lower bound found by iteration
-optimal_inlier = zeros(1, 2);
+optimal_inlier = [inf, -inf];
 optimal_solution = zeros(1, 2);
 
 % record update history (optimal_solution, iteration_solution)
@@ -82,7 +82,7 @@ while(size(problem_stack, 2) > 0)
     end
     
     % update optima 
-    if P_parent.ObjLowerBound >= optimal_inlier(2)
+    if P_parent.ObjLowerBound >= optimal_inlier(2) 
         % updated (P_parent's optimal solution is better)
         optimal_inlier = [P_parent.ObjUpperBound, P_parent.ObjLowerBound];
         optimal_solution = P_parent.ThetaOptimizer;
@@ -151,11 +151,13 @@ if(debug)
 end
 
 %% VISUALIZATION
+% figure 1
 disp('===================================================================')
 disp('visualizing...')
 VisualizeMatch(padding, img_left, img_right, p_left, p_right, ...
     inliers_left, inliers_right, outliers_left, outliers_right);
 
+% figure 2
 figure(2)
 % upper bound
 plot(optimal_inlier_history(:, 1), '.r-')

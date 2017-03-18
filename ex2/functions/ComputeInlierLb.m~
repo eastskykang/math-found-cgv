@@ -1,7 +1,0 @@
-function [ nb_inlier_lb ] = ComputeInlierLb( p_left, p_right, Tx, Ty, thres )
-    %COMPUTEINLIERLB compute low bound of the number of inliers
-    
-    nb_inlier_lb = nnz((abs(x_left + Tx - x_right) <= thres) & ...
-        (abs(y_left + Ty - y_right) <= thres));
-end
-
