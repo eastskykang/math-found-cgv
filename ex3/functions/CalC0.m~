@@ -1,0 +1,41 @@
+function [ C0 ] = CalC0( X_mat, Ni, sigma, debug)
+    %CALC0 calculate C0 and return it as a vector 
+    
+    % X_mat     n x d matrix    n is # of grid points, d is dimension
+    % Ni        2 x m matrix    m is # of sample points
+    % C0        n x 1 vector    n is # of grid points
+    
+    C0 = zeros(size(X_mat, 1), 1);
+    
+    tic
+    for idx = 1:size(X_mat, 1)
+        % idx is index of grid point (x, y)
+        
+        X = X_mat(idx, :); % grid (x, y)
+        
+        % Ni: column i = (nix, niy)
+        sqd_X_Xi = pdist2(X, Xi_mat, 'squaredeuclidean');   % column i = squared_euc_dist(x, xi)
+        X_Xi = (X - Xi_mat)';                               % column i = (x - xi, y - yi)
+        
+        % exp(...)
+        exp_term = exp(-sqd_X_Xi / (sigma^2));
+        
+        % sum(ni' * (X - Xi) * exp(...))
+        nom = sum(dot(Ni, X_Xi) .* exp_term);
+        % sum(exp(...))
+        denom = sum(exp_term);
+        
+        C0(idx) = nom/denom;
+    end
+    
+    t = toc;
+    if debug
+        disp(['iteration running time = ', num2str(t)])
+    end
+    
+    % C0 
+    % (-2, -2) | (2, -2)
+    % (-2, 2)  | (2, 2)
+    C0 = reshape(C0, size(y_range, 2), size(x_range, 2));
+end
+
