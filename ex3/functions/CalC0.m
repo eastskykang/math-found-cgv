@@ -18,13 +18,13 @@ function [ C0 ] = CalC0( X_mat, Xi_mat, Ni, sigma, debug)
         sqd_X_Xi = pdist2(X, Xi_mat, 'squaredeuclidean');   % column j = squared_euc_dist(x, xj)
         X_Xi = (X - Xi_mat)';                               % column j = (x - xj, y - yj)
         
-        % exp(...)
-        exp_term = exp(-sqd_X_Xi / (sigma^2));
+        % phi_i(x) = exp(...)
+        phi_i = exp(-sqd_X_Xi / (sigma^2));
         
         % sum(ni' * (X - Xi) * exp(...))
-        nom = sum(dot(Ni', X_Xi) .* exp_term);
+        nom = sum(dot(Ni', X_Xi) .* phi_i);
         % sum(exp(...))
-        denom = sum(exp_term);
+        denom = sum(phi_i);
         
         C0(idx) = nom/denom;
     end
