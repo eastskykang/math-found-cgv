@@ -11,6 +11,10 @@ addpath('saved')
 % parameters
 alpha = 1;
 
+affine_T = true;
+similar_T = true;
+rigid_T = true;
+
 % debug
 debug = true;
 
@@ -60,9 +64,35 @@ else
     hold off
 end
 
+%% DEFORMATION
 % affine deformation
-img_aff = uint8(AffineTransform(p, q, img, alpha));
-img_sim = uint8(AffineTransform(p, q, img, alpha))
+if affine_T
+    img_aff = uint8(AffineTransform(p, q, img, alpha));
+end
 
+% similarity deformation
+if similar_T
+    img_sim = uint8(SimilarTransform(p, q, img, alpha));
+end
+
+% rigid deformation
+if rigid_T
+    img_rig = uint8(RigidTransform(p, q, img, alpha));
+end
+
+%% VISUALIZATION
 figure(2)
-imshow(img_aff)
+if affine_T
+    subplot(1, 3, 1)
+    imshow(img_aff)
+end
+
+if similar_T
+    subplot(1, 3, 2)
+    imshow(img_sim)
+end
+
+if rigid_T
+    subplot(1, 3, 3)
+    imshow(img_rig)
+end

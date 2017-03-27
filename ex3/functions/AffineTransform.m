@@ -40,7 +40,7 @@ function [ deformed_img ] = AffineTransform( p, q, img, alpha )
                 Aj(j) = (v - p_star) * (sum_phatT_w_phat \ (w(j) * p(j, :)'));
             end
             
-            fa_v = sum(Aj .* (q - q_star)) + q_star;
+            fa_v = sum(Aj .* (q - q_star), 1) + q_star;
             fa_v = round(fa_v);
             
             if fa_v(1) > 0 && fa_v(2) > 0 && ...

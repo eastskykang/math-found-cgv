@@ -1,5 +1,5 @@
-function [ deformed_img ] = SimilarTransform( p, q, img, alpha )
-    %SIMILARTRANSFORM 
+function [ deformed_img ] = RigidTransform( p, q, img, alpha )
+    %RIGIDTRANSFORM 
     
     % p     m x 2   selected control points
     % q     m x 2   deformed control points
@@ -27,21 +27,12 @@ function [ deformed_img ] = SimilarTransform( p, q, img, alpha )
             p_hat = p - p_star;
             q_hat = q - q_star;
             
-            % calculate mu_s 
-            mu_s_i = zeros(n, 1);
-            
-            for i=1:n
-                 mu_s_i(i) = w(i) * p_hat(i, :) * p_hat(i, :)';
-            end
-            
-            mu_s = sum(mu_s_i);
-            
-            % calculate Ai and fs(v)            
+            % calculate Ai
             p_hat_orth = [-p_hat(:, 2), p_hat(:, 1)];
             v_p_star = v - p_star;
             v_p_star_orth = [-v_p_star(:, 2), v_p_star(:, 1)];
                         
-            % fs(v) = sigma_i (sigma_term) + q_star
+            % fr(v) = sigma_i (sigma_term) + q_star
             sigma_term = zeros(n, 2);
             
             for i=1:n
@@ -50,20 +41,20 @@ function [ deformed_img ] = SimilarTransform( p, q, img, alpha )
                     * [v_p_star; -v_p_star_orth]';
                 
                 % sigma_term
-                sigma_term(i, :) = q_hat(i, :) * (1/mu_s * Ai);
+                sigma_term(i, :) = q_hat(i, :) * Ai;
             end
             
-            fs_v = sum(sigma_term, 1) + q_star;
+            fr_v_vector = sum(sigma_term, 1);
+            fr_v = norm(v - p_star) * fr_v_vector / norm(fr_v_vector) + q_star;
             
             % round fs(v)
-            fs_v = round(fs_v);
+            fr_v = round(fr_v);
             
-            if fs_v(1) > 0 && fs_v(2) > 0 && ...
-                    fs_v(1) < size(img, 2) && fs_v(2) < size(img, 1)
+            if fr_v(1) > 0 && fr_v(2) > 0 && ...
+                    fr_v(1) < size(img, 2) && fr_v(2) < size(img, 1)
                 % check bound
-                deformed_img(vy, vx, :) = img(fs_v(2), fs_v(1), :);
+                deformed_img(vy, vx, :) = img(fr_v(2), fr_v(1), :);
             end
         end
     end
 end
-
