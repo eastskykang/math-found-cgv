@@ -1,17 +1,18 @@
-function [ deformed_img ] = RigidTransform( p, q, img, alpha )
+function [ fr_v_array ] = RigidTransform( p, q, img_h, img_w, alpha )
     %RIGIDTRANSFORM 
     
     % p     m x 2   selected control points
     % q     m x 2   deformed control points
     
-    % deformed img
-    deformed_img = zeros(size(img));
+    % the shape of fr_v_array is same with img
+    % fr_v_array(y, x, :) = fr([x, y]) 
+    fr_v_array = zeros(img_h, img_w, 2);
     
     % number of control points
     n = size(p, 1);
     
-    for vx = 1:size(img, 2)
-        for vy = 1:size(img, 1)
+    for vx = 1:img_w
+        for vy = 1:img_h
             
             % v point from image
             v = [vx, vy];
@@ -47,15 +48,11 @@ function [ deformed_img ] = RigidTransform( p, q, img, alpha )
             fr_v_vector = sum(sigma_term, 1);
             fr_v = norm(v - p_star) * fr_v_vector / norm(fr_v_vector) + q_star;
             
-            % round fs(v)
+            % round fr(v)
             fr_v = round(fr_v);
             
-            if fr_v(1) > 0 && fr_v(2) > 0 && ...
-                    fr_v(1) < size(img, 2) && fr_v(2) < size(img, 1)
-                % check bound
-%                 deformed_img(vy, vx, :) = img(fr_v(2), fr_v(1), :);
-                deformed_img(fr_v(2), fr_v(1), :) = img(vy, vx, :);
-            end
+            fr_v_array(vy, vx, 1) = fr_v(1);
+            fr_v_array(vy, vx, 2) = fr_v(2);
         end
     end
 end

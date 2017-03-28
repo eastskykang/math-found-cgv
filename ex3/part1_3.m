@@ -7,7 +7,7 @@ clear all
 addpath(genpath('files/TASK1'))
 
 % parameters
-off_files = {'bun', 'cat'};
+off_files = {'bun', 'bunny', 'bunny2', 'cat'};
 
 sigmas = {100};
 iter = 5;
@@ -26,7 +26,6 @@ for file_idx = 1:size(off_files, 2)
     disp('-------------------------------------------------------------------')
     disp(['off file loading: ', file, '.off'])
     
-    % TODO update readOFF file
     %  V  #V by 3 list of vertices
     %  F  #F by 3 list of triangle indices
     %  N  #V by 3 list of normals

@@ -9,14 +9,20 @@ addpath('functions')
 addpath('saved')
 
 % parameters
+grid_size_x = 100;
+grid_size_y = 100;
+
 alpha = 1;
 
 affine_T = true;
 similar_T = true;
 rigid_T = true;
 
+forward_warp = true;    % show result of forward warping
+backward_warp = true;   % show result of backward warping
+
 % debug
-debug = true;
+debug = false;
 
 %% DATA LOAD
 disp('===================================================================')
@@ -50,13 +56,13 @@ else
             break;
         end
         
-        plot(x, y, 'go')
+        plot(x, y, 'go', 'LineWidth',8)
         p = [p; [x, y]];
         
         disp(['deformed position(', num2str(i), ') : '])
         [x, y, ~] = ginput(1);
         
-        plot(x, y, 'rx')
+        plot(x, y, 'rx', 'LineWidth',8)
         q = [q; [x, y]];
         i = i + 1;
     end
@@ -65,58 +71,147 @@ else
 end
 
 %% DEFORMATION
+disp('-------------------------------------------------------------------')
+disp('deformation...')
+
+img_h = size(img, 1);
+img_w = size(img, 2);
+
 % affine deformation
 if affine_T
-    img_aff = uint8(AffineTransform(p, q, img, alpha));
+    disp('affine deformation...')
+    fa_v_array = AffineTransform(p, q, img_h, img_w, alpha);
+    
+    % forward warping
+    disp('affine deformation: forward warping')
+    img_aff_fw = FvToImg(fa_v_array, img);
+    % backward warping
+    disp('affine deformation: backward warping')
+    img_aff_bw = BackwardWarp(fa_v_array, img);
 end
 
 % similarity deformation
 if similar_T
-    img_sim = uint8(SimilarTransform(p, q, img, alpha));
+    disp('similarity deformation...')
+    fs_v_array = SimilarTransform(p, q, img_h, img_w, alpha);
+    
+    % forward warping
+    disp('similarity deformation: forward warping')
+    img_sim_fw = FvToImg(fa_v_array, img);
+    % backward warping
+    disp('similarity deformation: backward warping')
+    img_sim_bw = BackwardWarp(fs_v_array, img);
 end
 
 % rigid deformation
 if rigid_T
-    img_rig = uint8(RigidTransform(p, q, img, alpha));
+    disp('rigid deformation...')
+    fr_v_array = RigidTransform(p, q, img_h, img_w, alpha);
+    
+    % forward warping
+    disp('rigid deformation: forward warping')
+    img_rig_fw = FvToImg(fr_v_array, img);
+    % backward warping
+    disp('rigid deformation: forward warping')
+    img_rig_bw = BackwardWarp(fr_v_array, img);
 end
 
 %% VISUALIZATION
-% original img
-figure(2)
-subplot(2, 2, 1)
-imshow(img)
-title(['Origimal image: alpha = ', num2str(alpha)])
-hold on
-plot(p(:, 1), p(:, 2), 'go')
-plot(q(:, 1), q(:, 2), 'rx')
-hold off
+disp('-------------------------------------------------------------------')
+disp('visualization...')
 
-if affine_T
-    subplot(2, 2, 2)
-    imshow(img_aff)
-    title(['Affine transform: alpha = ', num2str(alpha)])
-    hold on 
+if forward_warp
+    % forward warping
+    disp('drawing result of forward warping...')
+
+    figure(2)
+    % original img
+    subplot(2, 2, 1)
+    imshow(img)
+    title('Origimal image')
+    hold on
     plot(p(:, 1), p(:, 2), 'go')
     plot(q(:, 1), q(:, 2), 'rx')
     hold off
+    
+    if affine_T
+        % affine deformation        
+        subplot(2, 2, 2)
+        imshow(img_aff_fw)
+        title(['Affine transform (forward warping): alpha = ', num2str(alpha)])
+        hold on
+        plot(p(:, 1), p(:, 2), 'go')
+        plot(q(:, 1), q(:, 2), 'rx')
+        hold off
+    end
+    
+    if similar_T
+        % similarity deformation
+        subplot(2, 2, 3)
+        imshow(img_sim_fw)
+        title(['Similarity transform (forward warping): alpha = ', num2str(alpha)])
+        hold on
+        plot(p(:, 1), p(:, 2), 'go')
+        plot(q(:, 1), q(:, 2), 'rx')
+        hold off
+    end
+    
+    if rigid_T
+        % rigid deformation
+        subplot(2, 2, 4)
+        imshow(img_rig_fw)
+        title(['Rigid transform (forward warping): alpha = ', num2str(alpha)])
+        hold on
+        plot(p(:, 1), p(:, 2), 'go')
+        plot(q(:, 1), q(:, 2), 'rx')
+        hold off
+    end
 end
 
-if similar_T
-    subplot(2, 2, 3)
-    imshow(img_sim)
-    title(['Similarity transform: alpha = ', num2str(alpha)])
-    hold on 
+if backward_warp
+    % backward warping
+    disp('drawing result of backward warping...')
+    
+    figure(3)
+    % original img
+    subplot(2, 2, 1)
+    imshow(img)
+    title('Origimal image')
+    hold on
     plot(p(:, 1), p(:, 2), 'go')
     plot(q(:, 1), q(:, 2), 'rx')
     hold off
-end
-
-if rigid_T
-    subplot(2, 2, 4)
-    imshow(img_rig)
-    title(['Rigid transform: alpha = ', num2str(alpha)])
-    hold on 
-    plot(p(:, 1), p(:, 2), 'go')
-    plot(q(:, 1), q(:, 2), 'rx')
-    hold off
+    
+    if affine_T
+        % affine transform
+        subplot(2, 2, 2)
+        imshow(img_aff_bw)
+        title(['Affine transform (backward warping): alpha = ', num2str(alpha)])
+        hold on
+        plot(p(:, 1), p(:, 2), 'go')
+        plot(q(:, 1), q(:, 2), 'rx')
+        hold off
+    end
+    
+    if similar_T
+        % similarity deformation
+        subplot(2, 2, 3)
+        imshow(img_sim_bw)
+        title(['Similarity transform (backward warping): alpha = ', num2str(alpha)])
+        hold on
+        plot(p(:, 1), p(:, 2), 'go')
+        plot(q(:, 1), q(:, 2), 'rx')
+        hold off
+    end
+    
+    if rigid_T
+        % rigid deformation
+        subplot(2, 2, 4)
+        imshow(img_rig_bw)
+        title(['Rigid transform (backward warping): alpha = ', num2str(alpha)])
+        hold on
+        plot(p(:, 1), p(:, 2), 'go')
+        plot(q(:, 1), q(:, 2), 'rx')
+        hold off
+    end
 end

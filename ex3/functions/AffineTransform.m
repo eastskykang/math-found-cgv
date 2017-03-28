@@ -1,17 +1,18 @@
-function [ deformed_img ] = AffineTransform( p, q, img, alpha )
+function [ fa_v_array ] = AffineTransform( p, q, img_h, img_w, alpha )
     %AFFINETRANSFORM
     
     % p     m x 2   selected control points
     % q     m x 2   deformed control points
     
-    % deformed img
-    deformed_img = zeros(size(img));
+    % the shape of fa_v_array is same with img
+    % fa_v_array(y, x, :) = fa([x, y]) 
+    fa_v_array = zeros(img_h, img_w, 2);
     
     % number of control points
     n = size(p, 1);
     
-    for vx = 1:size(img, 2)
-        for vy = 1:size(img, 1)
+    for vx = 1:img_w
+        for vy = 1:img_h
             
             % v point from image
             v = [vx, vy];
@@ -43,13 +44,8 @@ function [ deformed_img ] = AffineTransform( p, q, img, alpha )
             fa_v = sum(Aj .* (q - q_star), 1) + q_star;
             fa_v = round(fa_v);
             
-            if fa_v(1) > 0 && fa_v(2) > 0 && ...
-                    fa_v(1) < size(img, 2) && fa_v(2) < size(img, 1)
-                % check bound
-%                 deformed_img(vy, vx, :) = img(fa_v(2), fa_v(1), :);
-                deformed_img(fa_v(2), fa_v(1), :) = img(vy, vx, :);
-            end
+            fa_v_array(vy, vx, 1) = fa_v(1);
+            fa_v_array(vy, vx, 2) = fa_v(2);
         end
-    end    
+    end
 end
-

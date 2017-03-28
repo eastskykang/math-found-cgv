@@ -1,17 +1,18 @@
-function [ deformed_img ] = SimilarTransform( p, q, img, alpha )
+function [ fs_v_array ] = SimilarTransform( p, q, img_h, img_w, alpha )
     %SIMILARTRANSFORM 
     
     % p     m x 2   selected control points
     % q     m x 2   deformed control points
     
-    % deformed img
-    deformed_img = zeros(size(img));
+    % the shape of fs_v_array is same with img
+    % fs_v_array(y, x, :) = fs([x, y]) 
+    fs_v_array = zeros(img_h, img_w, 2);
     
     % number of control points
     n = size(p, 1);
     
-    for vx = 1:size(img, 2)
-        for vy = 1:size(img, 1)
+    for vx = 1:img_w
+        for vy = 1:img_h
             
             % v point from image
             v = [vx, vy];
@@ -58,12 +59,8 @@ function [ deformed_img ] = SimilarTransform( p, q, img, alpha )
             % round fs(v)
             fs_v = round(fs_v);
             
-            if fs_v(1) > 0 && fs_v(2) > 0 && ...
-                    fs_v(1) < size(img, 2) && fs_v(2) < size(img, 1)
-                % check bound
-                % deformed_img(vy, vx, :) = img(fs_v(2), fs_v(1), :);
-                deformed_img(fs_v(2), fs_v(1), :) = img(vy, vx, :);
-            end
+            fs_v_array(vy, vx, 1) = fs_v(1);
+            fs_v_array(vy, vx, 2) = fs_v(2);
         end
     end
 end
