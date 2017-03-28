@@ -61,7 +61,8 @@ function [ deformed_img ] = SimilarTransform( p, q, img, alpha )
             if fs_v(1) > 0 && fs_v(2) > 0 && ...
                     fs_v(1) < size(img, 2) && fs_v(2) < size(img, 1)
                 % check bound
-                deformed_img(vy, vx, :) = img(fs_v(2), fs_v(1), :);
+                % deformed_img(vy, vx, :) = img(fs_v(2), fs_v(1), :);
+                deformed_img(fs_v(2), fs_v(1), :) = img(vy, vx, :);
             end
         end
     end

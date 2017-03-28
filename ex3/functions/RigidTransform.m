@@ -53,7 +53,8 @@ function [ deformed_img ] = RigidTransform( p, q, img, alpha )
             if fr_v(1) > 0 && fr_v(2) > 0 && ...
                     fr_v(1) < size(img, 2) && fr_v(2) < size(img, 1)
                 % check bound
-                deformed_img(vy, vx, :) = img(fr_v(2), fr_v(1), :);
+%                 deformed_img(vy, vx, :) = img(fr_v(2), fr_v(1), :);
+                deformed_img(fr_v(2), fr_v(1), :) = img(vy, vx, :);
             end
         end
     end

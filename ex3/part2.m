@@ -50,13 +50,13 @@ else
             break;
         end
         
-        plot(x, y, 'bo')
+        plot(x, y, 'go')
         p = [p; [x, y]];
         
         disp(['deformed position(', num2str(i), ') : '])
         [x, y, ~] = ginput(1);
         
-        plot(x, y, 'go')
+        plot(x, y, 'rx')
         q = [q; [x, y]];
         i = i + 1;
     end
@@ -81,18 +81,42 @@ if rigid_T
 end
 
 %% VISUALIZATION
+% original img
 figure(2)
+subplot(2, 2, 1)
+imshow(img)
+title(['Origimal image: alpha = ', num2str(alpha)])
+hold on
+plot(p(:, 1), p(:, 2), 'go')
+plot(q(:, 1), q(:, 2), 'rx')
+hold off
+
 if affine_T
-    subplot(1, 3, 1)
+    subplot(2, 2, 2)
     imshow(img_aff)
+    title(['Affine transform: alpha = ', num2str(alpha)])
+    hold on 
+    plot(p(:, 1), p(:, 2), 'go')
+    plot(q(:, 1), q(:, 2), 'rx')
+    hold off
 end
 
 if similar_T
-    subplot(1, 3, 2)
+    subplot(2, 2, 3)
     imshow(img_sim)
+    title(['Similarity transform: alpha = ', num2str(alpha)])
+    hold on 
+    plot(p(:, 1), p(:, 2), 'go')
+    plot(q(:, 1), q(:, 2), 'rx')
+    hold off
 end
 
 if rigid_T
-    subplot(1, 3, 3)
+    subplot(2, 2, 4)
     imshow(img_rig)
+    title(['Rigid transform: alpha = ', num2str(alpha)])
+    hold on 
+    plot(p(:, 1), p(:, 2), 'go')
+    plot(q(:, 1), q(:, 2), 'rx')
+    hold off
 end

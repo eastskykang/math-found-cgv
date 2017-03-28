@@ -46,7 +46,8 @@ function [ deformed_img ] = AffineTransform( p, q, img, alpha )
             if fa_v(1) > 0 && fa_v(2) > 0 && ...
                     fa_v(1) < size(img, 2) && fa_v(2) < size(img, 1)
                 % check bound
-                deformed_img(vy, vx, :) = img(fa_v(2), fa_v(1), :);
+%                 deformed_img(vy, vx, :) = img(fa_v(2), fa_v(1), :);
+                deformed_img(fa_v(2), fa_v(1), :) = img(vy, vx, :);
             end
         end
     end    
