@@ -5,15 +5,17 @@ clear all
 
 % paths
 addpath(genpath('files/TASK1'))
+addpath('functions')
+addpath('saved')
 
 % parameters
 off_files = {'bun', 'bunny', 'bunny2', 'cat'};
 
-sigmas = {100};
+sigmas = {0.03};
 iter = 5;
 
 % debug
-debug = false;
+debug = true;
 
 %% PART 1-3
 disp('===================================================================')
@@ -42,14 +44,10 @@ for file_idx = 1:size(off_files, 2)
         disp(['for sigma = ', num2str(sigma)])
         
         V = V_file;
-        N = N_file;
-        
-        % X is initial V
-        X = V;
         
         for j=1:iter
             % calculate V_next: v_next = v - f(x) grad f(x)
-            V_next = V - FxGradFx3D(X, V, N, sigma, debug);
+            V_next = V - FxGradFx3D(V, V_file, N_file, sigma, debug);
             
             % V update
             V = V_next;
@@ -58,6 +56,8 @@ for file_idx = 1:size(off_files, 2)
         filename = [file, '_sig', num2str(sigma), '_it', num2str(iter), '.off'];
         
         disp(['off file saving: ', filename])
-        writeOFF(filename, V, F_file);
+        
+        N = per_vertex_normals(V,F_file);
+        writeOFF(filename, V, F_file, [], [], N);
     end
 end
