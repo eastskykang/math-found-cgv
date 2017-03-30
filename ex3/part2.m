@@ -1,6 +1,6 @@
 %% EXERCISE X - PART X
 clc
-close all
+% close all
 clear all
 
 % paths
@@ -14,7 +14,7 @@ grid_size_y = 100;
 
 alpha = 1;
 
-saved_control_pts = true;   % false then user inputs control points
+saved_control_pts = false;   % false then user inputs control points
 
 affine_T = true;
 similar_T = true;
@@ -44,7 +44,7 @@ if saved_control_pts
 else
     disp('select control points and deformed position with mouse clicks. (at least 3 points)')
 
-    figure(1)
+    figure(101)
     imshow(img)
     hold on
     
@@ -134,7 +134,7 @@ if forward_warp
     % forward warping
     disp('drawing result of forward warping...')
 
-    figure(2)
+    figure(102)
     % original img
     subplot(2, 2, 1)
     imshow(img)
@@ -182,7 +182,7 @@ if backward_warp
     % backward warping
     disp('drawing result of backward warping...')
     
-    figure(3)
+    figure(103)
     % original img
     subplot(2, 2, 1)
     imshow(img)

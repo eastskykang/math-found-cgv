@@ -51,6 +51,8 @@
     subtree/.style  = {isosceles triangle, draw=black, align=center, minimum height=0.5cm, minimum width=1cm, shape border rotate=90, anchor=north}
 }
 
+\usepackage{hyperref}
+
 \pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
 \fancyhead{} % No page header - if you want one, create it in the same way as the footers below
 \fancyfoot[L]{} % Empty left footer
@@ -95,13 +97,13 @@
 \normalfont \normalsize 
 \textsc{Mathematical foundations of computer graphics and vision} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Exercise 2. Global Optimization \\ % The assignment title
+\huge Exercise 3. MLS For Curves, Meshes and Images\\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
 \author{Dongho Kang \\ \small 16-948-598} % Your name
 
-\date{\normalsize March 19, 2017} % Today's date or a custom date
+\date{\normalsize April 2, 2017} % Today's date or a custom date
 
 \begin{document}
 
@@ -142,196 +144,75 @@ For running exercise, adjust threshold parameter (default of 3 pixel) and run th
 %	PROBLEM 1
 %----------------------------------------------------------------------------------------
 
-\section{exercise : Branch and bound for consensus set maximization}
+\section{exercise part 1: Curve and Surface Reconstruction Using MLS}
 
-%----------------------------------------------------------------------------------------
-%	DESCRIPTION
-%----------------------------------------------------------------------------------------
-\subsection{Description}
-
-
-
-
+TODO
 In this exercise, branch and bound algorithm based on depth-first search(DFS) was implemented. The implementation steps are as follows: 
 
 \begin{itemize}
-\item derivation of the problem formulation in the canonical form of the linear programming
-\item branch and bound algorithm implementation
+\item derivation of the equation of the MLS based surfaces 
+\item evaluation and plotting of the derived $f(x)$
 \item logging and plotting the result of branch and bound algorithm
 \end{itemize}  
 
+
 %----------------------------------------------------------------------------------------
-\subsubsection{Linear Programming Formulation}
+%	Curve derivation
+%----------------------------------------------------------------------------------------
+\subsection{Curve derivation}
 
-Let the set $S$ of the input data be partitioned into an inlier-set $S_{I} \subseteq S$ and an outlier-set $S_{O} = S \setminus S_{I}$. Note that  
 
-\begin{itemize}
-\item the model $\Theta = (T_{x}, T_{y})$ where $T_{x}$ and $T_{y}$ represent the translation along the $x$ and $y$ axis.
-\item the i-th input correspondence is $(p_{i}, p_{i}')$ where $p_{i}$ and $p_{i}'$ represent the points in the left and right images: $p_{i} = (x_{i}, y_{i})$ and $p_{i} = (x_{i}', y_{i}')$. There are $n$ input correspondences.
-\end{itemize}
 
-then the consensus set maximization problem can be formulated as follows: 
+%----------------------------------------------------------------------------------------
+%	Curves plotting
+%----------------------------------------------------------------------------------------
+\subsection{Curves plotting}
 
-\begin{equation}
-\begin{split}
-\max_{\Theta, S_{I}} &\quad card(S_{I}) \\
-s.t. 	&\quad \abs{x_{i} + T_{x} - x_{i}'} \leq \delta, \forall i \in S_{I} \subseteq S \\
-	&\quad \abs{y_{i} + T_{y} - y_{i}'} \leq \delta, \forall i \in S_{I} \subseteq S
-\end{split}
-\end{equation}
+%----------------------------------------------------------------------------------------
+\subsubsection{Description}
 
-To solve the problem by linear programming, alternative formulation using $z_{i}$ and the relaxation can be applied to (1.1):
+%----------------------------------------------------------------------------------------
+\subsubsection{Running}
 
-\begin{align}
-\max_{\Theta, \vec{z}} &\quad \sum_{i=1}^{N} z_{i} \\
-s.t. 	&\quad z_{i}\abs{x_{i} + T_{x} - x_{i}'} \leq z_{i} \delta, \forall i \in S_{I} \subseteq S \\
-	and &\quad z_{i}\abs{y_{i} + T_{y} - y_{i}'} \leq z_{i} \delta, \forall i \in S_{I} \subseteq S \\
-	and &\quad z_{i} \in [0, 1], \quad \forall i = 1 \dots N \\
-	and &\quad \underbar{$T_{x}$} \leq T_{x} \leq \overline{T_{x}},
-	\quad \underbar{$T_{y}$} \leq T_{y} \leq \overline{T_{y}}, \quad \forall i = 1 \dots N 
-\end{align}
+%----------------------------------------------------------------------------------------
+\subsubsection{Result}
 
-(1.3) and (1.4) can be expressed into:
 
-\begin{equation}
-\begin{split}
-\quad - z_{i} \delta \leq z_{i} (x_{i} + T_{x} - x_{i}') \leq z_{i} \delta \\
-\quad - z_{i} \delta \leq z_{i} (y_{i} + T_{y} - y_{i}') \leq z_{i} \delta 
-\end{split}
-\end{equation}
+%----------------------------------------------------------------------------------------
+%	Smoothing meshes
+%----------------------------------------------------------------------------------------
+\subsection{Smoothing meshes}
 
-Now, introducing the auxiliary variables $w_{ix} = z_{i}T_{x}$ and $w_{iy} = z_{i}T_{y}$ to avoid the bilinear terms, (1.6) can be relaxed by concave and convex envelopes:
+%----------------------------------------------------------------------------------------
+\subsubsection{Description}
 
-\begin{equation}
-\begin{split}
-w_{ix} = z_{i} T_{x} &\geq \max(\underbar{$z_{i}$} T_{x} + \underbar{$T_{x}$}z_{i} - \underbar{$z_{i}$}\underbar{$T_{x}$},
- 	\overline{z_{i}} T_{x} + \overline{T_{x}}z_{i} - \overline{z_{i}} \overline{T_{x}}) \\
-w_{ix} = z_{i} T_{x} &\leq \min(\overline{z_{i}}T_{x} + \underbar{$T_{x}$}z_{i} - \overline{z_{i}} \underbar{$T_{x}$}, 
-	 \underbar{$z_{i}$} T_{x} + \overline{T_{x}}z_{i} - \underbar{$z_{i}$} \overline{T_{x}})
-\end{split}
-\end{equation}
+%----------------------------------------------------------------------------------------
+\subsubsection{Running}
 
-$\max$ and $\min$ is not a linear function, thus changed (1.8) into the following forms:
+%----------------------------------------------------------------------------------------
+\subsubsection{Result}
 
-\begin{equation}
-\begin{split}
-w_{ix} &\geq \underbar{$z_{i}$} T_{x} + \underbar{$T_{x}$}z_{i} - \underbar{$z_{i}$}\underbar{$T_{x}$} \\
-w_{ix} &\geq \overline{z_{i}} T_{x} + \overline{T_{x}}z_{i} - \overline{z_{i}} \overline{T_{x}} \\
-w_{ix} &\leq \overline{z_{i}}T_{x} + \underbar{$T_{x}$}z_{i} - \overline{z_{i}} \underbar{$T_{x}$} \\
-w_{ix} &\leq \underbar{$z_{i}$} T_{x} + \overline{T_{x}}z_{i} - \underbar{$z_{i}$} \overline{T_{x}}
-\end{split}
-\end{equation}
+%----------------------------------------------------------------------------------------
+%	Speeding up mesh smoothing
+%----------------------------------------------------------------------------------------
+\subsection{Speeding up mesh smoothing}
 
-changed (1.8) into linear programming constraint form:
+%----------------------------------------------------------------------------------------
+\subsubsection{Description}
 
-\begin{equation}
-\begin{split}
-\underbar{$z_{i}$} T_{x} + \underbar{$T_{x}$}z_{i} - w_{ix} &\leq \underbar{$z_{i}$}\underbar{$T_{x}$} \\
-\overline{z_{i}} T_{x} + \overline{T_{x}}z_{i} - w_{ix} &\leq \overline{z_{i}} \overline{T_{x}} \\
-- \overline{z_{i}}T_{x} - \underbar{$T_{x}$}z_{i} + w_{ix} &\leq  -\overline{z_{i}} \underbar{$T_{x}$} \\
-- \underbar{$z_{i}$} T_{x} - \overline{T_{x}}z_{i} + w_{ix} &\leq -\underbar{$z_{i}$} \overline{T_{x}}
-\end{split}
-\end{equation}
+\url{https://github.com/jefferislab/MatlabSupport/tree/master/ann_wrapper}
 
-likewise, $w_iy$: 
+%----------------------------------------------------------------------------------------
+\subsubsection{Running}
 
-\begin{equation}
-\begin{split}
-\underbar{$z_{i}$} T_{y} + \underbar{$T_{y}$}z_{i} - w_{iy} &\leq \underbar{$z_{i}$}\underbar{$T_{y}$} \\
-\overline{z_{i}} T_{y} + \overline{T_{y}}z_{i} - w_{iy} &\leq \overline{z_{i}} \overline{T_{y}} \\
-- \overline{z_{i}}T_{y} - \underbar{$T_{y}$}z_{i} + w_{iy} &\leq  -\overline{z_{i}} \underbar{$T_{y}$} \\
-- \underbar{$z_{i}$} T_{y} - \overline{T_{y}}z_{i} + w_{iy} &\leq - \underbar{$z_{i}$} \overline{T_{y}}
-\end{split}
-\end{equation}
+%----------------------------------------------------------------------------------------
+\subsubsection{Result}
 
-and finally, as $w_{ix} = z_{i}T_{x}$ and $w_{iy} = z_{i}T_{y}$, (1.7) can be expressed into:
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
 
-\begin{equation}
-\begin{split}
-\quad z_{i} x_{i} + w_{ix} - z_{i} x_{i}' - z_{i} \delta \leq  0\\
-\quad - z_{i} x_{i} - w_{ix} + z_{i} x_{i}' - z_{i} \delta \leq  0\\
-\quad z_{i} y_{i} + w_{iy} - z_{i} y_{i}' - z_{i} \delta \leq  0\\
-\quad - z_{i} y_{i} - w_{iy} + z_{i} y_{i}' - z_{i} \delta \leq  0\\
-\end{split}
-\end{equation}
-
-Now, as MATLAB function \funcname{linprog} solve following problem,
-
-\begin{equation}
-\begin{split}
-\min_{x} c^{T}\vec{x} \\
-s.t. A\vec{x} \leq b \\
-l_{b} \leq \vec{x} \leq u_{b} 
-\end{split}
-\end{equation}
-
-set the unknown vector, coefficient vector, and $l_{b}, u_{b}$ vectors for linear programming to
-
-\begin{equation}
-\begin{split}
-\vec{x} &= (T_{x}, T_{y}, z_{1}, \dots, z_{n}, w_{1x}, \dots, w_{nx}, w_{1y}, \dots, w_{ny})^{T} \\
-l_{b} &= (\underbar{$T_{x}$}, \underbar{$T_{y}$}, \underbar{$z_{1}$}, \dots, \underbar{$z_{n}$}, -\infty, \dots, -\infty)^{T} \\
-u_{b} &= (\overline{T_{x}}, \overline{T_{y}}, \overline{z_{1}}, \dots, \overline{z_{n}}, \infty, \dots, \infty)^{T} \\
-c &= (0, 0, -1, \dots, -1, 0, \dots, 0)^{T}
-\end{split}
-\end{equation}
-
-Note that coefficient vector c is $c^{T} \vec{x} = - z_{1} - z_{2} - \dots - z_{n}$. This is for making the maximizing problem into the minimizing problem. Besides, $-\infty \leq w_{ix} \leq \infty$ and $-\infty \leq w_{iy} \leq \infty$, because there is no either lower nor upper bound for $w_{ix}$ and $w_{iy}$. \\ Lastly, (1.9), (1.10) and (1.11) was changed into the form of (1.12). Thus, matrix $A$ and vector $b$ are as follows:
-
-\begin{equation*}
-A_{i} = 
-\begin{bmatrix}[c c | c c c c c | c c c c c | c c c c c ]
-	0 & 0 &	0 & \dots & (x_{i} - x_{i}' - \delta) & \dots & 0		& 0 & \dots & 1 & \dots & 0 	& 0 & \dots & 0 & \dots & 0 \\
-	0 & 0 &	0 & \dots & (-x_{i} + x_{i}' - \delta) & \dots & 0		& 0 & \dots & -1 & \dots & 0 	& 0 & \dots & 0 & \dots & 0 \\
-	0 & 0 &	0 & \dots & (y_{i} - y_{i}' - \delta) & \dots & 0		& 0 & \dots & 0 & \dots & 0 	& 0 & \dots & 1 & \dots & 0 \\
-	0 & 0 &	0 & \dots & (-y_{i} + y_{i}' - \delta) & \dots & 0		& 0 & \dots & 0 & \dots & 0 	& 0 & \dots & -1 & \dots & 0 \\
-	\underbar{$z_{i}$} & 0 &	0 & \dots & \underbar{$T_{x}$} & \dots & 0	& 0 & \dots & -1 & \dots & 0 	& 0 & \dots & 0 & \dots & 0 \\
-	\overline{z_{i}} & 0 &		0 & \dots & \overline{T_{x}} & \dots & 0		& 0 & \dots & -1 & \dots & 0 	& 0 & \dots & 0 & \dots & 0 \\
-	-\overline{z_{i}} & 0 &	0 & \dots & -\underbar{$T_{x}$} & \dots & 0	& 0 & \dots & 1 & \dots & 0 	& 0 & \dots & 0 & \dots & 0 \\
-	-\underbar{$z_{i}$} & 0 &	0 & \dots & -\overline{T_{x}} & \dots & 0		& 0 & \dots & 1 & \dots & 0 	& 0 & \dots & 0 & \dots & 0 \\
-	0 & \underbar{$z_{i}$} & 	0 & \dots & \underbar{$T_{y}$} & \dots & 0	& 0 & \dots & 0 & \dots & 0 	& 0 & \dots & -1 & \dots & 0 \\
-	0 & \overline{z_{i}} & 	0 & \dots & \overline{T_{y}} & \dots & 0		& 0 & \dots & 0 & \dots & 0 	& 0 & \dots & -1 & \dots & 0 \\
-	0 & -\overline{z_{i}} & 	0 & \dots & -\underbar{$T_{y}$} & \dots & 0	& 0 & \dots & 0 & \dots & 0 	& 0 & \dots & 1 & \dots & 0 \\
-	0 & -\underbar{$z_{i}$} & 	0 & \dots & -\overline{T_{y}} & \dots & 0		& 0 & \dots & 0 & \dots & 0 	& 0 & \dots & 1 & \dots & 0 
-\end{bmatrix} 
-\end{equation*} 
-
-\begin{align*}
-b_{i} &= 
-\begin{bmatrix}
-	0 \\ 0 \\ 0 \\ 0 \\ 
-        \underbar{$z_{i}$}\underbar{$T_{x}$} \\
-        \overline{z_{i}} \overline{T_{x}} \\
-        -\overline{z_{i}} \underbar{$T_{x}$} \\
-        -\underbar{$z_{i}$} \overline{T_{x}} \\
-        \underbar{$z_{i}$}\underbar{$T_{y}$} \\
-        \overline{z_{i}} \overline{T_{y}} \\
-        -\overline{z_{i}} \underbar{$T_{y}$} \\
-        -\underbar{$z_{i}$} \overline{T_{y}}
-\end{bmatrix} &
-A &=  
-\left[ \begin{array}{c}
-	A_{1} \\
-	\hline 
-	A_{2} \\
-	\hline
-	\vdots \\
-	\hline
-	A_{n} 
-\end{array} \right] &
-b &= 
-\left[ \begin{array}{c}
-	b_{1} \\
-	\hline 
-	b_{2} \\
-	\hline
-	\vdots \\
-	\hline
-	b_{n} 
-\end{array} \right]
-\end{align*} \\
-
-Note that $\underbar{$z_{i}$} = 0$ and $\overline{z_{i}} = 1$. For avoiding a loop, $A$ and $b$ was reformed in the MATLAB implementation.
+\section{exercise part 2: Image Deformation Using Moving Least Squares}
 
 
 %----------------------------------------------------------------------------------------
@@ -603,108 +484,108 @@ Some comments for the bound of cardinality:
 \item The global optimal solution is obtained by branch and bound algorithm. 
 \end{itemize}
 
-===================================================================
-PART 1-3
--------------------------------------------------------------------
-off file loading: bun.off
-calculating new V matrix...
-for sigma = 0.01
-NORMAL running time = 43.3832
-off file saving: bun_sig0.01_it10.off
-for sigma = 0.02
-NORMAL running time = 36.1822
-off file saving: bun_sig0.02_it10.off
-for sigma = 0.03
-NORMAL running time = 40.4655
-off file saving: bun_sig0.03_it10.off
--------------------------------------------------------------------
-off file loading: bunny.off
-calculating new V matrix...
-for sigma = 0.01
-NORMAL running time = 34.6238
-off file saving: bunny_sig0.01_it10.off
-for sigma = 0.02
-NORMAL running time = 34.6699
-off file saving: bunny_sig0.02_it10.off
-for sigma = 0.03
-NORMAL running time = 35.1106
-off file saving: bunny_sig0.03_it10.off
--------------------------------------------------------------------
-off file loading: bunny2.off
-calculating new V matrix...
-for sigma = 0.01
-NORMAL running time = 34.9052
-off file saving: bunny2_sig0.01_it10.off
-for sigma = 0.02
-NORMAL running time = 35.721
-off file saving: bunny2_sig0.02_it10.off
-for sigma = 0.03
-NORMAL running time = 36.2177
-off file saving: bunny2_sig0.03_it10.off
--------------------------------------------------------------------
-off file loading: cat.off
-calculating new V matrix...
-for sigma = 80
-NORMAL running time = 1.3411
-off file saving: cat_sig80_it10.off
-for sigma = 90
-NORMAL running time = 1.1566
-off file saving: cat_sig90_it10.off
-for sigma = 100
-NORMAL running time = 1.1426
-off file saving: cat_sig100_it10.off
-
-
-===================================================================
-PART 1-4
--------------------------------------------------------------------
-off file loading: bun.off
-calculating new V matrix using ANN...
-for sigma = 0.01
-ANN running time = 16.3398
-off file saving: bun_sig0.01_it10_ANN.off
-for sigma = 0.02
-ANN running time = 47.1852
-off file saving: bun_sig0.02_it10_ANN.off
-for sigma = 0.03
-ANN running time = 115.1704
-off file saving: bun_sig0.03_it10_ANN.off
--------------------------------------------------------------------
-off file loading: bunny.off
-calculating new V matrix using ANN...
-for sigma = 0.01
-ANN running time = 12.4567
-off file saving: bunny_sig0.01_it10_ANN.off
-for sigma = 0.02
-ANN running time = 46.1488
-off file saving: bunny_sig0.02_it10_ANN.off
-for sigma = 0.03
-ANN running time = 108.848
-off file saving: bunny_sig0.03_it10_ANN.off
--------------------------------------------------------------------
-off file loading: bunny2.off
-calculating new V matrix using ANN...
-for sigma = 0.01
-ANN running time = 15.2887
-off file saving: bunny2_sig0.01_it10_ANN.off
-for sigma = 0.02
-ANN running time = 46.4121
-off file saving: bunny2_sig0.02_it10_ANN.off
-for sigma = 0.03
-ANN running time = 129.9024
-off file saving: bunny2_sig0.03_it10_ANN.off
--------------------------------------------------------------------
-off file loading: cat.off
-calculating new V matrix using ANN...
-for sigma = 80
-ANN running time = 1.6675
-off file saving: cat_sig80_it10_ANN.off
-for sigma = 90
-ANN running time = 1.1994
-off file saving: cat_sig90_it10_ANN.off
-for sigma = 100
-ANN running time = 1.2392
-off file saving: cat_sig100_it10_ANN.off
+%===================================================================
+%PART 1-3
+%-------------------------------------------------------------------
+%off file loading: bun.off
+%calculating new V matrix...
+%for sigma = 0.01
+%NORMAL running time = 43.3832
+%off file saving: bun_sig0.01_it10.off
+%for sigma = 0.02
+%NORMAL running time = 36.1822
+%off file saving: bun_sig0.02_it10.off
+%for sigma = 0.03
+%NORMAL running time = 40.4655
+%off file saving: bun_sig0.03_it10.off
+%-------------------------------------------------------------------
+%off file loading: bunny.off
+%calculating new V matrix...
+%for sigma = 0.01
+%NORMAL running time = 34.6238
+%off file saving: bunny_sig0.01_it10.off
+%for sigma = 0.02
+%NORMAL running time = 34.6699
+%off file saving: bunny_sig0.02_it10.off
+%for sigma = 0.03
+%NORMAL running time = 35.1106
+%off file saving: bunny_sig0.03_it10.off
+%-------------------------------------------------------------------
+%off file loading: bunny2.off
+%calculating new V matrix...
+%for sigma = 0.01
+%NORMAL running time = 34.9052
+%off file saving: bunny2_sig0.01_it10.off
+%for sigma = 0.02
+%NORMAL running time = 35.721
+%off file saving: bunny2_sig0.02_it10.off
+%for sigma = 0.03
+%NORMAL running time = 36.2177
+%off file saving: bunny2_sig0.03_it10.off
+%-------------------------------------------------------------------
+%off file loading: cat.off
+%calculating new V matrix...
+%for sigma = 80
+%NORMAL running time = 1.3411
+%off file saving: cat_sig80_it10.off
+%for sigma = 90
+%NORMAL running time = 1.1566
+%off file saving: cat_sig90_it10.off
+%for sigma = 100
+%NORMAL running time = 1.1426
+%off file saving: cat_sig100_it10.off
+%
+%
+%===================================================================
+%PART 1-4
+%-------------------------------------------------------------------
+%off file loading: bun.off
+%calculating new V matrix using ANN...
+%for sigma = 0.01
+%ANN running time = 16.3398
+%off file saving: bun_sig0.01_it10_ANN.off
+%for sigma = 0.02
+%ANN running time = 47.1852
+%off file saving: bun_sig0.02_it10_ANN.off
+%for sigma = 0.03
+%ANN running time = 115.1704
+%off file saving: bun_sig0.03_it10_ANN.off
+%-------------------------------------------------------------------
+%off file loading: bunny.off
+%calculating new V matrix using ANN...
+%for sigma = 0.01
+%ANN running time = 12.4567
+%off file saving: bunny_sig0.01_it10_ANN.off
+%for sigma = 0.02
+%ANN running time = 46.1488
+%off file saving: bunny_sig0.02_it10_ANN.off
+%for sigma = 0.03
+%ANN running time = 108.848
+%off file saving: bunny_sig0.03_it10_ANN.off
+%-------------------------------------------------------------------
+%off file loading: bunny2.off
+%calculating new V matrix using ANN...
+%for sigma = 0.01
+%ANN running time = 15.2887
+%off file saving: bunny2_sig0.01_it10_ANN.off
+%for sigma = 0.02
+%ANN running time = 46.4121
+%off file saving: bunny2_sig0.02_it10_ANN.off
+%for sigma = 0.03
+%ANN running time = 129.9024
+%off file saving: bunny2_sig0.03_it10_ANN.off
+%-------------------------------------------------------------------
+%off file loading: cat.off
+%calculating new V matrix using ANN...
+%for sigma = 80
+%ANN running time = 1.6675
+%off file saving: cat_sig80_it10_ANN.off
+%for sigma = 90
+%ANN running time = 1.1994
+%off file saving: cat_sig90_it10_ANN.off
+%for sigma = 100
+%ANN running time = 1.2392
+%off file saving: cat_sig100_it10_ANN.off
 
 
 \end{document}

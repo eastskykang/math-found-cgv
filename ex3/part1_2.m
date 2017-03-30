@@ -1,6 +1,6 @@
 %% EXERCISE 3 - PART 1-2
 clc
-close all
+% close all
 clear all
 
 % paths

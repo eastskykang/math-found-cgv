@@ -1,6 +1,6 @@
 %% EXERCISE X - PART X
 clc
-close all
+% close all
 clear all
 
 % paths
