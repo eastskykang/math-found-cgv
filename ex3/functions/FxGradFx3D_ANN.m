@@ -1,7 +1,7 @@
 function [ FxGradFx ] = FxGradFx3D_ANN ( X_mat, V_mat, N_mat, sigma, debug )
 
     % X_mat     n x 3 matrix    grid points
-    % V_mat     m x 3 matrix    sampe points 
+    % V_mat     m x 3 matrix    sample points 
     % N_mat     m x 3 matrix    normal vectors (samples)
     
     % gradFx    3 x n 
@@ -17,12 +17,12 @@ function [ FxGradFx ] = FxGradFx3D_ANN ( X_mat, V_mat, N_mat, sigma, debug )
         
         X = X_mat(idx, :);  % x = (x1, x2, x3)
         
-        % j is index in V_mat
+        % i is index in V_mat
         [i, sqd_X_Xi, inr] = frsearch(anno, X', sigma * 3, size(V_mat, 1), 0);
 
         % filtering
-        i = i(1:inr);
-        sqd_X_Xi = sqd_X_Xi(1:inr);
+%         i = i(1:inr);
+%         sqd_X_Xi = sqd_X_Xi(1:inr);
         
         Xi = V_mat(i, :);
         

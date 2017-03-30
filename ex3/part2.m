@@ -14,6 +14,8 @@ grid_size_y = 100;
 
 alpha = 1;
 
+saved_control_pts = true;   % false then user inputs control points
+
 affine_T = true;
 similar_T = true;
 rigid_T = true;
@@ -32,12 +34,16 @@ img = imread('ginger.png');
 
 %% CONTROL POINT INPUT
 disp('-------------------------------------------------------------------')
-disp('select control points and deformed position with mouse clicks. ')
+disp('load control points from pregenerated data or user input')
 
-if debug
+if saved_control_pts
+    disp('load control points from pregenerated data.')
+    
     load('saved/p_array.mat')
     load('saved/q_array.mat')
 else
+    disp('select control points and deformed position with mouse clicks. (at least 3 points)')
+
     figure(1)
     imshow(img)
     hold on
@@ -53,6 +59,10 @@ else
         
         if button == 32
             % escape loop space bar
+            if size(p, 1) < 3
+                error('input at least three control points')
+            end
+            
             break;
         end
         

@@ -25,11 +25,11 @@ threshold = 1e-4;
 % debug
 debug = false;
 
-%% PART 1-3
+%% PART 1-4
 disp('===================================================================')
-disp('PART 1-3')
+disp('PART 1-4')
 
-for file_idx = 4:size(off_files, 2)
+for file_idx = 1:size(off_files, 2)
     sigmas = sigma_array(file_idx, :);  % do not change
     
     %% DATA LOAD
@@ -45,8 +45,11 @@ for file_idx = 4:size(off_files, 2)
     [V_file,F_file,~,~,~] = readOFF([file, '.off']);
     N_file = per_vertex_normals(V_file,F_file);
     
-    %% CALCULATE NEW V
-    disp('calculating new V matrix...')
+    %% CALCULATE NEW V WITH ANN
+    % NOTE: randint function used in ANN wrapper is deprecated in 2016b version
+    %       change randint to randi for running.
+    
+    disp('calculating new V matrix using ANN...')
     
     for i=1:size(sigmas, 2)
         
@@ -59,7 +62,7 @@ for file_idx = 4:size(off_files, 2)
         tic
         for j=1:max_iter
             % calculate V_next: v_next = v - f(x) grad f(x)
-            FxGradFx = FxGradFx3D(V, V_file, N_file, sigma, debug);
+            FxGradFx = FxGradFx3D_ANN(V, V_file, N_file, sigma, debug);
             
             % V update
             V = V - FxGradFx;
@@ -72,10 +75,10 @@ for file_idx = 4:size(off_files, 2)
         t = toc;
         
         % log running time
-        disp(['NORMAL running time = ', num2str(t)])
+        disp(['ANN running time = ', num2str(t)])
         
         % saving file
-        filename = [file, '_sig', num2str(sigma), '_it', num2str(max_iter), '.off'];
+        filename = [file, '_sig', num2str(sigma), '_it', num2str(max_iter), '_ANN.off'];
         disp(['off file saving: ', filename])
         
         N = per_vertex_normals(V,F_file);
