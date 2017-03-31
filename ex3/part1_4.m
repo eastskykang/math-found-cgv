@@ -7,6 +7,7 @@ clear all
 addpath(genpath('files/TASK1'))
 addpath('functions')
 addpath('saved')
+addpath([matlabroot, '/toolbox/ann_wrapper'])   % change to ann_wrapper path
 
 % data parameters
 off_files = {'bun', 'bunny', 'bunny2', 'cat'};

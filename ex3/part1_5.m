@@ -8,6 +8,8 @@ addpath(genpath('files/TASK1'))
 addpath('functions')
 addpath('saved')
 
+addpath([matlabroot, '/toolbox/ann_wrapper'])   % change to ann_wrapper path
+
 % data parameters
 off_files = {'bun', 'bunny', 'bunny2', 'cat'};
 
@@ -21,8 +23,8 @@ rimls_mode = true;
 
 % rimls parameters
 hs = {100};
-sigma_r = 0.5;  % parameter for RIMLS
-sigma_n = 1.2;  % parameter for RIMLS
+sigma_r = 0.5;  % parameter for RIMLS (DO NOT CHANGE!)
+sigma_n = 0.5;  % parameter for RIMLS (sharpness)
 
 % debug
 debug = false;

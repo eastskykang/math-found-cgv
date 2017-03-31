@@ -178,6 +178,14 @@ In this exercise, branch and bound algorithm based on depth-first search(DFS) wa
 \subsubsection{Result}
 
 
+\begin{figure}[H]
+\caption{The convergence of the cardinality bounds\label{fig:simple}}
+\noindent\makebox[\textwidth]{
+  \includegraphics[width=1.0\textwidth]{cardinality_bound}
+}
+\end{figure} 
+
+
 %----------------------------------------------------------------------------------------
 %	Smoothing meshes
 %----------------------------------------------------------------------------------------
@@ -192,6 +200,13 @@ In this exercise, branch and bound algorithm based on depth-first search(DFS) wa
 %----------------------------------------------------------------------------------------
 \subsubsection{Result}
 
+\begin{figure}[H]
+\caption{The convergence of the cardinality bounds\label{fig:simple}}
+\noindent\makebox[\textwidth]{
+  \includegraphics[width=1.0\textwidth]{cardinality_bound}
+}
+\end{figure} 
+
 %----------------------------------------------------------------------------------------
 %	Speeding up mesh smoothing
 %----------------------------------------------------------------------------------------
@@ -200,13 +215,155 @@ In this exercise, branch and bound algorithm based on depth-first search(DFS) wa
 %----------------------------------------------------------------------------------------
 \subsubsection{Description}
 
+One way to speed up mesh smoothing is ~
+
+~ calculating fxgradfx, ~ 
+
+As suggested, ANN library (url) and it's matlab wrapper was used. 
 \url{https://github.com/jefferislab/MatlabSupport/tree/master/ann_wrapper}
 
 %----------------------------------------------------------------------------------------
 \subsubsection{Running}
 
+The MATLAB script \filename{part1_4.m} corresponds to mesh smoothing with ANN library. 
+
+Before running the script, ANN wrapper should be installed. Please note followings. 
+
+\begin{itemize}
+\item \funcname{randint} function used in ANN wrapper is deprecated in MATLAB 2016b version. If \funcname{randint} function of ANN wrapper library makes error during running time, the script, change it to \funcname{randi}.
+\item Although changing \funcname{randint} to \funcname{randi}, \filename{test_ann_class.m} file which included in ANN wrapper library still does not work properly. 
+\item However \filename{part1_4.m} would work without any problem. 
+\end{itemize}
+
+After installing ANN wrapper, run the script \filename{part1_4.m} after setting the parameters. 
+
+\begin{itemize}
+\item \textit{off_files} : 
+\item \textit{sigma_array} : 
+\item \textit{max_iter} :
+\item \textit{threshold} :  
+\end{itemize}
+
+
 %----------------------------------------------------------------------------------------
 \subsubsection{Result}
+
+\begin{table}[h]
+\captionof{table}{The global optimal solution obtained by branch and bound} \label{tab:title} 
+\centering
+\begin{tabular}{| c | c | c | }
+\hline 
+$T_{x}^*$		&	$T_{y}^*$		&	cardinality bound \\
+\hline  
+-232.00		&	-156.81		&	(15, 15.449) \\
+\hline
+\end{tabular}
+\end{table}
+
+
+%===================================================================
+%PART 1-3
+%-------------------------------------------------------------------
+%off file loading: bun.off
+%calculating new V matrix...
+%for sigma = 0.01
+%NORMAL running time = 43.3832
+%off file saving: bun_sig0.01_it10.off
+%for sigma = 0.02
+%NORMAL running time = 36.1822
+%off file saving: bun_sig0.02_it10.off
+%for sigma = 0.03
+%NORMAL running time = 40.4655
+%off file saving: bun_sig0.03_it10.off
+%-------------------------------------------------------------------
+%off file loading: bunny.off
+%calculating new V matrix...
+%for sigma = 0.01
+%NORMAL running time = 34.6238
+%off file saving: bunny_sig0.01_it10.off
+%for sigma = 0.02
+%NORMAL running time = 34.6699
+%off file saving: bunny_sig0.02_it10.off
+%for sigma = 0.03
+%NORMAL running time = 35.1106
+%off file saving: bunny_sig0.03_it10.off
+%-------------------------------------------------------------------
+%off file loading: bunny2.off
+%calculating new V matrix...
+%for sigma = 0.01
+%NORMAL running time = 34.9052
+%off file saving: bunny2_sig0.01_it10.off
+%for sigma = 0.02
+%NORMAL running time = 35.721
+%off file saving: bunny2_sig0.02_it10.off
+%for sigma = 0.03
+%NORMAL running time = 36.2177
+%off file saving: bunny2_sig0.03_it10.off
+%-------------------------------------------------------------------
+%off file loading: cat.off
+%calculating new V matrix...
+%for sigma = 80
+%NORMAL running time = 1.3411
+%off file saving: cat_sig80_it10.off
+%for sigma = 90
+%NORMAL running time = 1.1566
+%off file saving: cat_sig90_it10.off
+%for sigma = 100
+%NORMAL running time = 1.1426
+%off file saving: cat_sig100_it10.off
+%
+%
+%===================================================================
+%PART 1-4
+%-------------------------------------------------------------------
+%off file loading: bun.off
+%calculating new V matrix using ANN...
+%for sigma = 0.01
+%ANN running time = 16.3398
+%off file saving: bun_sig0.01_it10_ANN.off
+%for sigma = 0.02
+%ANN running time = 47.1852
+%off file saving: bun_sig0.02_it10_ANN.off
+%for sigma = 0.03
+%ANN running time = 115.1704
+%off file saving: bun_sig0.03_it10_ANN.off
+%-------------------------------------------------------------------
+%off file loading: bunny.off
+%calculating new V matrix using ANN...
+%for sigma = 0.01
+%ANN running time = 12.4567
+%off file saving: bunny_sig0.01_it10_ANN.off
+%for sigma = 0.02
+%ANN running time = 46.1488
+%off file saving: bunny_sig0.02_it10_ANN.off
+%for sigma = 0.03
+%ANN running time = 108.848
+%off file saving: bunny_sig0.03_it10_ANN.off
+%-------------------------------------------------------------------
+%off file loading: bunny2.off
+%calculating new V matrix using ANN...
+%for sigma = 0.01
+%ANN running time = 15.2887
+%off file saving: bunny2_sig0.01_it10_ANN.off
+%for sigma = 0.02
+%ANN running time = 46.4121
+%off file saving: bunny2_sig0.02_it10_ANN.off
+%for sigma = 0.03
+%ANN running time = 129.9024
+%off file saving: bunny2_sig0.03_it10_ANN.off
+%-------------------------------------------------------------------
+%off file loading: cat.off
+%calculating new V matrix using ANN...
+%for sigma = 80
+%ANN running time = 1.6675
+%off file saving: cat_sig80_it10_ANN.off
+%for sigma = 90
+%ANN running time = 1.1994
+%off file saving: cat_sig90_it10_ANN.off
+%for sigma = 100
+%ANN running time = 1.2392
+%off file saving: cat_sig100_it10_ANN.off
+
 
 %----------------------------------------------------------------------------------------
 %	PROBLEM 2
@@ -484,108 +641,7 @@ Some comments for the bound of cardinality:
 \item The global optimal solution is obtained by branch and bound algorithm. 
 \end{itemize}
 
-%===================================================================
-%PART 1-3
-%-------------------------------------------------------------------
-%off file loading: bun.off
-%calculating new V matrix...
-%for sigma = 0.01
-%NORMAL running time = 43.3832
-%off file saving: bun_sig0.01_it10.off
-%for sigma = 0.02
-%NORMAL running time = 36.1822
-%off file saving: bun_sig0.02_it10.off
-%for sigma = 0.03
-%NORMAL running time = 40.4655
-%off file saving: bun_sig0.03_it10.off
-%-------------------------------------------------------------------
-%off file loading: bunny.off
-%calculating new V matrix...
-%for sigma = 0.01
-%NORMAL running time = 34.6238
-%off file saving: bunny_sig0.01_it10.off
-%for sigma = 0.02
-%NORMAL running time = 34.6699
-%off file saving: bunny_sig0.02_it10.off
-%for sigma = 0.03
-%NORMAL running time = 35.1106
-%off file saving: bunny_sig0.03_it10.off
-%-------------------------------------------------------------------
-%off file loading: bunny2.off
-%calculating new V matrix...
-%for sigma = 0.01
-%NORMAL running time = 34.9052
-%off file saving: bunny2_sig0.01_it10.off
-%for sigma = 0.02
-%NORMAL running time = 35.721
-%off file saving: bunny2_sig0.02_it10.off
-%for sigma = 0.03
-%NORMAL running time = 36.2177
-%off file saving: bunny2_sig0.03_it10.off
-%-------------------------------------------------------------------
-%off file loading: cat.off
-%calculating new V matrix...
-%for sigma = 80
-%NORMAL running time = 1.3411
-%off file saving: cat_sig80_it10.off
-%for sigma = 90
-%NORMAL running time = 1.1566
-%off file saving: cat_sig90_it10.off
-%for sigma = 100
-%NORMAL running time = 1.1426
-%off file saving: cat_sig100_it10.off
-%
-%
-%===================================================================
-%PART 1-4
-%-------------------------------------------------------------------
-%off file loading: bun.off
-%calculating new V matrix using ANN...
-%for sigma = 0.01
-%ANN running time = 16.3398
-%off file saving: bun_sig0.01_it10_ANN.off
-%for sigma = 0.02
-%ANN running time = 47.1852
-%off file saving: bun_sig0.02_it10_ANN.off
-%for sigma = 0.03
-%ANN running time = 115.1704
-%off file saving: bun_sig0.03_it10_ANN.off
-%-------------------------------------------------------------------
-%off file loading: bunny.off
-%calculating new V matrix using ANN...
-%for sigma = 0.01
-%ANN running time = 12.4567
-%off file saving: bunny_sig0.01_it10_ANN.off
-%for sigma = 0.02
-%ANN running time = 46.1488
-%off file saving: bunny_sig0.02_it10_ANN.off
-%for sigma = 0.03
-%ANN running time = 108.848
-%off file saving: bunny_sig0.03_it10_ANN.off
-%-------------------------------------------------------------------
-%off file loading: bunny2.off
-%calculating new V matrix using ANN...
-%for sigma = 0.01
-%ANN running time = 15.2887
-%off file saving: bunny2_sig0.01_it10_ANN.off
-%for sigma = 0.02
-%ANN running time = 46.4121
-%off file saving: bunny2_sig0.02_it10_ANN.off
-%for sigma = 0.03
-%ANN running time = 129.9024
-%off file saving: bunny2_sig0.03_it10_ANN.off
-%-------------------------------------------------------------------
-%off file loading: cat.off
-%calculating new V matrix using ANN...
-%for sigma = 80
-%ANN running time = 1.6675
-%off file saving: cat_sig80_it10_ANN.off
-%for sigma = 90
-%ANN running time = 1.1994
-%off file saving: cat_sig90_it10_ANN.off
-%for sigma = 100
-%ANN running time = 1.2392
-%off file saving: cat_sig100_it10_ANN.off
+
 
 
 \end{document}
