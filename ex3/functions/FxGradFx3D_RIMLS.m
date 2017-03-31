@@ -9,11 +9,14 @@ function [ FxGradFx ] = FxGradFx3D_RIMLS( X_mat, V_mat, N_mat, ...
     % V_mat     m x 3 matrix    sample points
     % N_mat     m x 3 matrix    normal vectors (samples)
     
+    % parameters
+    max_iter = 10;
+    
     % anno
     anno = ann(V_mat');
     
     % calculate h
-    h = Calh(V_mat, 4);
+    h = Calh(V_mat, 2);
     
     % gradFx    3 x n
     gradFx_mat = zeros(3, size(X_mat, 1));
@@ -26,52 +29,48 @@ function [ FxGradFx ] = FxGradFx3D_RIMLS( X_mat, V_mat, N_mat, ...
         X = X_mat(idx, :);  % x = (x1, x2, x3)
         
         % finding neighbors
-        [j, ~, ~] = frsearch(anno, X', sigma * 3, size(V_mat, 1), 0);
+        [j, sqd_X_Xi, inr] = frsearch(anno, X', sigma * 3, size(V_mat, 1), 0);
         
-        p_position = V_mat(j, :);
-        p_normal = N_mat(j, :);
-        
-        for iter = 1:10
+        for iter = 1:max_iter
             
-            sumW = 0;
-            sumGw = [0, 0, 0];
-            sumF = 0;
-            sumGF = [0, 0, 0];
-            sumN = [0, 0, 0];
+            Ni = N_mat(j, :)';              
+            Xi = V_mat(j, :)';
             
-            for i = 1:size(p_position, 1)
-                Xi = p_position(i, :);   % 1 x 3
-                Ni = p_normal(i, :);   % 1 x 3
-                
-                px = (X - Xi);       % 1 x 3
-                fx = dot(px, Ni);    % 1 x 1
-                
-                if iter > 1
-                    alpha_vec = exp(-((fx-f)/sigma_r) ^2) * ...
-                        exp(-(norm(Ni - grad_f)/sigma_n) ^2);
-                else
-                    alpha_vec = 1;
-                end
-                
-                % phi = (1 - norm(px)^2 / h^2) ^ 4;
-                phi = exp(-norm(px)^2 / (h^2));
-                
-                w = alpha_vec * phi;
-                
-                % dphi = -8/(h^2) * px * (1 - norm(px)^2 / h^2)^3;
-                dphi = (-2/h^2) * phi * px;
-                
-                grad_w = alpha_vec * dphi;
-                
-                sumW = sumW + w;
-                sumGw = sumGw + grad_w;
-                sumF = sumF + w * fx;
-                sumGF = sumGF + grad_w * fx;
-                sumN = sumN + w * Ni;
+            px = (X' - Xi);         % 3 x inr
+            fx = dot(px, Ni);       % 1 x inr
+            
+            if iter > 1
+                prev_alpha = alpha_vec;
+                alpha_vec = exp(-((fx-f)/sigma_r) .^2) .* ...
+                    exp(-(sqrt(dot(Ni - grad_f, Ni - grad_f))/sigma_n) .^2);
+            else
+                alpha_vec = ones(1, inr);
             end
             
+            % phi = (1 - norm(px)^2 / h^2) ^ 4;
+            phi = exp(- sqd_X_Xi / (h^2));
+            w = alpha_vec .* phi;
+            
+            % dphi = -8/(h^2) * px * (1 - norm(px)^2 / h^2)^3;
+            dphi = (-2/h^2) * phi .* px;
+            grad_w = alpha_vec .* dphi;
+            
+            sumW = sum(w);
+            sumGw = sum(grad_w, 2);
+            sumF = sum(w .* fx);
+            sumGF = sum(grad_w .* fx, 2);
+            sumN = sum(w .* Ni, 2);
+            
+            % f         scalar
             f = sumF / sumW;
+            % grad_f    3 x 1
             grad_f = (sumGF - f * sumGw + sumN) / sumW;
+            
+            if iter > 1 && ...
+                    max(abs(alpha_vec / sum(alpha_vec) - prev_alpha / sum(prev_alpha))) < 1e-4
+                % until alpha converged
+                break
+            end
         end
         
         Fx_mat(:, idx) = f;

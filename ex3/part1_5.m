@@ -14,15 +14,15 @@ addpath([matlabroot, '/toolbox/ann_wrapper'])   % change to ann_wrapper path
 off_files = {'bun', 'bunny', 'bunny2', 'cat'};
 
 % parameters
-file_idx = 4;
+file_idx = 1;
 
 max_iter = 5;
 threshold = 1e-4;
 
 % rimls parameters
-sigma = 100;            % parameter for neighboring
-sigma_r = 0.5;      % parameter for RIMLS (DO NOT CHANGE!)
-sigma_n = {0.5, 1.0, 1.5, inf};  % parameter for RIMLS (sharpness)
+sigma = 0.01;     % parameter for neighboring
+sigma_r = 0.5;    % parameter for RIMLS (DO NOT CHANGE!)
+sigma_n = {0.5};  % parameter for RIMLS (sharpness)
 
 % debug
 debug = false;
