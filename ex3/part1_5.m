@@ -19,12 +19,10 @@ file_idx = 4;
 max_iter = 5;
 threshold = 1e-4;
 
-rimls_mode = true;
-
 % rimls parameters
-hs = {100};
-sigma_r = 0.5;  % parameter for RIMLS (DO NOT CHANGE!)
-sigma_n = 0.5;  % parameter for RIMLS (sharpness)
+sigma = 100;            % parameter for neighboring
+sigma_r = 0.5;      % parameter for RIMLS (DO NOT CHANGE!)
+sigma_n = {0.5, 1.0, 1.5, inf};  % parameter for RIMLS (sharpness)
 
 % debug
 debug = false;
@@ -50,17 +48,37 @@ N_file = per_vertex_normals(V_file,F_file);
 %% CALCULATE NEW V FOR RIMLS
 disp('calculating new V matrix using RIMLS...')
 
-for i=1:size(hs, 2)
-    h = hs{i};
-    disp(['for h = ', num2str(h)])
+for i=1:size(sigma_n, 2)
+    
+    sigma_n_i = sigma_n{i};
     
     V = V_file;
+    FxGradFx = zeros(size(V));
     
-    V = FxGradFx3D_RIMLS(V, V_file, N_file, h, sigma_r, sigma_n, max_iter, debug);
-    filename = [file, '_h', num2str(h), '_it', num2str(max_iter), '_RIMLS.off'];
+    tic
+    for j=1:max_iter
+        
+        % calculate V_next: v_next = v - f(x) grad f(x)
+        FxGradFx = FxGradFx3D_RIMLS(V, V_file, N_file, sigma, sigma_r, sigma_n_i, debug);
+        
+        % V update
+        V = V - FxGradFx;
+        
+        if norm(FxGradFx) < threshold
+            % converged
+            break
+        end
+    end
+    t = toc;
     
+    % log running time
+    disp(['RIMLS running time = ', num2str(t)])
+    
+    % saving file
+    filename = [file, '_sigma_n', num2str(sigma_n_i), '_RIMLS.off'];
     disp(['off file saving: ', filename])
     
     N = per_vertex_normals(V,F_file);
     writeOFF(filename, V, F_file, [], [], N);
+    
 end
