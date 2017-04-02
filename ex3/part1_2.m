@@ -6,7 +6,7 @@ clear all
 % paths
 addpath(genpath('files/TASK1'))
 addpath('functions')
-addpath('saved')
+addpath('data')
 
 % parameters
 x_min = -2;     % x_min <= -2
@@ -46,7 +46,7 @@ if ~saved_data
     F_array = zeros(size(y_range, 2), size(x_range, 2), size(datasets, 2), size(sigmas, 2));
 else
     % load from file (for debug)
-    load('saved/F_array.mat')
+    load('data/F_array.mat')
 end
 
 for data_idx = 1:size(datasets, 2)

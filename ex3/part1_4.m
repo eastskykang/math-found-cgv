@@ -6,8 +6,12 @@ clear all
 % paths
 addpath(genpath('files/TASK1'))
 addpath('functions')
-addpath('saved')
+addpath('data')
 addpath([matlabroot, '/toolbox/ann_wrapper'])   % change to ann_wrapper path
+
+if exist('ann') ~= 2
+    error('cannot find ann. check the ann_wrapper path')
+end
 
 % data parameters
 off_files = {'bun', 'bunny', 'bunny2', 'cat'};
@@ -63,7 +67,7 @@ for file_idx = 1:size(off_files, 2)
         tic
         for j=1:max_iter
             % calculate V_next: v_next = v - f(x) grad f(x)
-            FxGradFx = FxGradFx3D_ANN(V, V_file, N_file, sigma, debug);
+            FxGradFx = FxGradFx3r_ANN(V, V_file, N_file, sigma, debug);
             
             % V update
             V = V - FxGradFx;

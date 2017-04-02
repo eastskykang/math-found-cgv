@@ -1,5 +1,5 @@
 function [ FxGradFx ] = FxGradFx3D_RIMLS( X_mat, V_mat, N_mat, ...
-        sigma, sigma_r, sigma_n, debug )
+        sigma_r, sigma_n, debug )
     %FX3D calculate F(x) = C0(x) for 3D point x
     
     % from the paper: Feature Preserving Point Set Surfaces based on
@@ -29,7 +29,7 @@ function [ FxGradFx ] = FxGradFx3D_RIMLS( X_mat, V_mat, N_mat, ...
         X = X_mat(idx, :);  % x = (x1, x2, x3)
         
         % finding neighbors
-        [j, sqd_X_Xi, inr] = frsearch(anno, X', sigma * 3, size(V_mat, 1), 0);
+        [j, sqd_X_Xi, inr] = frsearch(anno, X', h * 3, size(V_mat, 1), 0);
         
         for iter = 1:max_iter
             

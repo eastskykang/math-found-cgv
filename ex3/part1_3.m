@@ -6,7 +6,7 @@ clear all
 % paths
 addpath(genpath('files/TASK1'))
 addpath('functions')
-addpath('saved')
+addpath('data')
 
 % data parameters
 off_files = {'bun', 'bunny', 'bunny2', 'cat'};

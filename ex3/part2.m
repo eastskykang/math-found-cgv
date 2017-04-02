@@ -6,15 +6,14 @@ clear all
 % paths
 addpath(genpath('files/TASK2'))
 addpath('functions')
-addpath('saved')
+addpath('data')
+
+% files
+img_files = {'ginger.png', 'kerr.jpg'};
 
 % parameters
-grid_size_x = 100;
-grid_size_y = 100;
-
 alpha = 1;
-
-saved_control_pts = false;   % false then user inputs control points
+img_idx = 1;    % default 1
 
 affine_T = true;
 similar_T = true;
@@ -25,12 +24,17 @@ backward_warp = true;   % show result of backward warping
 
 % debug
 debug = false;
+saved_control_pts = false;   % false then user inputs control points
+
+if img_idx ~= 1 && saved_control_pts
+    error('saved control points option is only for ginger.png')
+end 
 
 %% DATA LOAD
 disp('===================================================================')
 disp('image loading...')
 
-img = imread('ginger.png');
+img = imread(img_files{img_idx});
 
 %% CONTROL POINT INPUT
 disp('-------------------------------------------------------------------')
@@ -39,8 +43,8 @@ disp('load control points from pregenerated data or user input')
 if saved_control_pts
     disp('load control points from pregenerated data.')
     
-    load('saved/p_array.mat')
-    load('saved/q_array.mat')
+    load('data/p_array.mat')
+    load('data/q_array.mat')
 else
     disp('select control points and deformed position with mouse clicks. (at least 3 points)')
 
