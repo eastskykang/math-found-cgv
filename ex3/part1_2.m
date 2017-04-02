@@ -33,6 +33,10 @@ fittedcurve_YN = true;
 debug = false;
 saved_data = false;
 
+if saved_data
+    error('saved data is only for debugging. make it false')
+end
+
 %% PART 1-2
 disp('===================================================================')
 disp('PART 1-2')

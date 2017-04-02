@@ -29,7 +29,7 @@ debug = false;
 disp('===================================================================')
 disp('PART 1-3')
 
-for file_idx = 4:size(off_files, 2)
+for file_idx = 1:size(off_files, 2)
     sigmas = sigma_array(file_idx, :);  % do not change
     
     %% DATA LOAD

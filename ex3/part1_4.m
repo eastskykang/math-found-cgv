@@ -67,7 +67,7 @@ for file_idx = 1:size(off_files, 2)
         tic
         for j=1:max_iter
             % calculate V_next: v_next = v - f(x) grad f(x)
-            FxGradFx = FxGradFx3r_ANN(V, V_file, N_file, sigma, debug);
+            FxGradFx = FxGradFx3D_ANN(V, V_file, N_file, sigma, debug);
             
             % V update
             V = V - FxGradFx;

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  2 APR 2017 13:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  2 APR 2017 13:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1018,156 +1018,156 @@ LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <6> not available
 
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for TS1+futs on input line 172.
+LaTeX Font Info:    Try loading font information for TS1+futs on input line 171.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/ts1futs.fd
 File: ts1futs.fd 2004/03/26 Fontinst v1.926 font definitions for TS1/futs.
 ) [2] [3] <curve_data_sets.png, id=140, 1091.07625pt x 375.4025pt>
 File: curve_data_sets.png Graphic file (type png)
  <use curve_data_sets.png>
-Package pdftex.def Info: curve_data_sets.png used on input line 247.
+Package pdftex.def Info: curve_data_sets.png used on input line 248.
 (pdftex.def)             Requested size: 355.51976pt x 122.31941pt.
  <curve_data1.png, id=142, 562.1pt x 421.575pt>
 File: curve_data1.png Graphic file (type png)
  <use curve_data1.png>
-Package pdftex.def Info: curve_data1.png used on input line 256.
+Package pdftex.def Info: curve_data1.png used on input line 257.
 (pdftex.def)             Requested size: 355.51976pt x 266.63574pt.
  <curve_data2.png, id=143, 562.1pt x 421.575pt>
 File: curve_data2.png Graphic file (type png)
  <use curve_data2.png>
-Package pdftex.def Info: curve_data2.png used on input line 262.
+Package pdftex.def Info: curve_data2.png used on input line 263.
 (pdftex.def)             Requested size: 355.51976pt x 266.63574pt.
  <curve_data3.png, id=144, 562.1pt x 421.575pt>
 File: curve_data3.png Graphic file (type png)
  <use curve_data3.png>
-Package pdftex.def Info: curve_data3.png used on input line 269.
+Package pdftex.def Info: curve_data3.png used on input line 270.
 (pdftex.def)             Requested size: 355.51976pt x 266.63574pt.
  [4 <./curve_data_sets.png> <./curve_data1.png (PNG copy)>] [5 <./curve_data2.png (PNG copy)> <./curve_data3.png (PNG copy)>] [6] <bun.png, id=165, 640.3925pt x 666.49pt>
 File: bun.png Graphic file (type png)
  <use bun.png>
-Package pdftex.def Info: bun.png used on input line 349.
+Package pdftex.def Info: bun.png used on input line 350.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  <bun_sig001.png, id=166, 640.3925pt x 666.49pt>
 File: bun_sig001.png Graphic file (type png)
  <use bun_sig001.png>
-Package pdftex.def Info: bun_sig001.png used on input line 352.
+Package pdftex.def Info: bun_sig001.png used on input line 353.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 352.
+(Font)              scaled to size 8.27998pt on input line 353.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 352.
+(Font)              scaled to size 6.99199pt on input line 353.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <9> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 352.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 353.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <7.6> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 352.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 353.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 8.27998pt on input line 352.
+(Font)              scaled to size 8.27998pt on input line 353.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 352.
+(Font)              scaled to size 6.99199pt on input line 353.
  <bun_sig002.png, id=167, 640.3925pt x 666.49pt>
 File: bun_sig002.png Graphic file (type png)
  <use bun_sig002.png>
-Package pdftex.def Info: bun_sig002.png used on input line 355.
+Package pdftex.def Info: bun_sig002.png used on input line 356.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  <bun_sig003.png, id=168, 640.3925pt x 666.49pt>
 File: bun_sig003.png Graphic file (type png)
  <use bun_sig003.png>
-Package pdftex.def Info: bun_sig003.png used on input line 358.
+Package pdftex.def Info: bun_sig003.png used on input line 359.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  <cat.png, id=169, 640.3925pt x 666.49pt>
 File: cat.png Graphic file (type png)
  <use cat.png>
-Package pdftex.def Info: cat.png used on input line 367.
+Package pdftex.def Info: cat.png used on input line 368.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  <cat_sig80.png, id=170, 640.3925pt x 666.49pt>
 File: cat_sig80.png Graphic file (type png)
  <use cat_sig80.png>
-Package pdftex.def Info: cat_sig80.png used on input line 370.
+Package pdftex.def Info: cat_sig80.png used on input line 371.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  <cat_sig90.png, id=171, 640.3925pt x 666.49pt>
 File: cat_sig90.png Graphic file (type png)
  <use cat_sig90.png>
-Package pdftex.def Info: cat_sig90.png used on input line 373.
+Package pdftex.def Info: cat_sig90.png used on input line 374.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  <cat_sig100.png, id=172, 640.3925pt x 666.49pt>
 File: cat_sig100.png Graphic file (type png)
  <use cat_sig100.png>
-Package pdftex.def Info: cat_sig100.png used on input line 376.
+Package pdftex.def Info: cat_sig100.png used on input line 377.
 (pdftex.def)             Requested size: 92.01672pt x 95.75888pt.
  [7 <./bun.png (PNG copy)> <./bun_sig001.png (PNG copy)> <./bun_sig002.png (PNG copy)> <./bun_sig003.png (PNG copy)> <./cat.png (PNG copy)> <./cat_sig80.png (PNG copy)> <./cat_sig90.png (PNG copy)> <./cat_sig100.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 408.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 409.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Overfull \hbox (44.94582pt too wide) in paragraph at lines 408--409
+Overfull \hbox (44.94582pt too wide) in paragraph at lines 409--410
 []\T1/futs/m/n/10.95 refer to ANN wrap-per github repos-i-tory: []$\T1/cmtt/m/n/10.95 https : / / github . com / jefferislab / MatlabSupport /
  []
 
 [8]
-Overfull \hbox (39.82565pt too wide) in paragraph at lines 457--458
+Overfull \hbox (39.82565pt too wide) in paragraph at lines 458--459
 \T1/futs/m/n/10.95 In part 1.5, sharp fea-ture pre-serv-ing mesh smooth-ing by Ro-bust Im-plicit Mov-ing Least Squares(RIMLS)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 457--458
+Underfull \hbox (badness 10000) in paragraph at lines 458--459
 
  []
 
 <bun_origin.png, id=197, 640.3925pt x 666.49pt>
 File: bun_origin.png Graphic file (type png)
  <use bun_origin.png>
-Package pdftex.def Info: bun_origin.png used on input line 490.
+Package pdftex.def Info: bun_origin.png used on input line 491.
 (pdftex.def)             Requested size: 125.47794pt x 130.59047pt.
  <bun_IMLS.png, id=198, 640.3925pt x 666.49pt>
 File: bun_IMLS.png Graphic file (type png)
  <use bun_IMLS.png>
-Package pdftex.def Info: bun_IMLS.png used on input line 493.
+Package pdftex.def Info: bun_IMLS.png used on input line 494.
 (pdftex.def)             Requested size: 125.47794pt x 130.59047pt.
  <bun_RIMLS.png, id=199, 640.3925pt x 666.49pt>
 File: bun_RIMLS.png Graphic file (type png)
  <use bun_RIMLS.png>
-Package pdftex.def Info: bun_RIMLS.png used on input line 496.
+Package pdftex.def Info: bun_RIMLS.png used on input line 497.
 (pdftex.def)             Requested size: 125.47794pt x 130.59047pt.
  [9]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 510.
+(hyperref)                than one, level fixed on input line 511.
 
 [10 <./bun_origin.png> <./bun_IMLS.png> <./bun_RIMLS.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 571--572
+Underfull \hbox (badness 10000) in paragraph at lines 572--573
 
  []
 
 [11] <deformation_forward.png, id=230, 963.6pt x 983.675pt>
 File: deformation_forward.png Graphic file (type png)
  <use deformation_forward.png>
-Package pdftex.def Info: deformation_forward.png used on input line 601.
+Package pdftex.def Info: deformation_forward.png used on input line 602.
 (pdftex.def)             Requested size: 167.29967pt x 170.77982pt.
  <deformation_backward.png, id=231, 963.6pt x 983.675pt>
 File: deformation_backward.png Graphic file (type png)
  <use deformation_backward.png>
-Package pdftex.def Info: deformation_backward.png used on input line 603.
+Package pdftex.def Info: deformation_backward.png used on input line 604.
 (pdftex.def)             Requested size: 167.29967pt x 170.77982pt.
  <deformation_backward_alpha05.png, id=232, 963.6pt x 983.675pt>
 File: deformation_backward_alpha05.png Graphic file (type png)
  <use deformation_backward_alpha05.png>
-Package pdftex.def Info: deformation_backward_alpha05.png used on input line 612.
+Package pdftex.def Info: deformation_backward_alpha05.png used on input line 613.
 (pdftex.def)             Requested size: 125.47794pt x 128.09238pt.
 File: deformation_backward.png Graphic file (type png)
  <use deformation_backward.png>
-Package pdftex.def Info: deformation_backward.png used on input line 614.
+Package pdftex.def Info: deformation_backward.png used on input line 615.
 (pdftex.def)             Requested size: 125.47794pt x 128.09238pt.
  <deformation_backward_alpha2.png, id=233, 963.6pt x 983.675pt>
 File: deformation_backward_alpha2.png Graphic file (type png)
  <use deformation_backward_alpha2.png>
-Package pdftex.def Info: deformation_backward_alpha2.png used on input line 616.
+Package pdftex.def Info: deformation_backward_alpha2.png used on input line 617.
 (pdftex.def)             Requested size: 125.47794pt x 128.09238pt.
 File: deformation_backward_alpha05.png Graphic file (type png)
  <use deformation_backward_alpha05.png>
-Package pdftex.def Info: deformation_backward_alpha05.png used on input line 623.
+Package pdftex.def Info: deformation_backward_alpha05.png used on input line 624.
 (pdftex.def)             Requested size: 292.7776pt x 298.8722pt.
 File: deformation_backward_alpha2.png Graphic file (type png)
  <use deformation_backward_alpha2.png>
-Package pdftex.def Info: deformation_backward_alpha2.png used on input line 625.
+Package pdftex.def Info: deformation_backward_alpha2.png used on input line 626.
 (pdftex.def)             Requested size: 292.7776pt x 298.8722pt.
  [12 <./deformation_forward.png (PNG copy)> <./deformation_backward.png (PNG copy)> <./deformation_backward_alpha05.png (PNG copy)> <./deformation_backward_alpha2.png (PNG copy)>]
 Overfull \vbox (76.84111pt too high) has occurred while \output is active []
@@ -1175,21 +1175,21 @@ Overfull \vbox (76.84111pt too high) has occurred while \output is active []
  [13] <deformation_kerr.png, id=253, 963.6pt x 983.675pt>
 File: deformation_kerr.png Graphic file (type png)
  <use deformation_kerr.png>
-Package pdftex.def Info: deformation_kerr.png used on input line 634.
+Package pdftex.def Info: deformation_kerr.png used on input line 635.
 (pdftex.def)             Requested size: 418.25555pt x 426.96457pt.
  [14 <./deformation_kerr.png (PNG copy)>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 650.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 650.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 651.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 651.
  (/Users/kangdongho/Development/math-found-cgv/ex3_report/.texpadtmp/README.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 650.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 650.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 651.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 651.
 Package rerunfilecheck Info: File `README.out' has not changed.
 (rerunfilecheck)             Checksum: C5A95B8D7B3454D7B0BB956A5DE965B8;1312.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 650.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 651.
  ) 
 Here is how much of TeX's memory you used:
  31836 strings out of 493014
@@ -1200,7 +1200,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  64i,20n,84p,8485b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on /Users/kangdongho/Development/math-found-cgv/ex3_report/.texpadtmp/README.pdf (14 pages, 2835423 bytes).
+Output written on /Users/kangdongho/Development/math-found-cgv/ex3_report/.texpadtmp/README.pdf (14 pages, 2835331 bytes).
 PDF statistics:
  314 PDF objects out of 1000 (max. 8388607)
  262 compressed objects within 3 object streams
