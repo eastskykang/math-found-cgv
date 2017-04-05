@@ -6,10 +6,11 @@
 #include "maxflow.cpp"
 #include "graph.cpp"
 
-#if !defined(MX_API_VER) || MX_API_VER < 0x07030000
-typedef int mwSize;
-typedef int mwIndex;
-#endif
+#include <tmwtypes.h>
+// #if !defined(MX_API_VER) || MX_API_VER < 0x07030000
+// typedef int mwSize;
+// typedef int mwIndex;
+// #endif
 
 #if BK_COSTTYPE == 0
 typedef double EnergyType;
@@ -334,7 +335,11 @@ BK_EXPORT(bk_addvars)
 	if (gcinstance.dc) {
 		// need to extend the old datacost table and fill the new region with zeros
 		SiteID varnum_new = gcinstance.bk->var_num();
-		mwSize dcdim[2] = {2,varnum_new};
+// 		mwSize dcdim[2] = {2,varnum_new};
+        
+        mwSize varnum_new_narrowed = varnum_new;
+        mwSize dcdim[2] = {2,varnum_new_narrowed};
+        
 		mxArray* newdch = mxCreateNumericArray(2, dcdim, cEnergyTermClassID, mxREAL);
 		EnergyTermType* newdc = (EnergyTermType*)mxGetData(newdch);
 		EnergyTermType* olddc = (EnergyTermType*)mxGetData(gcinstance.dc);
