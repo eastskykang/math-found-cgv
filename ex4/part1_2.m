@@ -1,4 +1,4 @@
-%% EXERCISE 4 - PART 1
+%% EXERCISE 4 - PART 1-2
 clc
 close all
 clear all
@@ -54,7 +54,7 @@ for a_idx = 1:size(algo, 2)
         % pairwise distance 
         d_ij = pdist(X_normalized);
         d_ij = squareform(d_ij);    % change to square form
-        d_ij = reshape(d_ij(d_ij~=0), [], 1);
+        d_ij = d_ij(d_ij~=0);
         
         for r_idx = 1:array_size
             r = r_array(r_idx);

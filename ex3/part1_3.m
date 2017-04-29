@@ -1,4 +1,4 @@
-%% EXERCISE X - PART X
+%% EXERCISE 3 - PART X
 clc
 % close all
 clear all

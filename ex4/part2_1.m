@@ -1,4 +1,4 @@
-%% EXERCISE X - PART X
+%% EXERCISE 4 - PART 2-1
 clc 
 close all 
 clear all 
@@ -6,13 +6,10 @@ clear all
 % paths
 addpath(genpath('PART II'))
 
-% parameters
-
-% debug
-debug = false;
-
-%% DATA LOAD 
+%% TASK1
 disp('===================================================================')
-disp('data loading...')
+disp('PART 2-1')
 
-% load('')
+%run the script 
+disp('run the script in the PART II directory...')
+task1
