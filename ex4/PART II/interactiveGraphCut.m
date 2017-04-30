@@ -375,6 +375,40 @@ pairwise = getPairWise(I); % complete getPairWise.m
 % TASK 2.4
 %  Your code here
 
+[height, width, ~] = size(I);
+n = height * width;
+
+% build graph 
+disp('-------------------------------------------------------------------')
+disp(['creating graph with ', num2str(n), ' nodes'])
+
+graph = BK_Create(n);
+
+% unary cost
+disp('assign unary cost for source and sink... ')
+
+BK_SetUnary(graph, unaries');
+
+% pairwise cost
+disp('assign pairwise cost... ')
+
+BK_SetPairwise(graph, pairwise)
+
+% optimal label 
+energy = BK_Minimize(graph);
+
+disp(['energy : ', num2str(energy)])
+
+labeling = BK_GetLabeling(graph);
+
+% dealloc
+disp('dealloc handle')
+
+BK_Delete(graph);
+
+% reshape
+labeling = reshape(labeling, height, width);
+
 %% Show the results
 % TASK 2.4 
 % Change the variable I such that foreground pixel are colored in red
@@ -382,6 +416,24 @@ pairwise = getPairWise(I); % complete getPairWise.m
 
 % Hint: for the foreground pixels, you only need to reduce the green and
 % blue value to 0.
+
+% modify image (TODO)
+mask_fg = (labeling == 1);
+mask_bg = (labeling == 2);
+
+I_r = image(:,:,1);
+I_g = image(:,:,2);
+I_b = image(:,:,3);
+
+% foreground to red
+I_g(mask_fg) = 0;
+I_b(mask_fg) = 0;
+
+% background to blue
+I_r(mask_bg) = 0;
+I_g(mask_bg) = 0;
+
+I = cat(3, I_r, I_g, I_b);
 
 delete(handles.imgPos);
 handles.imgPos = imshow(I); % displays I after you modified it
@@ -391,8 +443,24 @@ if(isfield(handles, 'image_bckg'))
     I_bck  = handles.image_bckg; % Background image you want to add
     
     % TASK 2.5
+    [height_bck, width_bck, ~] = size(I_bck);
+    [height_orig, width_orig, ~] = size(I_orig);
     
+    if(height_bck < height_orig)
+        % background is smaller: black padding
+        I_bck = padarray(I_bck, [height_orig - height_bck, 0]);
+    end
     
+    if(width_bck < width_orig)
+        % background is smaller: black padding 
+        I_bck = padarray(I_bck, [0, width_orig - width_bck]); 
+    end
+    
+    % crop background
+    I_bck = I_bck(1:height, 1:width, :);
+
+    % copy from background
+    I_orig(mask_bg(:,:,[1,1,1])) = I_bck(mask_bg(:,:,[1,1,1]));
 end
 
 guidata(hObject, handles);
