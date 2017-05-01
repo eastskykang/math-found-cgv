@@ -7,11 +7,13 @@ clear all
 addpath(genpath('PART II'))
 
 % debug
-debug = true;
+debug = false;
 
-%%
+%% MAIN
 
 if debug
+    % this is for debugging
+    
     % with VanDamme
     disp('-------------------------------------------------------------------')
     disp('debug with VanDamme.jpg')
@@ -147,3 +149,9 @@ if debug
     figure(8)
     imshow(I_orig);
 end
+
+% gui
+disp('===================================================================')
+disp('PART 2-2')
+
+interactiveGraphCut;

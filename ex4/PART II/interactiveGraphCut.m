@@ -386,24 +386,20 @@ graph = BK_Create(n);
 
 % unary cost
 disp('assign unary cost for source and sink... ')
-
 BK_SetUnary(graph, unaries');
 
 % pairwise cost
 disp('assign pairwise cost... ')
-
-BK_SetPairwise(graph, pairwise)
+BK_SetNeighbors(graph, pairwise);
 
 % optimal label 
 energy = BK_Minimize(graph);
 
 disp(['energy : ', num2str(energy)])
-
 labeling = BK_GetLabeling(graph);
 
 % dealloc
 disp('dealloc handle')
-
 BK_Delete(graph);
 
 % reshape
@@ -417,13 +413,18 @@ labeling = reshape(labeling, height, width);
 % Hint: for the foreground pixels, you only need to reduce the green and
 % blue value to 0.
 
-% modify image (TODO)
-mask_fg = (labeling == 1);
-mask_bg = (labeling == 2);
+% modify image
+disp('-------------------------------------------------------------------')
+disp('show segmentation result... ')
+disp('foreground is red, background is blue')
 
-I_r = image(:,:,1);
-I_g = image(:,:,2);
-I_b = image(:,:,3);
+% TODO check 
+mask_fg = (labeling == 2);
+mask_bg = (labeling == 1);
+
+I_r = I(:,:,1);
+I_g = I(:,:,2);
+I_b = I(:,:,3);
 
 % foreground to red
 I_g(mask_fg) = 0;
@@ -443,6 +444,9 @@ if(isfield(handles, 'image_bckg'))
     I_bck  = handles.image_bckg; % Background image you want to add
     
     % TASK 2.5
+    disp('-------------------------------------------------------------------')
+    disp('change background... ')
+    
     [height_bck, width_bck, ~] = size(I_bck);
     [height_orig, width_orig, ~] = size(I_orig);
     
@@ -461,6 +465,9 @@ if(isfield(handles, 'image_bckg'))
 
     % copy from background
     I_orig(mask_bg(:,:,[1,1,1])) = I_bck(mask_bg(:,:,[1,1,1]));
+    
+    % show changed image
+    handles.imgPos = imshow(I_orig);
 end
 
 guidata(hObject, handles);
