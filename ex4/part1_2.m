@@ -5,7 +5,6 @@ clear all
 
 % paths
 addpath(genpath('PART I'))
-addpath('functions')
 
 % parameters
 array_size = 100;
@@ -13,11 +12,17 @@ array_size = 100;
 % parameters (do not change)
 d = 2;
 d_Vd = 2 * pi();
-V = 1;
+V = 1;              % this value will be normalized 
 
 sigma = 0.25;
-ra = 0.01 * sigma;
-rb = 5;
+
+% these ra, rb were suggested but does not show the best results
+% ra = 0.01 * sigma;
+% rb = 10;
+
+% these ra, rb shows the best results
+ra = 2 * sigma;
+rb = 10;
 
 % data (do not change)
 algo = {'Matern', 'FPO', 'Dart', 'Balzer'};
@@ -47,7 +52,8 @@ for a_idx = 1:size(algo, 2)
         n = size(X, 1);
         
         % normalize points and V
-        r_max = Rmax(n, 'Gamito-Maddock');
+        r_max = Rmax(n, 'Lagae-Dutre');
+        
         X_normalized = X / r_max;
         V_normalized = V / r_max^2;
         
@@ -67,9 +73,48 @@ for a_idx = 1:size(algo, 2)
             pcf_array(r_idx) = g_r;
         end
         
-        figure(a_idx)
+        figure(f_idx)
+        subplot(2, 2, a_idx)
         plot(r_array, pcf_array)
+        xlabel('r')
+        ylabel('PCF')
+        
+        switch(a_idx)
+            case 1
+                title('Matern')
+            case 2
+                title('FPO')
+            case 3
+                title('Dart')
+            case 4
+                title('Balzer')
+        end
         
         disp(r_array)
+    end
+end
+
+function [ r_max ] = Rmax( N, mode )
+    %RMAX return r_max
+    
+    % parameters (DO NOT CHANGE)
+    d = 2;  % dimension 
+    
+    % N is number of samples 
+    if strcmp(mode, 'Gamito-Maddock')
+        
+        % max packing densities 
+        % http://mathworld.wolfram.com/HyperspherePacking.html
+        gamma_d_max = 1/6 * pi() * sqrt(3);      % for dimension n = 2
+        
+        % Gamito-Maddock
+        % http://dl.acm.org/citation.cfm?id=1640451
+        r_max = ((gamma_d_max / N) * (gamma(d/2 + 1) / pi()^(d/2)))^(1/d); 
+    elseif strcmp(mode, 'Lagae-Dutre')
+        
+        % Lagae and Dutre
+        r_max = sqrt(1/(2 * sqrt(3) * N));
+    else
+        error('wrong argument for Rmax mode')
     end
 end

@@ -29,19 +29,19 @@ seed_g = I_g(idx);
 seed_b = I_b(idx);
 
 % get histogram 
-bin_edges = 0:histRes;
-bin_edges = 256 / histRes .* bin_edges; 
+hist = zeros(histRes, histRes, histRes);
 
-hist_r = histcounts(seed_r, bin_edges);
-hist_g = histcounts(seed_g, bin_edges);
-hist_b = histcounts(seed_b, bin_edges);
-
-hist = cat(3, hist_r, hist_g, hist_b);
-
+for i = 1:size(idx)
+    r_bin = idivide(seed_r(i), uint8(256 / histRes)) + 1;
+    g_bin = idivide(seed_g(i), uint8(256 / histRes)) + 1;
+    b_bin = idivide(seed_b(i), uint8(256 / histRes)) + 1;
+    
+    hist(r_bin, g_bin, b_bin) = hist(r_bin, g_bin, b_bin) + 1;
+end
 % smooth with gaussian filter 
 hist = smooth3(hist, 'gaussian', 7);
 
-% normalize histogram
-hist = hist ./ sum(hist, 2);
+% normalize histogram (divide by number of points)
+hist = hist ./ sum(hist(:));
 
 end

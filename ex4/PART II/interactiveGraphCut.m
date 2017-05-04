@@ -418,9 +418,9 @@ disp('-------------------------------------------------------------------')
 disp('show segmentation result... ')
 disp('foreground is red, background is blue')
 
-% TODO check 
-mask_fg = (labeling == 2);
-mask_bg = (labeling == 1);
+% labels: 1 for obj, 2 for bkg
+mask_fg = (labeling == 1);
+mask_bg = (labeling == 2);
 
 I_r = I(:,:,1);
 I_g = I(:,:,2);

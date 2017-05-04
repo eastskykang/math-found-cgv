@@ -48,16 +48,16 @@ function unaries = getUnaries(I,lambda,hist_fg,hist_bg, seed_fg, seed_bg)
     for i=1:size(idx_fg, 1)
         idx = idx_fg(i);
         
-        unaries(idx, 1) = inf;
-        unaries(idx, 2) = 0;
+        unaries(idx, 2) = inf;  % edge to source = cost with sink
+        unaries(idx, 1) = 0;    % edge to sink = cost with source
     end
     
     % background seed points
     for i=1:size(idx_bg, 1)
         idx = idx_bg(i);
         
-        unaries(idx, 1) = 0;
-        unaries(idx, 2) = inf;
+        unaries(idx, 2) = 0;    % edge to source = cost with sink
+        unaries(idx, 1) = inf;  % edge to sink = cost with source
     end
     
     % other points
@@ -70,8 +70,8 @@ function unaries = getUnaries(I,lambda,hist_fg,hist_bg, seed_fg, seed_bg)
         
         rgb = cat(3, r, g, b);
         
-        unaries(idx, 1) = lambda * Rp(hist_bg, rgb);
-        unaries(idx, 2) = lambda * Rp(hist_fg, rgb);
+        unaries(idx, 2) = lambda * Rp(hist_bg, rgb);    % edge to source = cost with sink
+        unaries(idx, 1) = lambda * Rp(hist_fg, rgb);    % edge to sink = cost with source
     end
 
     toc;
@@ -85,7 +85,5 @@ function Rp = Rp(hist, rgb)
     b_bin = idivide(rgb(3), (256 / histRes)) + 1;
     
     Rp = -log(...
-        hist(1, r_bin, 1) * ...
-        hist(1, g_bin, 2) * ...
-        hist(1, b_bin, 3) + 1e-10);
+        hist(r_bin, g_bin, b_bin) + 1e-10);
 end

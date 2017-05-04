@@ -37,37 +37,23 @@ if debug
     hist_bg = getColorHistogram(image, seed_bg, 32);
     toc;
     
-    figure(2)
-    plot(hist_fg(:,:,1),'r')
-    hold on
-    plot(hist_fg(:,:,2),'g')
-    plot(hist_fg(:,:,3),'b')
-    title('foreground color hist')
-    hold off
-    
-    figure(3)
-    plot(hist_bg(:,:,1),'r')
-    hold on
-    plot(hist_bg(:,:,2),'g')
-    plot(hist_bg(:,:,3),'b')
-    title('background color hist')
-    hold off
-    
     %% UNARY COST
     unaries = getUnaries(image, 1.0, hist_fg, hist_bg, seed_fg, seed_bg);
     
     unary_s = reshape(unaries(:,1), size(image, 1), size(image, 2));
     unary_t = reshape(unaries(:,2), size(image, 1), size(image, 2));
     
-    figure(4)
+    figure(2)
     imshow(image)
+    title('source unary cost (low value is obj)')
     colorbar
     hold on
     imagesc(unary_s);
     hold off
     
-    figure(5)
+    figure(3)
     imshow(image)
+    title('sink unary cost (low value is bkg)')
     colorbar
     hold on
     imagesc(unary_t);
@@ -94,12 +80,12 @@ if debug
     disp('assign pairwise cost... ')
     BK_SetNeighbors(graph, pairwise);
     
-    % optimal label 
+    % optimal label
     energy = BK_Minimize(graph);
     
     disp(['energy : ', num2str(energy)])
     labeling = BK_GetLabeling(graph);
-        
+    
     % dealloc
     disp('dealloc handle')
     
@@ -108,15 +94,15 @@ if debug
     %% RESULTS
     results = reshape(labeling, height, width);
     
-    figure(6)
+    figure(4)
     imshow(image);
     hold on
     imagesc(results);
-    hold off 
+    hold off
     
-    % TODO check 
-    mask_fg = (results == 2);
-    mask_bg = (results == 1);
+    % labels: 1 for obj, 2 for bkg
+    mask_fg = (results == 1);
+    mask_bg = (results == 2);
     
     I_r = image(:,:,1);
     I_g = image(:,:,2);
@@ -132,7 +118,7 @@ if debug
     
     I = cat(3, I_r, I_g, I_b);
     
-    figure(7)
+    figure(5)
     imshow(I);
     
     %% NEW BACKGROUND
@@ -141,17 +127,17 @@ if debug
     
     I_orig = image;
     I_bck  = imread('PART II/Images/ethz.png');
-
+    
     % crop background
     I_bck = I_bck(1:height, 1:width, :);
-    I_orig(mask_bg(:,:,[1,1,1])) = I_bck(mask_bg(:,:,[1,1,1])); 
-
-    figure(8)
+    I_orig(mask_bg(:,:,[1,1,1])) = I_bck(mask_bg(:,:,[1,1,1]));
+    
+    figure(6)
     imshow(I_orig);
+else
+    % gui
+    disp('===================================================================')
+    disp('PART 2-2')
+    
+    interactiveGraphCut;
 end
-
-% gui
-disp('===================================================================')
-disp('PART 2-2')
-
-interactiveGraphCut;
