@@ -20,9 +20,15 @@ function pairWise = getPairWise(I)
     N = height * width;
     
     % sparse matrix
-    i = [];
-    j = [];
-    v = [];
+    num_sparse = (height - 2) * (width - 2) * 8 + ...
+        (height - 2) * 2 * 5 + (width - 2) * 2 * 5 + 4 * 3;
+    
+    i = zeros(num_sparse, 1);
+    j = zeros(num_sparse, 1);
+    v = zeros(num_sparse, 1);
+    
+    % index
+    idx = 1;
     
     for p = 1:N
         
@@ -30,14 +36,20 @@ function pairWise = getPairWise(I)
         q_array = Neighbors(I, p);
         n = size(q_array, 1);
                                 
-        i = [i; p * ones(n, 1)];
-        j = [j; q_array];
+        i(idx:idx + n - 1, 1) = p * ones(n, 1);
+        j(idx:idx + n - 1, 1) = q_array;
             
-        v = [v; Bpq(I, p, q_array)];
+        v(idx:idx + n - 1, 1) = Bpq(I, p, q_array);
         
+        idx = idx + n;
+        
+        if mod(p, 1000) == 0
+            disp([num2str(p) ' / ', num2str(N)])
+        end
     end
     
-    pairWise = sparse(i, j, v, N, N);
+    %     pairWise = sparse(i, j, v, N, N);
+    pairWise = BuildMatrix(i, j, v);
     toc;
 end
 
@@ -69,7 +81,7 @@ function Bpq = Bpq(I, p, q_array)
     
     Iq = [Iq_r, Iq_g, Iq_b];
     
-    Bpq = exp(- pdist2(Ip, Iq, 'squaredeuclidean') / 2 * sigma^2 ) ./ ...
+    Bpq = exp(- pdist2(Ip, Iq, 'squaredeuclidean') / (2 * sigma^2) ) ./ ...
         pdist2([p_row, p_col], [q_rows, q_cols], 'euclidean');
     
     % transpose
@@ -98,4 +110,9 @@ function q = Neighbors(I, p)
         q(:, 1) >= 1 & q(:, 2) >= 1, :);
     
     q = sub2ind([height, width], q(:,1), q(:,2));
+end
+
+function pairWise = BuildMatrix(i, j, v)
+    z = zeros(size(i,1),1);
+    pairWise = [i,j,z,v,z,z];  % [i,j,e00,e01,e10,e11]
 end

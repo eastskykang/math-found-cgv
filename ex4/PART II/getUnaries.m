@@ -78,7 +78,7 @@ function unaries = getUnaries(I,lambda,hist_fg,hist_bg, seed_fg, seed_bg)
 end
 
 function Rp = Rp(hist, rgb)
-    histRes = size(hist, 2);
+    histRes = size(hist, 1);
     
     r_bin = idivide(rgb(1), (256 / histRes)) + 1;
     g_bin = idivide(rgb(2), (256 / histRes)) + 1;
