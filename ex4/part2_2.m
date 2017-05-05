@@ -82,7 +82,9 @@ if debug
     hold off
     
     %% PAIRWISE COST
+    tic
     pairwise = getPairWise(image); % complete getPairWise.m
+    toc;
     
     %% GRAPH CUT
     [height, width, ~] = size(image);
@@ -156,7 +158,7 @@ if debug
     I_bck = I_bck(1:height, 1:width, :);
     I_orig(mask_bg(:,:,[1,1,1])) = I_bck(mask_bg(:,:,[1,1,1]));
     
-    figure(6)
+    figure(8)
     imshow(I_orig);
 else
     % gui

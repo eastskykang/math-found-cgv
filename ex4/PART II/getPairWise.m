@@ -48,6 +48,9 @@ function pairWise = getPairWise(I)
         end
     end
     
+    % if idx is not same with num_sparse
+    assert(num_sparse == idx - 1)
+    
     %     pairWise = sparse(i, j, v, N, N);
     pairWise = BuildMatrix(i, j, v);
     toc;

@@ -390,7 +390,8 @@ BK_SetUnary(graph, unaries');
 
 % pairwise cost
 disp('assign pairwise cost... ')
-BK_SetNeighbors(graph, pairwise);
+BK_SetPairwise(graph, pairwise);
+% BK_SetNeighbors(graph, pairwise);
 
 % optimal label 
 energy = BK_Minimize(graph);
