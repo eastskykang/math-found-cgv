@@ -65,8 +65,7 @@ for a_idx = 1:size(algo, 2)
     disp('plot average periodograms for algorithms ')
 
     subplot(2, 2, a_idx)
-    %     imshow(mean(periodogram_array,3) * 200);
-    imshow(periodogram_array(:,:,1) * 200);
+    imshow(mean(periodogram_array,3) * 200);
     
     switch(a_idx)
         case 1
