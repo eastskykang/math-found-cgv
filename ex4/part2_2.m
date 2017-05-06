@@ -7,7 +7,7 @@ clear
 addpath(genpath('PART II'))
 
 % debug
-debug = true;
+debug = false;
 
 %% MAIN
 
@@ -50,6 +50,10 @@ if debug
     hist_fg_v(hist_fg_v==0)=nan;
     h1 = slice(hist_fg_v, [], [], 1:size(hist_fg_v,3));
     set(h1, 'EdgeColor','none', 'FaceColor','interp')
+    title('Foreground Color Histogram')
+    xlabel('Red')
+    ylabel('Green')
+    zlabel('Blue')
     alpha(0.1)
     
     figure(3)
@@ -57,6 +61,7 @@ if debug
     hist_bg_v(hist_bg_v==0)=nan;
     h2 = slice(hist_bg_v, [], [], 1:size(hist_bg_v,3));
     set(h2, 'EdgeColor','none', 'FaceColor','interp')
+    title('Background Color Histogram')
     alpha(0.1)
     
     %% UNARY COST    
@@ -103,7 +108,7 @@ if debug
     % pairwise cost
     disp('assign pairwise cost... ')
     BK_SetPairwise(graph, pairwise);
-%     BK_SetNeighbors(graph, pairwise);
+%     BK_SetNeighbors(graph, pairwise);     % deprecated!
     
     % optimal label
     energy = BK_Minimize(graph);

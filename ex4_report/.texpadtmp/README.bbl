@@ -1,0 +1,24 @@
+\begin{thebibliography}{1}
+
+\bibitem{oztireli2012analysis}
+A.~C. {\"O}ztireli and M.~Gross, ``Analysis and synthesis of point
+  distributions based on pair correlation,'' {\em ACM Transactions on Graphics
+  (TOG)}, vol.~31, no.~6, p.~170, 2012.
+
+\bibitem{lagae2008comparison}
+A.~Lagae and P.~Dutr{\'e}, ``A comparison of methods for generating poisson
+  disk distributions,'' in {\em Computer Graphics Forum}, vol.~27,
+  pp.~114--129, Wiley Online Library, 2008.
+
+\bibitem{gamito2009accurate}
+M.~N. Gamito and S.~C. Maddock, ``Accurate multidimensional poisson-disk
+  sampling,'' {\em ACM Transactions on Graphics (TOG)}, vol.~29, no.~1, p.~8,
+  2009.
+
+\bibitem{boykov2001interactive}
+Y.~Y. Boykov and M.-P. Jolly, ``Interactive graph cuts for optimal boundary \&
+  region segmentation of objects in nd images,'' in {\em Computer Vision, 2001.
+  ICCV 2001. Proceedings. Eighth IEEE International Conference on}, vol.~1,
+  pp.~105--112, IEEE, 2001.
+
+\end{thebibliography}
