@@ -1,3 +1,4 @@
+clc
 clear
 close all
 
@@ -36,7 +37,7 @@ hd_iter = [25, 50, 75, 100];
 
 %% TASK1: FILTERING
 % image
-I_gf = In;
+I_gf = double(In);
 
 % size
 gf_radius = ceil(3 * gf_sigma);
@@ -45,6 +46,8 @@ gf_size = 2 * gf_radius + 1;
 % kernel
 H_gf = GaussianKernel(gf_size, gf_sigma);
 
+% figure
+figure(2)
 subplot_idx = 1;
 
 for i=1:gf_iter(end)    
@@ -52,24 +55,23 @@ for i=1:gf_iter(end)
     I_gf = ImagePadding(I_gf, [gf_radius, gf_radius]);
     
     % convolution
-    I_gf = uint8(conv2(I_gf, H_gf, 'valid'));
+    I_gf = conv2(I_gf, H_gf, 'valid');
     
     if gf_iter(subplot_idx) == i
         % subplot 
-        figure(1)
         subplot(2, 2, subplot_idx)
-        imshow(I_gf)
+        imshow(uint8(I_gf))
         title(['Filtered', num2str(i), 'times'])
         
         subplot_idx = subplot_idx + 1;
     end
     
     % error 
-    error = I_gf - In;
+    error = I_gf - double(In);
 end
 
 %% TASK2: HEAT DIFFUSION
-I_hd = In;
+I_hd = double(In);
 
 % kernel
 H_hd = LaplaceKernel;
@@ -77,6 +79,8 @@ H_hd = LaplaceKernel;
 % size
 hd_radius = floor(size(H_hd, 1) / 2);
 
+% figure
+figure(3)
 subplot_idx = 1;
 
 for i=1:hd_iter(end)
@@ -84,20 +88,19 @@ for i=1:hd_iter(end)
     I_hd_pad = ImagePadding(I_hd, [hd_radius, hd_radius]);
     
     % convolution 
-    I_hd = I_hd + uint8(conv2(I_hd_pad, H_hd, 'valid')) * hd_step;
+    I_hd = I_hd + conv2(I_hd_pad, H_hd, 'valid') * hd_step;
     
     if hd_iter(subplot_idx) == i
         % subplot 
-        figure(2)
         subplot(2, 2, subplot_idx)
-        imshow(I_hd)
+        imshow(uint8(I_hd))
         title(['Filtered', num2str(i), 'times'])
         
         subplot_idx = subplot_idx + 1;
     end
         
     % error 
-    error = I_hd - In;
+    error = I_hd - double(In);
 end
 
 function [H] = GaussianKernel(gf_size, gf_sigma)
