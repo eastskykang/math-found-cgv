@@ -1,0 +1,292 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+
+% my packages
+\usepackage{commath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage[]{algpseudocode}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{tkz-graph}
+\usepackage{adjustbox}
+\usepackage{cancel}
+
+\newlist{filedescription}{description}{2}
+\setlist[filedescription]{font=\normalfont\normalcolor\bfseries\itshape}
+
+\newlist{paramdescription}{description}{1}
+\setlist[paramdescription]{font=\normalfont\normalcolor\itshape}
+
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+% new commands
+\newcommand{\filename}[1]{\textbf{\textit{#1}}}
+\newcommand{\funcname}[1]{\textbf{#1}}
+\newcommand{\inv}{^{\raisebox{.2ex}{$\scriptscriptstyle-1$}}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+\DeclareMathOperator*{\argmin}{arg\,min} % Jan Hlavacek
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Mathematical foundations of computer graphics and vision} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Exercise 5. Rigid Transform Blending and Variational Methods\\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Dongho Kang \\ \small 16-948-598} % Your name
+
+\date{\normalsize May 21, 2017} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	README
+%----------------------------------------------------------------------------------------
+
+MATLAB R2016b version was used for coding and testing:
+
+\begin{center}
+MathWorks, MATLAB R2016b (9.1.0.441655) \\
+64-bit (maci64) 
+\end{center}
+
+The \filename{code} directory contains the followings:
+
+\begin{filedescription}
+	\item [part1\_1.m] script .m file for exercise part 1.1.
+	\item [part1\_2.m] script .m file for exercise part 1.2.
+	\item [part2\_1.m] script .m file for exercise part 2.1. 
+	\item [part2\_2.m] script .m file for exercise part 2.2. 
+	\item [PART I] provided directory for part 1.
+	\item [PART II] directory which contains implementation of part 2 and provided files including skeleton code etc.
+	\item [img] directory which contains images for testing part 2.2   
+	\item [result] result image of part 1 and part 2.
+\end{filedescription}
+
+For running each .m script, check dependencies (especially for \filename{part2\_1.m} and \filename{part2\_2.m}) and adjust parameters first. Note that \textbf{these scripts only work properly in MATLAB R2016b environment} and \textbf{have done in Mac OS 10.11.6.} More details are stated in the \textit{Running} section of each parts.
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{exercise part 1: Understanding and Utilizing Dual Quaternion}
+
+%----------------------------------------------------------------------------------------
+%	TASK 1
+%----------------------------------------------------------------------------------------
+\subsection{Task 1: Thinking about fundamental properties}
+
+\begin{itemize}
+	\item How do dual quaternions represent rotations and translations? \\
+
+Unit dual quaternions naturally represent 3D rotation, when the dual part $\vec{q_\epsilon} = 0$ (thus $\hat{\vec{q}} = \vec{q_0} + \epsilon \vec{q_\epsilon} = \vec{q_0}$). Dual quaternion multiplication with unit dual quaternion $\hat{\vec{t}} = 1 + \frac{\epsilon}{2}(t_0 i + t_1 j + t_2 k)$ corresponds to translation by vector $(t_0, t_1, t_2)$ represent 3D translation.\\
+	
+	\item What is the advantage of representing rigid transformations with dual quaternions for blending? \\
+	
+The linear combination of dual quaternions does not make artifacts or skin-collapsing effect, thus blending using dual quaternions is fast and more robust than using homogeneous matrix. Moreover, since dual quaternions require only 8 floats per transformation, instead of the 12 required by matrices, they are more memory efficient.\\
+	
+	\item Briefly explain one fundamental disadvantage of using quaternion based shortest path blending for rotations as compared to linear blend skinning? \\
+	
+TODO 
+Dual quaternions causes "flipping artifacts" which occurs with joint rotations of more than 180 degrees, This is a corollary of the shortest path property: when the other path becomes shorter, the skin changes its shape discontinuously. \\
+
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+%	TASK 2 
+%----------------------------------------------------------------------------------------
+\subsection{Task 2: Derivations and deeper understanding}
+
+\begin{itemize}
+	\item For a dual quaternion $\hat{\vec{q}} = \text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \, \text{sin} (\hat{\theta} /2)$, prove that $\hat{\vec{q}}^t = \text{cos} (t\hat{\theta} /2) + \hat{\vec{s}} \text{sin} (t\hat{\theta} /2)$ \\
+	
+	Starting with $\hat{\vec{q}}$:
+	\begin{align}
+		\hat{\vec{q}} &= \text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2)
+	\end{align}
+
+	As $\hat{\vec{q}}^t	= \text{exp} \big(t \, \text{log}(\hat{\vec{q}}) \big)$, 
+	\begin{align}
+		\hat{\vec{q}}^t	&= \text{exp} \big( t \, \text{log}(\hat{\vec{q}}) \big) \\
+						&= \text{exp}\Big(t \, \text{log} \big(\text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2) \big) \Big)
+	\end{align}
+
+	Plug in $\text{log} \big(\text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2) \big) = \hat{\vec{s}} \frac{\hat{\theta}}{2}$ to equation (1.3):
+	\begin{align}
+		\hat{\vec{q}}^t = \text{exp}\Big( \frac{t\hat{\theta}}{2} \,\hat{\vec{s}} \Big)
+	\end{align}
+	
+	Let $\hat{\vec{a}} = \frac{t\hat{\theta}}{2} \,\hat{\vec{s}}$. Since $\hat{\theta} = \theta_0 + \epsilon \theta_\epsilon$ and $\hat{\vec{s}} = \vec{s}_0 + \epsilon\vec{s}_\epsilon$.
+	\begin{align}
+		\hat{\vec{a}} &= \frac{t\hat{\theta}}{2} \hat{\vec{s}} \\
+		&= \frac{t}{2}(\theta_0 + \epsilon \theta_\epsilon)(\vec{s}_0 + \epsilon\vec{s}_\epsilon) \\
+		&= \frac{t}{2} (\theta_0\vec{s}_0 + \epsilon \theta_0 \vec{s}_\epsilon + \epsilon \theta_\epsilon \vec{s}_0 + \cancelto{0}{\epsilon^2 \theta_\epsilon \vec{s}_\epsilon}) \\
+		&= \underbrace{ \Big( \frac{t}{2} \theta_0\vec{s}_0 \Big) }_{\coloneqq \vec{a}_0} 
+			+ \epsilon \underbrace{ \Big( \frac{t}{2} \theta_0 \vec{s}_\epsilon + \frac{t}{2} \theta_\epsilon \vec{s}_0 \Big) }_{\coloneqq \vec{a}_\epsilon }
+	\end{align}
+	
+	Since exponential of dual quaternion is given by $e^{\hat{\vec{q}}} = \text{cos} \big( \norm{\hat{\vec{q}}} \big) + \frac{\hat{\vec{q}}}{\norm{\hat{\vec{q}}}} \text{sin} \big( \norm{\hat{\vec{q}}} \big)$, then $e^{\hat{\vec{a}}} = \text{cos} \big( \norm{\hat{\vec{a}}} \big) + \frac{\hat{\vec{a}}}{\norm{\hat{\vec{a}}}} \text{sin} \big( \norm{\hat{\vec{a}}} \big)$. Here, the norm of dual quaternion $\hat{\vec{a}}$ is $\norm{\hat{\vec{a}}} = \norm{\vec{a}_0} + \epsilon \frac{<\vec{a}_0, \vec{a}_\epsilon>}{\norm{\vec{a}_0}}$. Looking into $<\vec{a}_0, \vec{a}_\epsilon>$ and $\norm{\vec{a}_0}$,
+	\begin{align}
+		<\vec{a}_0, \vec{a}_\epsilon> &= <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_\epsilon + \frac{t}{2} \theta_\epsilon \vec{s}_0> \\
+		&= <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_\epsilon> + <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_\epsilon \vec{s}_0> \\[0.5cm] 
+		\norm{\vec{a}_0} &= \sqrt{<\vec{a}_0, \vec{a}_0>} \\
+		&= \sqrt{<\frac{t}{2} \theta_0 \vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_0>} 
+	\end{align}
+	
+	Note that $<\vec{s}_0, \vec{s}_0> = 1$ and $<\vec{s}_0, \vec{s}_\epsilon> = 0$. Thus equation (1.10) and (1.12) can be expressed as follows: 
+	\begin{align}
+		<\vec{a}_0, \vec{a}_\epsilon> &= \Big(\frac{t}{2}\Big)^2 \theta_0 \theta_\epsilon \\[0.5cm]
+		\norm{\vec{a}_0} &= \sqrt{\Big(\frac{t}{2} \theta_0 \Big)^2} = \frac{t}{2} \theta_0 
+	\end{align}
+	
+	Plug (1.13) and (1.14) into $\norm{\hat{\vec{a}}} = \norm{\vec{a}_0} + \epsilon \frac{<\vec{a}_0, \vec{a}_\epsilon>}{\norm{\vec{a}_0}}$:
+	\begin{align}
+		\norm{\hat{\vec{a}}} &= \frac{t}{2} \theta_0 + \epsilon \frac{\Big(\frac{t}{2}\Big)^2 \theta_0 \theta_\epsilon}{\frac{t}{2} \theta_0}	\\
+		&= \frac{t}{2} \theta_0 + \epsilon \frac{t}{2} \theta_\epsilon \\
+		&= \frac{t}{2} (\theta_0 + \epsilon \theta_\epsilon) = \frac{t}{2} \hat{\theta}
+	\end{align}
+	
+	Finally, by (1.4), (1.17) and $e^{\hat{\vec{a}}} = \text{cos} \big( \norm{\hat{\vec{a}}} \big) + \frac{\hat{\vec{a}}}{\norm{\hat{\vec{a}}}} \text{sin} \big( \norm{\hat{\vec{a}}} \big)$, 
+	\begin{align}
+		\hat{\vec{q}}^t &= e^{\hat{\vec{a}}} \\
+		&= \text{cos} \Big( \frac{t}{2} \hat{\theta} \Big) + \frac{\hat{\vec{a}}}{\frac{t}{2}\hat{\theta}} \text{sin} \Big( \frac{t}{2} \hat{\theta} \Big) \\
+		&= \text{cos} \Big( \frac{t}{2} \hat{\theta} \Big) + \frac{\cancel{\frac{t}{2} \hat{\theta}} \,\hat{\vec{s}}}{\cancel{\frac{t}{2}\hat{\theta}}} \text{sin} \Big( \frac{t}{2} \hat{\theta} \Big) \\
+		&= \text{cos} \Big( \frac{t}{2} \hat{\theta} \Big) + \hat{\vec{s}} \, \text{sin} \Big( \frac{t}{2} \hat{\theta} \Big)
+	\end{align}
+	
+	The proof has been done.
+	
+	\item 
+	
+	
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2 
+%----------------------------------------------------------------------------------------
+
+\section{exercise part 2: Interactive Segmentation with Graph Cut}
+
+In this section, three different denoising methods were implemented and compared:
+
+\begin{itemize}
+	\item Filtering
+	\item Heat diffusion
+	\item Variational approach
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	TASK 1
+%----------------------------------------------------------------------------------------
+
+\subsection{Task 1: Filtering}
+
+%----------------------------------------------------------------------------------------
+%	TASK 2
+%----------------------------------------------------------------------------------------
+
+\subsection{Task 2: Heat diffusion}
+
+%----------------------------------------------------------------------------------------
+%	TASK 3
+%----------------------------------------------------------------------------------------
+
+\subsection{Task 3: Variational approach}
+
+
+%----------------------------------------------------------------------------------------
+%	TASK 4
+%----------------------------------------------------------------------------------------
+
+\subsection{Task 4: Comparison}
+
+\begin{itemize}
+	\item How can you describe the results? Does any of these methods give better results than the others? 
+	\item What are the benefits and drawbacks of each methods?
+	\item Can you explain the motivations behind each of the methods? 
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+
+\bibliography{reference} 
+\bibliographystyle{ieeetr}
+
+\end{document}

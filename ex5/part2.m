@@ -25,8 +25,11 @@ title('Noisy image')
 box off
 
 %% Your turn
-
 % parameters
+gf_on = false;
+hd_on = false;
+va_on = true;
+
 % gaussian filtering
 gf_sigma = 0.5;
 gf_iter = [8, 16, 24, 32];
@@ -35,74 +38,144 @@ gf_iter = [8, 16, 24, 32];
 hd_step = 0.1;
 hd_iter = [25, 50, 75, 100];
 
+% variational method
+lambda = 2;
+
 %% TASK1: FILTERING
-% image
-I_gf = double(In);
-
-% size
-gf_radius = ceil(3 * gf_sigma);
-gf_size = 2 * gf_radius + 1;
-
-% kernel
-H_gf = GaussianKernel(gf_size, gf_sigma);
-
-% figure
-figure(2)
-subplot_idx = 1;
-
-for i=1:gf_iter(end)    
-    % padding
-    I_gf = ImagePadding(I_gf, [gf_radius, gf_radius]);
+if gf_on
+    % image
+    I_gf = double(In);
     
-    % convolution
-    I_gf = conv2(I_gf, H_gf, 'valid');
+    % size
+    gf_radius = ceil(3 * gf_sigma);
+    gf_size = 2 * gf_radius + 1;
     
-    if gf_iter(subplot_idx) == i
-        % subplot 
-        subplot(2, 2, subplot_idx)
-        imshow(uint8(I_gf))
-        title(['Filtered', num2str(i), 'times'])
+    % kernel
+    H_gf = GaussianKernel(gf_size, gf_sigma);
+    
+    % error evolution
+    errors_gf = zeros(gf_iter(end), 1);
+    
+    % figure
+    figure(2)
+    subplot_idx = 1;
+    
+    for i=1:gf_iter(end)
+        % padding
+        I_gf = ImagePadding(I_gf, [gf_radius, gf_radius]);
         
-        subplot_idx = subplot_idx + 1;
+        % convolution
+        I_gf = conv2(I_gf, H_gf, 'valid');
+        
+        if gf_iter(subplot_idx) == i
+            % subplot
+            subplot(2, 2, subplot_idx)
+            imshow(uint8(I_gf))
+            title(['Filtered', num2str(i), 'times'])
+            
+            subplot_idx = subplot_idx + 1;
+        end
+        
+        % error
+        error = Error(double(Iorig), I_gf);
+        errors_gf(i) = error;
     end
     
-    % error 
-    error = I_gf - double(In);
+    % error figure
+    figure(3)
+    plot(errors_gf)
+    title('Evolution of the errors over the number of filtering')
+    ylabel('Mean squared error')
+    xlabel('Number of filtering')
 end
 
 %% TASK2: HEAT DIFFUSION
-I_hd = double(In);
-
-% kernel
-H_hd = LaplaceKernel;
-
-% size
-hd_radius = floor(size(H_hd, 1) / 2);
-
-% figure
-figure(3)
-subplot_idx = 1;
-
-for i=1:hd_iter(end)
-    % padding
-    I_hd_pad = ImagePadding(I_hd, [hd_radius, hd_radius]);
+if hd_on
+    I_hd = double(In);
     
-    % convolution 
-    I_hd = I_hd + conv2(I_hd_pad, H_hd, 'valid') * hd_step;
+    % kernel
+    H_hd = LaplaceKernel;
     
-    if hd_iter(subplot_idx) == i
-        % subplot 
-        subplot(2, 2, subplot_idx)
-        imshow(uint8(I_hd))
-        title(['Filtered', num2str(i), 'times'])
+    % size
+    hd_radius = floor(size(H_hd, 1) / 2);
+    
+    % error evolution
+    errors_hd = zeros(hd_iter(end), 1);
+    
+    % figure
+    figure(4)
+    subplot_idx = 1;
+    
+    for i=1:hd_iter(end)
+        % padding
+        I_hd_pad = ImagePadding(I_hd, [hd_radius, hd_radius]);
         
-        subplot_idx = subplot_idx + 1;
+        % convolution
+        I_hd = I_hd + conv2(I_hd_pad, H_hd, 'valid') * hd_step;
+        
+        if hd_iter(subplot_idx) == i
+            % subplot
+            subplot(2, 2, subplot_idx)
+            imshow(uint8(I_hd))
+            title(['Filtered', num2str(i), 'times'])
+            
+            subplot_idx = subplot_idx + 1;
+        end
+        
+        % error
+        error = Error(double(Iorig), I_hd);
+        errors_hd(i) = error;
     end
-        
-    % error 
-    error = I_hd - double(In);
+    
+    % error figure
+    figure(5)
+    plot(errors_hd)
+    title('Evolution of the errors over the iterations')
+    ylabel('Mean squared error')
+    xlabel('Iteration')
 end
 
+%% TASK3: VARIATIONAL METHOD
+if va_on
+    I_va = double(In);
+    
+    % pixel size of image
+    n = h * w;
+    
+    % A matrix
+    A = sparse(n, n);
+    
+    % main diagonal term 
+    A = A + sparse(1:n, 1:n, 1 + 4 * lambda, n, n);
+    
+    % k=1 diagonal term 
+    A = A + sparse(1:(n-1), 2:n, -lambda, n, n);
+  
+    % k=-1 diagonal term
+    A = A + sparse(2:n, 1:(n-1), -lambda, n, n);
+    
+    % k=h diagonal term
+    A = A + sparse(1:(n-h), (h+1):n, -lambda, n, n);
+    
+    % k=-h diagonal term
+    A = A + sparse((h+1):n, 1:(n-h), -lambda, n, n);
+    
+    % linear operation (inv(A) * I0 = I)
+    I_va = A\(I_va(:));
+    I_va = reshape(I_va, h, w);
+    
+    % figure
+    figure(6)
+    subplot(1, 2, 1)
+    imshow(In)
+    title('Noisy image')
+    
+    subplot(1, 2, 2)
+    imshow(uint8(I_va))
+    title('Variational denoising')
+end
+
+%% FUNCTIONS
 function [H] = GaussianKernel(gf_size, gf_sigma)
     H = fspecial('Gaussian', [gf_size, gf_size], gf_sigma);
 end
@@ -113,7 +186,7 @@ end
 
 function [pad_img] = ImagePadding(img, padsize, type)
     
-    if nargin == 2 
+    if nargin == 2
         % default is replicate
         pad_img = padarray(img, padsize, 'replicate');
     elseif nargin == 3
@@ -128,4 +201,9 @@ function [pad_img] = ImagePadding(img, padsize, type)
     else
         error('image padding error: the number of arguments')
     end
+end
+
+function [error] = Error(I_orig, I)
+    % mean squared error
+    error = mean((I_orig(:) - I(:)) .^ 2);
 end
