@@ -90,6 +90,8 @@
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 \DeclareMathOperator*{\argmin}{arg\,min} % Jan Hlavacek
 
+\newtheorem{theorem}{Theorem}
+
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
@@ -268,6 +270,69 @@ In this section, three different denoising methods were implemented and compared
 
 \subsection{Task 3: Variational approach}
 
+
+%----------------------------------------------------------------------------------------
+\subsubsection{Description}
+
+Finally, variational approach was implemented. This method considers the image as function of the space of all images. 
+TODO
+
+\paragraph{Derivation of Euler-Lagrange equation}
+
+The energy function for denoising problem can be defined as follows:
+\begin{align}
+	E(I) = \int_{\Omega}\Big[\big(I(\vec{x}) - I_0(\vec{x})\big)^2 + \lambda \norm{\nabla_{\vec{x}} I(\vec{x})}^2 \Big]	d\vec{x}
+\end{align}
+
+where, $\Omega = \mathbb{R}^2$ is the domain of the 2D image, $I_0$ the noisy image, and $\lambda$ a regularization parameter. $I, I_0 \in \mathcal{V} = \mathcal{L}^2(\Omega)$. \\
+
+Let's define the function $L(I, \nabla I, \vec{x})$ as follows: 
+\begin{align}
+	L(I, \nabla I, \vec{x}) = \Big[\big(I(\vec{x}) - I_0(\vec{x})\big)^2 + \lambda \norm{\nabla_{\vec{x}} I(\vec{x})}^2 \Big]
+\end{align}
+
+Then the G\^ateaux derivative is given by 
+\begin{align}
+	\delta E(I;h) &= \lim_{\alpha \to 0} \frac{1}{\alpha}\Big(E(I + \alpha h) - E(I)\Big) \\
+	&= \lim_{\alpha \to 0} \frac{1}{\alpha} \int_\Omega \Big(L(I + \alpha h, \nabla I + \alpha \nabla h, \vec{x}) - L(I, \nabla I, \vec{x}) \Big) d\vec{x} \\ 
+	\shortintertext{apply Taylor expansion:} 
+	&= \lim_{\alpha \to 0} \frac{1}{\alpha} \int_\Omega \Big( \cancel{L(I, \nabla I, \vec{x})} + \alpha \frac{\partial L}{\partial I} h + \alpha \frac{\partial L}{\partial (\nabla I)} \nabla h + o(\alpha^2) - \cancel{L(I, \nabla I, \vec{x})} \Big) d\vec{x} \\
+	&= \int_\Omega \Big( \frac{\partial L}{\partial I} h + \frac{\partial L}{\partial (\nabla I)} \nabla h \Big) d\vec{x} \\
+	\shortintertext{apply integration by parts and $h = 0$ on boundary :} 
+	&= \int_\Omega \frac{\partial L}{\partial I} h \, d\vec{x} + \cancelto{0}{h \frac{\partial L}{\partial (\nabla I)} \Bigg|_\Omega}  - \int_\Omega \nabla \frac{\partial L}{\partial (\nabla I)} h \, d\vec{x} \\
+	&= \int_\Omega \Big( \frac{\partial L}{\partial I} - \nabla \frac{\partial L}{\partial (\nabla I)} \Big)h(\vec{x}) \, d\vec{x}
+\end{align} \\
+
+Remark following theorem:
+
+\begin{theorem}
+	If $\hat{u}$ is an extremum of a functional $E : \mathcal{V} \rightarrow \mathbb{R}$, then \\
+	\begin{equation*}
+		\delta E(\hat{u}, h) = 0 \quad \forall h \in \mathcal{V}.
+	\end{equation*} \\
+\end{theorem}
+
+By (2.8) and \textbf{Theorem 1}, 
+\begin{equation}
+	\frac{\partial L}{\partial I} - \nabla \frac{\partial L}{\partial (\nabla I)} = 0	
+\end{equation}
+
+
+Plug (2.2) into (2.9): 
+\begin{align}
+	\frac{\partial L}{\partial I} &= 2 \big(I - I_0) \\
+	\nabla \frac{\partial L}{\partial (\nabla I)} &= 2 \lambda \, \nabla \cdot (\nabla I) \\ 
+	&= 2 \lambda \, \textbf{div}(\nabla I)
+\end{align}
+ 
+TODO CHECK!
+
+
+
+
+\paragraph{Vectorization and Linear operation}
+
+\subsubsection{Results}
 
 %----------------------------------------------------------------------------------------
 %	TASK 4
