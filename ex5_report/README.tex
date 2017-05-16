@@ -128,17 +128,16 @@ MathWorks, MATLAB R2016b (9.1.0.441655) \\
 The \filename{code} directory contains the followings:
 
 \begin{filedescription}
-	\item [part1\_1.m] script .m file for exercise part 1.1.
-	\item [part1\_2.m] script .m file for exercise part 1.2.
-	\item [part2\_1.m] script .m file for exercise part 2.1. 
-	\item [part2\_2.m] script .m file for exercise part 2.2. 
-	\item [PART I] provided directory for part 1.
-	\item [PART II] directory which contains implementation of part 2 and provided files including skeleton code etc.
-	\item [img] directory which contains images for testing part 2.2   
-	\item [result] result image of part 1 and part 2.
+	\item [part2] script .m file for exercise part 2.
+	\item [lotr.jpg] original image file.
+	\item [results] directory contains result images of part 2.
 \end{filedescription}
 
-For running each .m script, check dependencies (especially for \filename{part2\_1.m} and \filename{part2\_2.m}) and adjust parameters first. Note that \textbf{these scripts only work properly in MATLAB R2016b environment} and \textbf{have done in Mac OS 10.11.6.} More details are stated in the \textit{Running} section of each parts.
+For running \filename{part2.m} script, adjust parameters first. TODO
+
+Note that \textbf{these script was only tested in MATLAB R2016b environment}.
+
+\pagebreak
 
 %----------------------------------------------------------------------------------------
 %	PROBLEM 1
@@ -232,8 +231,30 @@ Dual quaternions causes "flipping artifacts" which occurs with joint rotations o
 	
 	The proof has been done.
 	
-	\item 
+	\item Consider rigid transformations in the 2D $xy$-plane. For these transformations, the rotation is always around the $z$ (or $-z$)-axis, i.e. $\vec{s}_0$ is fixed to the $z$-axis. On the other hand, a dual quaternion encodes translations only along $\vec{s}_0$, which are in this case always zero, since we can only translate in the $xy$-plane. Then, how can a dual quaternion represent a rotation and translation in the $xy$-plane, such as the one depicted in Figure 1.1 (a)? 
 	
+	\begin{figure}[H]
+	\caption{Dual quaternion (or screw) representation of 2D translation\label{fig:simple}}
+	\centering
+	\begin{subfigure}[b]{0.675\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{task2-fig.png}
+		}
+	\caption{An object (left) is first rotated around its center of mass (middle) and then translated (right)}
+	\end{subfigure}
+	\hspace{5mm}
+	\vspace{5mm}
+	\begin{subfigure}[b]{0.225\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{task2-fig-2.png}
+		}
+	\caption{Shifting the screw axis}
+	\end{subfigure}
+	\end{figure}
+	
+	Dual quaternion can be intuitively represented by a screw which of unit vector $\vec{s}_0$ as a screw axis, $\theta_0$ the angle of rotation and $\theta_\epsilon$ is the amount of translation. For the 2D case of Figure 1.1, if the axis of screw is shifted to point $\vec{r}$, as shown in Figure 1.1 (b) such transformation can be represented as a screw axis i.e. dual quaternion. In this case, $\vec{s}_\epsilon = \vec{r} \times \vec{s}_0$   
+	
+	\textbf{TODO additional explanation + r draw} 
 	
 \end{itemize}
 
@@ -242,7 +263,7 @@ Dual quaternions causes "flipping artifacts" which occurs with joint rotations o
 %	PROBLEM 2 
 %----------------------------------------------------------------------------------------
 
-\section{exercise part 2: Interactive Segmentation with Graph Cut}
+\section{exercise part 2: Variational Methods - Denoising problems}
 
 In this section, three different denoising methods were implemented and compared:
 
@@ -333,6 +354,115 @@ TODO CHECK!
 \paragraph{Vectorization and Linear operation}
 
 \subsubsection{Results}
+
+\graphicspath{{results/}}
+
+\begin{figure}[b]
+	\caption{Denoised image with variational method\label{fig:simple}}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{noisy_image.jpg}
+		}
+	\caption{Noisy image}
+	\end{subfigure}
+	\hspace{5mm}
+	\vspace{5mm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{noisy_image.jpg}
+		}
+	\caption{Variational denoising}
+	\end{subfigure}
+\end{figure}
+
+
+
+\begin{figure}[b]
+	\caption{Denoised image after filtering multiple time\label{fig:simple}}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{gf_8.jpg}
+		}
+	\caption{Filtered 8 times}
+	\end{subfigure}
+	\hspace{5mm}
+	\vspace{5mm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{gf_16.jpg}
+		}
+	\caption{Filtered 16 times}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{gf_24.jpg}
+		}
+	\caption{Filtered 24 times}
+	\end{subfigure}
+	\hspace{5mm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{gf_32.jpg}
+		}
+	\caption{Filtered 32 times}
+	\end{subfigure}
+\end{figure}
+
+
+\begin{figure}[b]
+	\caption{Denoised image after diffusion\label{fig:simple}}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{hd_25.jpg}
+		}
+	\caption{Diffusion at time 25}
+	\end{subfigure}
+	\hspace{5mm}
+	\vspace{5mm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{hd_50.jpg}
+		}
+	\caption{Diffusion at time 50}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{hd_75.jpg}
+		}
+	\caption{Diffusion at time 75}
+	\end{subfigure}
+	\hspace{5mm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{hd_100.jpg}
+		}
+	\caption{Diffusion at time 100}
+	\end{subfigure}
+\end{figure}
+
+
+\begin{figure}[b]
+	\caption{Denoised image with variational method\label{fig:simple}}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{noisy_image.jpg}
+		}
+	\caption{Noisy image}
+	\end{subfigure}
+	\hspace{5mm}
+	\vspace{5mm}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va.jpg}
+		}
+	\caption{Variational denoising}
+	\end{subfigure}
+\end{figure}
+
 
 %----------------------------------------------------------------------------------------
 %	TASK 4

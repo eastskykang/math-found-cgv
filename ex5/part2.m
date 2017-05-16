@@ -26,9 +26,14 @@ box off
 
 %% Your turn
 % parameters
-gf_on = false;
-hd_on = false;
+
+% features 
+gf_on = true;
+hd_on = true;
 va_on = true;
+
+save_png = true;
+results_dir = './results';
 
 % gaussian filtering
 gf_sigma = 0.5;
@@ -40,6 +45,21 @@ hd_iter = [25, 50, 75, 100];
 
 % variational method
 lambda = 2;
+
+% image export noisy img
+if save_png
+    
+    % check if results dir exsits
+    if exist(results_dir, 'dir') ~= 7
+        error(['results directory does not exists. ', ... 
+            'make variable save_png false ', ...
+            'or create directory with path = ', ...
+            results_dir ])
+    end
+    
+    % export
+    imwrite(uint8(In), fullfile(results_dir, 'noisy_image.jpg'))
+end
 
 %% TASK1: FILTERING
 if gf_on
@@ -71,9 +91,14 @@ if gf_on
             % subplot
             subplot(2, 2, subplot_idx)
             imshow(uint8(I_gf))
-            title(['Filtered', num2str(i), 'times'])
+            title(['Filtered ', num2str(i), ' times'])
             
             subplot_idx = subplot_idx + 1;
+            
+            % image export
+            if save_png
+                imwrite(uint8(I_gf), fullfile(results_dir, ['gf_', num2str(i), '.jpg']))
+            end
         end
         
         % error
@@ -117,9 +142,14 @@ if hd_on
             % subplot
             subplot(2, 2, subplot_idx)
             imshow(uint8(I_hd))
-            title(['Filtered', num2str(i), 'times'])
+            title(['Diffusion at time ', num2str(i)])
             
             subplot_idx = subplot_idx + 1;
+            
+            % image export
+            if save_png
+                imwrite(uint8(I_hd), fullfile(results_dir, ['hd_', num2str(i), '.jpg']))
+            end
         end
         
         % error
@@ -173,6 +203,11 @@ if va_on
     subplot(1, 2, 2)
     imshow(uint8(I_va))
     title('Variational denoising')
+    
+    % image export
+    if save_png
+        imwrite(uint8(I_va), fullfile(results_dir, 'va.jpg'))
+    end
 end
 
 %% FUNCTIONS
