@@ -32,7 +32,7 @@ gf_on = true;
 hd_on = true;
 va_on = true;
 
-save_png = true;
+save_jpg = true;
 results_dir = './results';
 
 % gaussian filtering
@@ -47,7 +47,7 @@ hd_iter = [25, 50, 75, 100];
 lambda = 2;
 
 % image export noisy img
-if save_png
+if save_jpg
     
     % check if results dir exsits
     if exist(results_dir, 'dir') ~= 7
@@ -96,7 +96,7 @@ if gf_on
             subplot_idx = subplot_idx + 1;
             
             % image export
-            if save_png
+            if save_jpg
                 imwrite(uint8(I_gf), fullfile(results_dir, ['gf_', num2str(i), '.jpg']))
             end
         end
@@ -147,7 +147,7 @@ if hd_on
             subplot_idx = subplot_idx + 1;
             
             % image export
-            if save_png
+            if save_jpg
                 imwrite(uint8(I_hd), fullfile(results_dir, ['hd_', num2str(i), '.jpg']))
             end
         end
@@ -205,7 +205,7 @@ if va_on
     title('Variational denoising')
     
     % image export
-    if save_png
+    if save_jpg
         imwrite(uint8(I_va), fullfile(results_dir, 'va.jpg'))
     end
 end
