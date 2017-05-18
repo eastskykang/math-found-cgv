@@ -162,15 +162,15 @@ Note that \textbf{these script was only tested in MATLAB R2016b environment}.
 \begin{itemize}
 	\item How do dual quaternions represent rotations and translations? \\
 
-Unit dual quaternions naturally represent 3D rotation, when the dual part $\vec{q_\epsilon} = 0$ (thus $\hat{\vec{q}} = \vec{q_0} + \epsilon \vec{q_\epsilon} = \vec{q_0}$). Dual quaternion multiplication with unit dual quaternion $\hat{\vec{t}} = 1 + \frac{\epsilon}{2}(t_0 i + t_1 j + t_2 k)$ corresponds to translation by vector $(t_0, t_1, t_2)$ represent 3D translation.\\
+Unit dual quaternions naturally represent 3D rotation, when the dual part $\vec{q_\epsilon} = 0$ (thus $\hat{\vec{q}} = \vec{q_0} + \epsilon \vec{q_\epsilon} = \vec{q_0}$). Dual quaternion multiplication with unit dual quaternion $\hat{\vec{t}} = 1 + \frac{\epsilon}{2}(t_0 i + t_1 j + t_2 k)$ corresponds to translation by vector $(t_0, t_1, t_2)$ represent 3D translation. \cite{kavan2008geometric} \\
 	
 	\item What is the advantage of representing rigid transformations with dual quaternions for blending? \\
 	
-The linear combination of dual quaternions does not make artifacts or skin-collapsing effect, thus blending using dual quaternions is fast and more robust than using homogeneous matrix. Moreover, since dual quaternions require only 8 floats per transformation, instead of the 12 required by matrices, they are more memory efficient.\\
+The linear combination of dual quaternions does not make artifacts or skin-collapsing effect, thus blending using dual quaternions is fast and more robust than using homogeneous matrix. Moreover, since dual quaternions require only 8 floats per transformation, instead of the 12 required by matrices, they are more memory efficient. \cite{kavan2008geometric}\\
 	
 	\item Briefly explain one fundamental disadvantage of using quaternion based shortest path blending for rotations as compared to linear blend skinning? \\
 	
-Dual quaternions causes "flipping artifacts" which occurs with joint rotations of more than 180 degrees. Because of its shortest path property, when the other path becomes shorter, the skin changes its shape discontinuously. \\
+Dual quaternions causes "flipping artifacts" which occurs with joint rotations of more than 180 degrees. Because of its shortest path property, when the other path becomes shorter, the skin changes its shape discontinuously. \cite{kavan2008geometric}\\
 
 \end{itemize}
 
@@ -259,7 +259,7 @@ Dual quaternions causes "flipping artifacts" which occurs with joint rotations o
 	\end{subfigure}
 	\end{figure}
 	
-	For the 2D case of Figure 1.1, if the axis of dual quaternion(screw) is shifted to point $\vec{r}$ as shown in Figure 1.1 (b), such transformation can be represented as a screw axis i.e. dual quaternion. In this case, $\vec{s}_\epsilon = \vec{r} \times \vec{s}_0$.
+	For the 2D case of Figure 1.1, if the axis of dual quaternion(screw) is shifted to point $\vec{r}$ as shown in Figure 1.1 (b), such transformation can be represented as a screw axis i.e. dual quaternion. In this case, $\vec{s}_\epsilon = \vec{r} \times \vec{s}_0$. \cite{kavan2008geometric}
 	
 \end{itemize}
 
@@ -562,6 +562,34 @@ Plug (2.2) into (2.9):
 	\caption{Variational denoising}
 	\end{subfigure}
 \end{figure}
+
+
+
+\begin{figure}[H]
+	\caption{Denoised image with different $\tau$\label{fig:simple}}
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va_l01.jpg}
+		}
+	\caption{$\lambda = 0.1$ (MSE $= 530.9$)}
+	\end{subfigure}
+	\hspace{5mm}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va.jpg}
+		}
+	\caption{$\lambda = 2$ (MSE $= 311.5$)}
+	\end{subfigure}
+	\hspace{5mm}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va_l20.jpg}
+		}
+	\caption{$\lambda = 20$ (MSE $= 1416.4$)}
+	\end{subfigure}
+\end{figure}
+
 
 
 

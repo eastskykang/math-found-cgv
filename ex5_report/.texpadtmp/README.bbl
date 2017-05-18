@@ -1,3 +1,8 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{kavan2008geometric}
+L.~Kavan, S.~Collins, J.~{\v{Z}}{\'a}ra, and C.~O'Sullivan, ``Geometric
+  skinning with approximate dual quaternion blending,'' {\em ACM Transactions
+  on Graphics (TOG)}, vol.~27, no.~4, p.~105, 2008.
 
 \end{thebibliography}

@@ -32,7 +32,7 @@ gf_on = true;
 hd_on = true;
 va_on = true;
 
-save_jpg = true;
+save_jpg = false;
 results_dir = './results';
 
 % gaussian filtering
