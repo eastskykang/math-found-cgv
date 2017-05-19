@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  19 MAY 2017 01:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  19 MAY 2017 12:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1214,97 +1214,102 @@ File: results/gf_32_s10.jpg Graphic file (type jpg)
  <use results/gf_32_s10.jpg>
 Package pdftex.def Info: results/gf_32_s10.jpg used on input line 376.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/hd_25.jpg, id=120, 652.4375pt x 471.7625pt>
+ [6 <./results/gf_errors.png (PNG copy)> <./results/gf_32_s01.jpg> <./results/gf_32_s10.jpg>] <results/hd_25.jpg, id=126, 652.4375pt x 471.7625pt>
 File: results/hd_25.jpg Graphic file (type jpg)
  <use results/hd_25.jpg>
-Package pdftex.def Info: results/hd_25.jpg used on input line 395.
+Package pdftex.def Info: results/hd_25.jpg used on input line 415.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/hd_50.jpg, id=121, 652.4375pt x 471.7625pt>
+ <results/hd_50.jpg, id=127, 652.4375pt x 471.7625pt>
 File: results/hd_50.jpg Graphic file (type jpg)
  <use results/hd_50.jpg>
-Package pdftex.def Info: results/hd_50.jpg used on input line 403.
+Package pdftex.def Info: results/hd_50.jpg used on input line 423.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/hd_75.jpg, id=122, 652.4375pt x 471.7625pt>
+ <results/hd_75.jpg, id=128, 652.4375pt x 471.7625pt>
 File: results/hd_75.jpg Graphic file (type jpg)
  <use results/hd_75.jpg>
-Package pdftex.def Info: results/hd_75.jpg used on input line 409.
+Package pdftex.def Info: results/hd_75.jpg used on input line 429.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/hd_100.jpg, id=123, 652.4375pt x 471.7625pt>
+ <results/hd_100.jpg, id=129, 652.4375pt x 471.7625pt>
 File: results/hd_100.jpg Graphic file (type jpg)
  <use results/hd_100.jpg>
-Package pdftex.def Info: results/hd_100.jpg used on input line 416.
+Package pdftex.def Info: results/hd_100.jpg used on input line 436.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- [6 <./results/gf_errors.png (PNG copy)> <./results/gf_32_s01.jpg> <./results/gf_32_s10.jpg>] <results/hd_errors.png, id=130, 562.1pt x 421.575pt>
+ <results/hd_errors.png, id=130, 562.1pt x 421.575pt>
 File: results/hd_errors.png Graphic file (type png)
  <use results/hd_errors.png>
-Package pdftex.def Info: results/hd_errors.png used on input line 426.
+Package pdftex.def Info: results/hd_errors.png used on input line 446.
 (pdftex.def)             Requested size: 418.25555pt x 313.69101pt.
- [7 <./results/hd_25.jpg> <./results/hd_50.jpg> <./results/hd_75.jpg> <./results/hd_100.jpg>] <results/hd_25_t001.jpg, id=137, 652.4375pt x 471.7625pt>
+ [7 <./results/hd_25.jpg> <./results/hd_50.jpg> <./results/hd_75.jpg> <./results/hd_100.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 450--451
+
+ []
+
+<results/hd_25_t001.jpg, id=142, 652.4375pt x 471.7625pt>
 File: results/hd_25_t001.jpg Graphic file (type jpg)
  <use results/hd_25_t001.jpg>
-Package pdftex.def Info: results/hd_25_t001.jpg used on input line 438.
+Package pdftex.def Info: results/hd_25_t001.jpg used on input line 460.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
 File: results/hd_25.jpg Graphic file (type jpg)
  <use results/hd_25.jpg>
-Package pdftex.def Info: results/hd_25.jpg used on input line 445.
+Package pdftex.def Info: results/hd_25.jpg used on input line 467.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/hd_25_t05.jpg, id=138, 652.4375pt x 471.7625pt>
+ <results/hd_25_t05.jpg, id=143, 652.4375pt x 471.7625pt>
 File: results/hd_25_t05.jpg Graphic file (type jpg)
  <use results/hd_25_t05.jpg>
-Package pdftex.def Info: results/hd_25_t05.jpg used on input line 452.
+Package pdftex.def Info: results/hd_25_t05.jpg used on input line 474.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/hd_errors_t001.png, id=139, 562.1pt x 421.575pt>
+ <results/hd_errors_t001.png, id=144, 562.1pt x 421.575pt>
 File: results/hd_errors_t001.png Graphic file (type png)
  <use results/hd_errors_t001.png>
-Package pdftex.def Info: results/hd_errors_t001.png used on input line 465.
+Package pdftex.def Info: results/hd_errors_t001.png used on input line 486.
 (pdftex.def)             Requested size: 188.21371pt x 141.15933pt.
- <results/hd_errors_t05.png, id=140, 562.1pt x 421.575pt>
+ <results/hd_errors_t05.png, id=145, 562.1pt x 421.575pt>
 File: results/hd_errors_t05.png Graphic file (type png)
  <use results/hd_errors_t05.png>
-Package pdftex.def Info: results/hd_errors_t05.png used on input line 471.
+Package pdftex.def Info: results/hd_errors_t05.png used on input line 492.
 (pdftex.def)             Requested size: 188.21371pt x 141.15933pt.
  [8 <./results/hd_errors.png (PNG copy)> <./results/hd_25_t001.jpg> <./results/hd_25_t05.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 497--498
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
 
  []
 
 [9 <./results/hd_errors_t001.png (PNG copy)> <./results/hd_errors_t05.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 514--515
+Underfull \hbox (badness 10000) in paragraph at lines 535--536
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 519--520
+Underfull \hbox (badness 10000) in paragraph at lines 540--541
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 522--523
+Underfull \hbox (badness 10000) in paragraph at lines 543--544
 
  []
 
 File: results/noisy_image.jpg Graphic file (type jpg)
 <use results/noisy_image.jpg>
-Package pdftex.def Info: results/noisy_image.jpg used on input line 553.
+Package pdftex.def Info: results/noisy_image.jpg used on input line 574.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/va.jpg, id=162, 652.4375pt x 471.7625pt>
+ <results/va.jpg, id=167, 652.4375pt x 471.7625pt>
 File: results/va.jpg Graphic file (type jpg)
  <use results/va.jpg>
-Package pdftex.def Info: results/va.jpg used on input line 561.
+Package pdftex.def Info: results/va.jpg used on input line 582.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/va_l01.jpg, id=163, 652.4375pt x 471.7625pt>
+ <results/va_l01.jpg, id=168, 652.4375pt x 471.7625pt>
 File: results/va_l01.jpg Graphic file (type jpg)
  <use results/va_l01.jpg>
-Package pdftex.def Info: results/va_l01.jpg used on input line 574.
+Package pdftex.def Info: results/va_l01.jpg used on input line 595.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
 File: results/va.jpg Graphic file (type jpg)
  <use results/va.jpg>
-Package pdftex.def Info: results/va.jpg used on input line 581.
+Package pdftex.def Info: results/va.jpg used on input line 602.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/va_l20.jpg, id=164, 652.4375pt x 471.7625pt>
+ <results/va_l20.jpg, id=169, 652.4375pt x 471.7625pt>
 File: results/va_l20.jpg Graphic file (type jpg)
  <use results/va_l20.jpg>
-Package pdftex.def Info: results/va_l20.jpg used on input line 588.
+Package pdftex.def Info: results/va_l20.jpg used on input line 609.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
  [10 <./results/va.jpg>] (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.bbl
 
@@ -1315,32 +1320,32 @@ Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              This could result in several error messages on input line 1.
 
 ) [11 <./results/va_l01.jpg> <./results/va_l20.jpg>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 617.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 617.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 638.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 638.
  (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 617.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 617.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 638.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 638.
 Package rerunfilecheck Info: File `README.out' has not changed.
 (rerunfilecheck)             Checksum: C5A95B8D7B3454D7B0BB956A5DE965B8;1312.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 617.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 638.
  ) 
 Here is how much of TeX's memory you used:
- 33495 strings out of 493014
- 758443 string characters out of 6133351
- 1104263 words of memory out of 5000000
+ 33499 strings out of 493014
+ 758495 string characters out of 6133351
+ 1104264 words of memory out of 5000000
  36290 multiletter control sequences out of 15000+600000
  131987 words of font info for 141 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,19n,84p,8485b,736s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ml.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on /Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.pdf (11 pages, 1321429 bytes).
+Output written on /Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.pdf (11 pages, 1323469 bytes).
 PDF statistics:
- 239 PDF objects out of 1000 (max. 8388607)
- 187 compressed objects within 2 object streams
- 71 named destinations out of 1000 (max. 500000)
+ 245 PDF objects out of 1000 (max. 8388607)
+ 193 compressed objects within 2 object streams
+ 75 named destinations out of 1000 (max. 500000)
  213 words of extra memory for PDF output out of 10000 (max. 10000000)
 

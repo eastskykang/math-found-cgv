@@ -351,7 +351,7 @@ By convolution with Gaussian filter($\sigma = 0.5$), the gaussian noise was deno
 
 As the iteration goes on, mean square error(MSE) changes as Figure 2.5. For $\sigma = 0.5$, the MSE is the smallest when the number of filtering is 10. \\ 
 
-The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determines level of smoothing. If $\sigma$ is too small or too large, filtering does not show effective denoising.
+Results with different value of $\sigma$ are as Figure 2.6. $\sigma$ determines level of smoothing. If $\sigma$ is too small or too large, filtering does not show effective denoising.
 
 \begin{figure}[b]
 	\caption{Denoised image with different $\sigma$\label{fig:simple}}
@@ -385,6 +385,26 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 
 \subsection{Task 2: Heat diffusion}
 
+Let $I_t$ the image at scale $t$, then heat equation is defined as follows:
+
+\begin{equation}
+	\frac{\partial I_t}{\partial t} - \Delta I_t = 0
+\end{equation}
+
+where $\Delta$ is the discrete 2D laplacian operator. For discretizing and solving (2.1), forward finite differences were used:
+
+\begin{align}
+	\frac{I_{t+1} - I_t}{\tau} &= \Delta I_t \\
+	I_{t+1} &= I_t + \tau \cdot \Delta I_t
+\end{align}
+
+For 2D Laplacian at pixel $(x, y)$, the following was used:
+
+\begin{equation}
+	\Delta I(x, y) = I(x+1, y) + I(x-1, y) + I(x, y+1) + I(x, y - 1) - 4 \cdot I(x, y)
+\end{equation}
+
+Figure 2.8 shows the result images with different number of iteration of (2.3). Neumann boundary condition was used for boundary padding.
 
 \begin{figure}[H]
 	\caption{Denoised image after diffusion\label{fig:simple}}
@@ -424,13 +444,15 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 	\noindent\makebox[0.6\textwidth]{
 	  \includegraphics[width=\textwidth]{hd_errors.png}
 	}
-\caption{Mean square error evolution of Gaussian filtering ($\sigma = 0.5$)}
+\caption{Mean square error evolution of Gaussian filtering ($\tau = 0.1$)}
 \end{figure}
 
+As the iteration goes on, mean square error(MSE) evolves as Figure 2.10. For $\tau = 0.1$, the MSE is the smallest when the number of iteration is \textbf{TODO} \\ 
 
+Results with different value of $\tau$ are as Figure 2.11. MSE evolution is as Figure 2. (TODO) If $\tau$ is too small, it takes longer time to find a optimal solution. In contrast, if $\tau$ is too large, the MSE diverges. 
 
-\begin{figure}[H]
-	\caption{Denoised image with different $\tau$\label{fig:simple}}
+\begin{figure}[b]
+	\caption{Denoised image with different $\tau$ \label{fig:simple}}
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
 		\noindent\makebox[\textwidth]{
@@ -454,10 +476,8 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 	\end{subfigure}
 \end{figure}
 
-
-
 \begin{figure}[H]
-	\caption{Denoised image with different $\tau$\label{fig:simple}}
+	\caption{Denoised image with different $\tau$ \label{fig:simple}}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\noindent\makebox[\textwidth]{
@@ -472,7 +492,6 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 	\caption{$\tau = 0.5$ (diverged)}
 	\end{subfigure}
 \end{figure}
-
 
 
 %----------------------------------------------------------------------------------------
@@ -535,10 +554,8 @@ Plug (2.2) into (2.9):
 	&= 2 \lambda \, \textbf{div}(\nabla_{\vec{x}} I)
 \end{align}
 
-
-
-
 \paragraph{Vectorization and Linear operation}
+
 
 
 %----------------------------------------------------------------------------------------
