@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  19 MAY 2017 00:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  21 MAY 2017 00:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -809,9 +809,7 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \enit@toks=\toks45
 \enit@inbox=\box44
 \enitdp@description=\count153
-) (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
- (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption.sty
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
  (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
@@ -828,7 +826,8 @@ Package caption Info: KOMA-Script document class.
 \c@ContinuedFloat=\count154
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
-)
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
 \c@subfigure=\count155
 \c@subtable=\count156
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/multirow/multirow.sty
@@ -923,76 +922,54 @@ overpic: relative positioning in percent
 )
 \enitdp@filedescription=\count179
 \enitdp@paramdescription=\count180
-LaTeX Font Info:    Redeclaring math alphabet \mathcal on input line 91.
+LaTeX Font Info:    Redeclaring math alphabet \mathcal on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathcal' in version `normal'
-(Font)                  FMS/futm/m/n --> OMS/cmsy/m/n on input line 91.
+(Font)                  FMS/futm/m/n --> OMS/cmsy/m/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathcal' in version `bold'
-(Font)                  FMS/futm/m/n --> OMS/cmsy/m/n on input line 91.
+(Font)                  FMS/futm/m/n --> OMS/cmsy/m/n on input line 92.
 \c@theorem=\count181
- (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.aux
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-
-LaTeX Warning: Label `fig:simple' multiply defined.
-
-)
+ (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.aux)
 \openout1 = `README.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 114.
-LaTeX Font Info:    Try loading font information for FML+futm on input line 114.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 115.
+LaTeX Font Info:    Try loading font information for FML+futm on input line 115.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/fmlfutm.fd
 File: fmlfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futm.
 )
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for FMS/futm/m/n on input line 114.
-LaTeX Font Info:    Try loading font information for FMS+futm on input line 114.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for FMS/futm/m/n on input line 115.
+LaTeX Font Info:    Try loading font information for FMS+futm on input line 115.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/fmsfutm.fd
 File: fmsfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FMS/futm.
 )
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 114.
-LaTeX Font Info:    Try loading font information for FMX+futm on input line 114.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 115.
+LaTeX Font Info:    Try loading font information for FMX+futm on input line 115.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/fmxfutm.fd
 File: fmxfutm.fd futm-extension
 )
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 114.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 114.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 115.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 115.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Try loading font information for T1+futs on input line 114.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Try loading font information for T1+futs on input line 115.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/t1futs.fd
 File: t1futs.fd 2004/03/02 Fontinst v1.926 font definitions for T1/futs.
 ) (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1022,7 +999,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package pgfplots notification 'compat/show suggested version=true': document has been generated with the most recent feature set (\pgfplotsset{compat=1.13}).
 
 \AtBeginShipoutBox=\box49
-Package hyperref Info: Link coloring OFF on input line 114.
+Package hyperref Info: Link coloring OFF on input line 115.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
  (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1030,248 +1007,254 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count188
 )
-LaTeX Info: Redefining \ref on input line 114.
-LaTeX Info: Redefining \pageref on input line 114.
-LaTeX Info: Redefining \nameref on input line 114.
+LaTeX Info: Redefining \ref on input line 115.
+LaTeX Info: Redefining \pageref on input line 115.
+LaTeX Info: Redefining \nameref on input line 115.
  (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.out) (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.out)
 \@outlinefile=\write4
 \openout4 = `README.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 117.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 118.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Try loading font information for FML+futmi on input line 117.
+LaTeX Font Info:    Try loading font information for FML+futmi on input line 118.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/fmlfutmi.fd
 File: fmlfutmi.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futmi.
 )
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 117.
+(Font)              scaled to size 13.24796pt on input line 118.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 117.
+(Font)              scaled to size 9.19998pt on input line 118.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 117.
+(Font)              scaled to size 7.35999pt on input line 118.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 117.
+(Font)              scaled to size 13.24796pt on input line 118.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 117.
+(Font)              scaled to size 9.19998pt on input line 118.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 117.
-LaTeX Font Info:    Try loading font information for U+msa on input line 117.
+(Font)              scaled to size 7.35999pt on input line 118.
+LaTeX Font Info:    Try loading font information for U+msa on input line 118.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 117.
+LaTeX Font Info:    Try loading font information for U+msb on input line 118.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 129.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `T1/futs/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/futs/b/it' tried instead on input line 129.
+(Font)              Font shape `T1/futs/b/it' tried instead on input line 130.
  [1
 
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for TS1+futs on input line 163.
+LaTeX Font Info:    Try loading font information for TS1+futs on input line 164.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/fourier/ts1futs.fd
 File: ts1futs.fd 2004/03/26 Fontinst v1.926 font definitions for TS1/futs.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 163--164
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
 
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 165.
+(Font)              scaled to size 10.07397pt on input line 166.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 165.
+(Font)              scaled to size 7.63599pt on input line 166.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 165.
+(Font)              scaled to size 5.51999pt on input line 166.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 165.
+(Font)              scaled to size 10.07397pt on input line 166.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 165.
+(Font)              scaled to size 7.63599pt on input line 166.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 165.
+(Font)              scaled to size 5.51999pt on input line 166.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <8.3> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 165.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 166.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <6> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 165.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 166.
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--168
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 171--172
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
-[2] [3] <task2-fig.png, id=85, 683.55376pt x 249.93375pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
+
+ []
+
+[2] [3] <task2-fig.png, id=97, 683.55376pt x 249.93375pt>
 File: task2-fig.png Graphic file (type png)
  <use task2-fig.png>
-Package pdftex.def Info: task2-fig.png used on input line 250.
+Package pdftex.def Info: task2-fig.png used on input line 251.
 (pdftex.def)             Requested size: 282.32376pt x 103.2286pt.
- <task2-fig-2.png, id=87, 436.63126pt x 500.87125pt>
+ <task2-fig-2.png, id=99, 436.63126pt x 500.87125pt>
 File: task2-fig-2.png Graphic file (type png)
  <use task2-fig-2.png>
-Package pdftex.def Info: task2-fig-2.png used on input line 255.
+Package pdftex.def Info: task2-fig-2.png used on input line 256.
 (pdftex.def)             Requested size: 94.11005pt x 107.9527pt.
 
-Underfull \hbox (badness 1675) in paragraph at lines 258--258
+Underfull \hbox (badness 1675) in paragraph at lines 259--259
 [][][]|\T1/futs/m/n/10 Shift-ing the screw
  []
 
-[4 <./task2-fig.png> <./task2-fig-2.png>] <lotr.jpg, id=99, 652.4375pt x 471.7625pt>
+[4 <./task2-fig.png> <./task2-fig-2.png>] <lotr.jpg, id=114, 652.4375pt x 471.7625pt>
 File: lotr.jpg Graphic file (type jpg)
  <use lotr.jpg>
-Package pdftex.def Info: lotr.jpg used on input line 284.
+Package pdftex.def Info: lotr.jpg used on input line 282.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/gray_image.jpg, id=100, 652.4375pt x 471.7625pt>
+ <results/gray_image.jpg, id=115, 652.4375pt x 471.7625pt>
 File: results/gray_image.jpg Graphic file (type jpg)
  <use results/gray_image.jpg>
-Package pdftex.def Info: results/gray_image.jpg used on input line 291.
+Package pdftex.def Info: results/gray_image.jpg used on input line 287.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/noisy_image.jpg, id=101, 652.4375pt x 471.7625pt>
+ <results/noisy_image.jpg, id=116, 652.4375pt x 471.7625pt>
 File: results/noisy_image.jpg Graphic file (type jpg)
  <use results/noisy_image.jpg>
-Package pdftex.def Info: results/noisy_image.jpg used on input line 298.
+Package pdftex.def Info: results/noisy_image.jpg used on input line 292.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/gf_8.jpg, id=102, 652.4375pt x 471.7625pt>
+ <results/gf_8.jpg, id=117, 652.4375pt x 471.7625pt>
 File: results/gf_8.jpg Graphic file (type jpg)
  <use results/gf_8.jpg>
-Package pdftex.def Info: results/gf_8.jpg used on input line 318.
+Package pdftex.def Info: results/gf_8.jpg used on input line 310.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/gf_16.jpg, id=103, 652.4375pt x 471.7625pt>
+ <results/gf_16.jpg, id=118, 652.4375pt x 471.7625pt>
 File: results/gf_16.jpg Graphic file (type jpg)
  <use results/gf_16.jpg>
-Package pdftex.def Info: results/gf_16.jpg used on input line 326.
+Package pdftex.def Info: results/gf_16.jpg used on input line 316.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/gf_24.jpg, id=104, 652.4375pt x 471.7625pt>
+ <results/gf_24.jpg, id=119, 652.4375pt x 471.7625pt>
 File: results/gf_24.jpg Graphic file (type jpg)
  <use results/gf_24.jpg>
-Package pdftex.def Info: results/gf_24.jpg used on input line 332.
+Package pdftex.def Info: results/gf_24.jpg used on input line 320.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/gf_32.jpg, id=105, 652.4375pt x 471.7625pt>
+ <results/gf_32.jpg, id=120, 652.4375pt x 471.7625pt>
 File: results/gf_32.jpg Graphic file (type jpg)
  <use results/gf_32.jpg>
-Package pdftex.def Info: results/gf_32.jpg used on input line 339.
+Package pdftex.def Info: results/gf_32.jpg used on input line 325.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/gf_errors.png, id=106, 562.1pt x 421.575pt>
+ <results/gf_errors.png, id=121, 562.1pt x 421.575pt>
 File: results/gf_errors.png Graphic file (type png)
  <use results/gf_errors.png>
-Package pdftex.def Info: results/gf_errors.png used on input line 348.
+Package pdftex.def Info: results/gf_errors.png used on input line 334.
 (pdftex.def)             Requested size: 418.25555pt x 313.69101pt.
  [5 <./lotr.jpg> <./results/gray_image.jpg> <./results/noisy_image.jpg> <./results/gf_8.jpg> <./results/gf_16.jpg> <./results/gf_24.jpg> <./results/gf_32.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 
  []
 
-<results/gf_32_s01.jpg, id=113, 652.4375pt x 471.7625pt>
+<results/gf_32_s01.jpg, id=130, 652.4375pt x 471.7625pt>
 File: results/gf_32_s01.jpg Graphic file (type jpg)
  <use results/gf_32_s01.jpg>
-Package pdftex.def Info: results/gf_32_s01.jpg used on input line 362.
+Package pdftex.def Info: results/gf_32_s01.jpg used on input line 348.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 363.
+(Font)              scaled to size 6.99199pt on input line 349.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <10> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 363.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 349.
 LaTeX Font Info:    Font shape `T1/futs/bx/n' in size <7.6> not available
-(Font)              Font shape `T1/futs/b/n' tried instead on input line 363.
+(Font)              Font shape `T1/futs/b/n' tried instead on input line 349.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 363.
+(Font)              scaled to size 6.99199pt on input line 349.
 File: results/gf_32.jpg Graphic file (type jpg)
  <use results/gf_32.jpg>
-Package pdftex.def Info: results/gf_32.jpg used on input line 369.
+Package pdftex.def Info: results/gf_32.jpg used on input line 355.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/gf_32_s10.jpg, id=114, 652.4375pt x 471.7625pt>
+ <results/gf_32_s10.jpg, id=131, 652.4375pt x 471.7625pt>
 File: results/gf_32_s10.jpg Graphic file (type jpg)
  <use results/gf_32_s10.jpg>
-Package pdftex.def Info: results/gf_32_s10.jpg used on input line 376.
+Package pdftex.def Info: results/gf_32_s10.jpg used on input line 362.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/hd_25.jpg, id=115, 652.4375pt x 471.7625pt>
+ [6 <./results/gf_errors.png (PNG copy)> <./results/gf_32_s01.jpg> <./results/gf_32_s10.jpg>] <results/hd_25.jpg, id=141, 652.4375pt x 471.7625pt>
 File: results/hd_25.jpg Graphic file (type jpg)
  <use results/hd_25.jpg>
-Package pdftex.def Info: results/hd_25.jpg used on input line 395.
+Package pdftex.def Info: results/hd_25.jpg used on input line 401.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/hd_50.jpg, id=116, 652.4375pt x 471.7625pt>
+ <results/hd_50.jpg, id=142, 652.4375pt x 471.7625pt>
 File: results/hd_50.jpg Graphic file (type jpg)
  <use results/hd_50.jpg>
-Package pdftex.def Info: results/hd_50.jpg used on input line 403.
+Package pdftex.def Info: results/hd_50.jpg used on input line 408.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/hd_75.jpg, id=117, 652.4375pt x 471.7625pt>
+ <results/hd_75.jpg, id=143, 652.4375pt x 471.7625pt>
 File: results/hd_75.jpg Graphic file (type jpg)
  <use results/hd_75.jpg>
-Package pdftex.def Info: results/hd_75.jpg used on input line 409.
+Package pdftex.def Info: results/hd_75.jpg used on input line 414.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/hd_100.jpg, id=118, 652.4375pt x 471.7625pt>
+ <results/hd_100.jpg, id=144, 652.4375pt x 471.7625pt>
 File: results/hd_100.jpg Graphic file (type jpg)
  <use results/hd_100.jpg>
-Package pdftex.def Info: results/hd_100.jpg used on input line 416.
+Package pdftex.def Info: results/hd_100.jpg used on input line 421.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- [6 <./results/gf_errors.png (PNG copy)> <./results/gf_32_s01.jpg> <./results/gf_32_s10.jpg>] <results/hd_errors.png, id=125, 562.1pt x 421.575pt>
+ <results/hd_errors.png, id=145, 562.1pt x 421.575pt>
 File: results/hd_errors.png Graphic file (type png)
  <use results/hd_errors.png>
-Package pdftex.def Info: results/hd_errors.png used on input line 426.
+Package pdftex.def Info: results/hd_errors.png used on input line 431.
 (pdftex.def)             Requested size: 418.25555pt x 313.69101pt.
- [7 <./results/hd_25.jpg> <./results/hd_50.jpg> <./results/hd_75.jpg> <./results/hd_100.jpg>] <results/hd_25_t001.jpg, id=132, 652.4375pt x 471.7625pt>
+ [7 <./results/hd_25.jpg> <./results/hd_50.jpg> <./results/hd_75.jpg> <./results/hd_100.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 435--436
+
+ []
+
+./README.tex:437: Too many }'s.
+l.437 ...\ref{fig:hdtauc} and \ref{fig:hdtaumseb}}
+                                                  .
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+<results/hd_25_t001.jpg, id=162, 652.4375pt x 471.7625pt>
 File: results/hd_25_t001.jpg Graphic file (type jpg)
  <use results/hd_25_t001.jpg>
-Package pdftex.def Info: results/hd_25_t001.jpg used on input line 438.
+Package pdftex.def Info: results/hd_25_t001.jpg used on input line 445.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
 File: results/hd_25.jpg Graphic file (type jpg)
  <use results/hd_25.jpg>
-Package pdftex.def Info: results/hd_25.jpg used on input line 445.
+Package pdftex.def Info: results/hd_25.jpg used on input line 452.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/hd_25_t05.jpg, id=133, 652.4375pt x 471.7625pt>
+ <results/hd_25_t05.jpg, id=163, 652.4375pt x 471.7625pt>
 File: results/hd_25_t05.jpg Graphic file (type jpg)
  <use results/hd_25_t05.jpg>
-Package pdftex.def Info: results/hd_25_t05.jpg used on input line 452.
+Package pdftex.def Info: results/hd_25_t05.jpg used on input line 459.
 (pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
- <results/hd_errors_t001.png, id=134, 562.1pt x 421.575pt>
+ <results/hd_errors_t001.png, id=164, 562.1pt x 421.575pt>
 File: results/hd_errors_t001.png Graphic file (type png)
  <use results/hd_errors_t001.png>
-Package pdftex.def Info: results/hd_errors_t001.png used on input line 465.
+Package pdftex.def Info: results/hd_errors_t001.png used on input line 470.
 (pdftex.def)             Requested size: 188.21371pt x 141.15933pt.
- <results/hd_errors_t05.png, id=135, 562.1pt x 421.575pt>
+ <results/hd_errors_t05.png, id=165, 562.1pt x 421.575pt>
 File: results/hd_errors_t05.png Graphic file (type png)
  <use results/hd_errors_t05.png>
-Package pdftex.def Info: results/hd_errors_t05.png used on input line 471.
+Package pdftex.def Info: results/hd_errors_t05.png used on input line 476.
 (pdftex.def)             Requested size: 188.21371pt x 141.15933pt.
  [8 <./results/hd_errors.png (PNG copy)> <./results/hd_25_t001.jpg> <./results/hd_25_t05.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 497--498
+Underfull \hbox (badness 10000) in paragraph at lines 500--501
 
  []
 
 [9 <./results/hd_errors_t001.png (PNG copy)> <./results/hd_errors_t05.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 514--515
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 519--520
+Underfull \hbox (badness 10000) in paragraph at lines 517--518
 
  []
 
@@ -1282,14 +1265,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 522--523
 
 File: results/noisy_image.jpg Graphic file (type jpg)
 <use results/noisy_image.jpg>
-Package pdftex.def Info: results/noisy_image.jpg used on input line 553.
+Package pdftex.def Info: results/noisy_image.jpg used on input line 577.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- <results/va.jpg, id=157, 652.4375pt x 471.7625pt>
+ <results/va.jpg, id=197, 652.4375pt x 471.7625pt>
 File: results/va.jpg Graphic file (type jpg)
  <use results/va.jpg>
-Package pdftex.def Info: results/va.jpg used on input line 561.
+Package pdftex.def Info: results/va.jpg used on input line 585.
 (pdftex.def)             Requested size: 188.21371pt x 136.09496pt.
- [10 <./results/va.jpg>] (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.bbl
+ [10] <results/va_l01.jpg, id=218, 652.4375pt x 471.7625pt>
+File: results/va_l01.jpg Graphic file (type jpg)
+ <use results/va_l01.jpg>
+Package pdftex.def Info: results/va_l01.jpg used on input line 598.
+(pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
+File: results/va.jpg Graphic file (type jpg)
+ <use results/va.jpg>
+Package pdftex.def Info: results/va.jpg used on input line 605.
+(pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
+ <results/va_l20.jpg, id=219, 652.4375pt x 471.7625pt>
+File: results/va_l20.jpg Graphic file (type jpg)
+ <use results/va_l20.jpg>
+Package pdftex.def Info: results/va_l20.jpg used on input line 612.
+(pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 625--626
+
+ []
+
+[11 <./results/va.jpg> <./results/va_l01.jpg> <./results/va_l20.jpg>] <results/gf_iter_10.jpg, id=227, 652.4375pt x 471.7625pt>
+File: results/gf_iter_10.jpg Graphic file (type jpg)
+ <use results/gf_iter_10.jpg>
+Package pdftex.def Info: results/gf_iter_10.jpg used on input line 640.
+(pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
+ <results/hd_iter_11.jpg, id=228, 652.4375pt x 471.7625pt>
+File: results/hd_iter_11.jpg Graphic file (type jpg)
+ <use results/hd_iter_11.jpg>
+Package pdftex.def Info: results/hd_iter_11.jpg used on input line 647.
+(pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
+File: results/va.jpg Graphic file (type jpg)
+ <use results/va.jpg>
+Package pdftex.def Info: results/va.jpg used on input line 654.
+(pdftex.def)             Requested size: 125.47794pt x 90.72997pt.
+ [12 <./results/gf_iter_10.jpg> <./results/hd_iter_11.jpg>] (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.bbl
 
 Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              You've used the KOMA-Script implementation of \@ssect
@@ -1297,37 +1313,32 @@ Class scrartcl Warning: incompatible usage of \@ssect detected.
 (scrartcl)              \scr@s@ct@@nn@m@ locally.
 (scrartcl)              This could result in several error messages on input line 1.
 
-
-LaTeX Warning: Empty `thebibliography' environment or \BreakBibliography
-               before end of `thebibliography' environment on input line 3.
-
-) [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 589.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 589.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 10.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)) [13]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 719.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 719.
  (/Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 589.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 589.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 719.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 719.
 Package rerunfilecheck Info: File `README.out' has not changed.
 (rerunfilecheck)             Checksum: C5A95B8D7B3454D7B0BB956A5DE965B8;1312.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 589.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 719.
  ) 
 Here is how much of TeX's memory you used:
- 33481 strings out of 493014
- 758165 string characters out of 6133351
- 1104228 words of memory out of 5000000
- 36280 multiletter control sequences out of 15000+600000
- 131987 words of font info for 141 fonts, out of 8000000 for 9000
+ 33583 strings out of 493014
+ 760097 string characters out of 6133351
+ 1106753 words of memory out of 5000000
+ 36359 multiletter control sequences out of 15000+600000
+ 132301 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 73i,19n,84p,8485b,736s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ml.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on /Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.pdf (11 pages, 1164502 bytes).
+ 73i,19n,84p,8485b,831s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ml.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putbi8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on /Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.pdf (13 pages, 1445546 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 181 compressed objects within 2 object streams
- 69 named destinations out of 1000 (max. 500000)
- 203 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 305 PDF objects out of 1000 (max. 8388607)
+ 246 compressed objects within 3 object streams
+ 85 named destinations out of 1000 (max. 500000)
+ 223 words of extra memory for PDF output out of 10000 (max. 10000000)
 

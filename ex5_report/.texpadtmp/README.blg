@@ -2,47 +2,45 @@ This is BibTeX, Version 0.99d (TeX Live 2016)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: /Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.aux
 The style file: ieeetr.bst
-I found no \citation commands---while reading file /Users/kangdongho/Development/math-found-cgv/ex5_report/.texpadtmp/README.aux
 Database file #1: ../reference.bib
-You've used 0 entries,
+You've used 2 entries,
             1876 wiz_defined-function locations,
-            477 strings with 3608 characters,
-and the built_in function-call counts, 20 in all, are:
-= -- 0
-> -- 0
+            488 strings with 3916 characters,
+and the built_in function-call counts, 382 in all, are:
+= -- 33
+> -- 15
 < -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 9
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 6
+- -- 4
+* -- 25
+:= -- 59
+add.period$ -- 2
+call.type$ -- 2
+change.case$ -- 2
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 2
+duplicate$ -- 19
+empty$ -- 40
+format.name$ -- 4
+if$ -- 94
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 2
+missing$ -- 1
+newline$ -- 9
+num.names$ -- 1
+pop$ -- 8
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1
+skip$ -- 16
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 6
+swap$ -- 7
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There was 1 error message)
+while$ -- 2
+width$ -- 3
+write$ -- 19

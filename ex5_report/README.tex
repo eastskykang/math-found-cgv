@@ -43,6 +43,7 @@
 \pgfplotsset{compat=newest}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{caption}
 \usepackage{subcaption}
 \usepackage{multirow}
 \usepackage{tkz-graph}
@@ -162,15 +163,15 @@ Note that \textbf{these script was only tested in MATLAB R2016b environment}.
 \begin{itemize}
 	\item How do dual quaternions represent rotations and translations? \\
 
-Unit dual quaternions naturally represent 3D rotation, when the dual part $\vec{q_\epsilon} = 0$ (thus $\hat{\vec{q}} = \vec{q_0} + \epsilon \vec{q_\epsilon} = \vec{q_0}$). Dual quaternion multiplication with unit dual quaternion $\hat{\vec{t}} = 1 + \frac{\epsilon}{2}(t_0 i + t_1 j + t_2 k)$ corresponds to translation by vector $(t_0, t_1, t_2)$ represent 3D translation.\\
+Unit dual quaternions naturally represent 3D rotation, when the dual part $\vec{q_\epsilon} = 0$ (thus $\hat{\vec{q}} = \vec{q_0} + \epsilon \vec{q_\epsilon} = \vec{q_0}$). Dual quaternion multiplication with unit dual quaternion $\hat{\vec{t}} = 1 + \frac{\epsilon}{2}(t_0 i + t_1 j + t_2 k)$ corresponds to translation by vector $(t_0, t_1, t_2)$ represent 3D translation. \cite{kavan2008geometric} \\
 	
 	\item What is the advantage of representing rigid transformations with dual quaternions for blending? \\
 	
-The linear combination of dual quaternions does not make artifacts or skin-collapsing effect, thus blending using dual quaternions is fast and more robust than using homogeneous matrix. Moreover, since dual quaternions require only 8 floats per transformation, instead of the 12 required by matrices, they are more memory efficient.\\
+The linear combination of dual quaternions does not make artifacts or skin-collapsing effect, thus blending using dual quaternions is fast and more robust than using homogeneous matrix. Moreover, since dual quaternions require only 8 floats per transformation, instead of the 12 required by matrices, they are more memory efficient. \cite{kavan2008geometric}\\
 	
 	\item Briefly explain one fundamental disadvantage of using quaternion based shortest path blending for rotations as compared to linear blend skinning? \\
 	
-Dual quaternions causes "flipping artifacts" which occurs with joint rotations of more than 180 degrees. Because of its shortest path property, when the other path becomes shorter, the skin changes its shape discontinuously. \\
+Dual quaternions causes "flipping artifacts" which occurs with joint rotations of more than 180 degrees. Because of its shortest path property, when the other path becomes shorter, the skin changes its shape discontinuously. \cite{kavan2008geometric}\\
 
 \end{itemize}
 
@@ -191,12 +192,12 @@ Dual quaternions causes "flipping artifacts" which occurs with joint rotations o
 	As $\hat{\vec{q}}^t	= \text{exp} \big(t \, \text{log}(\hat{\vec{q}}) \big)$, 
 	\begin{align}
 		\hat{\vec{q}}^t	&= \text{exp} \big( t \, \text{log}(\hat{\vec{q}}) \big) \\
-						&= \text{exp}\Big(t \, \text{log} \big(\text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2) \big) \Big)
+						&= \text{exp}\Big(t \, \text{log} \big(\text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2) \big) \Big)	\label{eq:1}
 	\end{align}
 
-	Plug in $\text{log} \big(\text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2) \big) = \hat{\vec{s}} \frac{\hat{\theta}}{2}$ to equation (1.3):
+	Plug in $\text{log} \big(\text{cos} (\hat{\theta} /2) + \hat{\vec{s}} \,\text{sin} (\hat{\theta} /2) \big) = \hat{\vec{s}} \frac{\hat{\theta}}{2}$ to equation \ref{eq:1}:
 	\begin{align}
-		\hat{\vec{q}}^t = \text{exp}\Big( \frac{t\hat{\theta}}{2} \,\hat{\vec{s}} \Big)
+		\hat{\vec{q}}^t = \text{exp}\Big( \frac{t\hat{\theta}}{2} \,\hat{\vec{s}} \Big) \label{eq:qhattothet}
 	\end{align}
 	
 	Let $\hat{\vec{a}} = \frac{t\hat{\theta}}{2} \,\hat{\vec{s}}$. Since $\hat{\theta} = \theta_0 + \epsilon \theta_\epsilon$ and $\hat{\vec{s}} = \vec{s}_0 + \epsilon\vec{s}_\epsilon$.
@@ -211,25 +212,25 @@ Dual quaternions causes "flipping artifacts" which occurs with joint rotations o
 	Since exponential of dual quaternion is given by $e^{\hat{\vec{q}}} = \text{cos} \big( \norm{\hat{\vec{q}}} \big) + \frac{\hat{\vec{q}}}{\norm{\hat{\vec{q}}}} \text{sin} \big( \norm{\hat{\vec{q}}} \big)$, then $e^{\hat{\vec{a}}} = \text{cos} \big( \norm{\hat{\vec{a}}} \big) + \frac{\hat{\vec{a}}}{\norm{\hat{\vec{a}}}} \text{sin} \big( \norm{\hat{\vec{a}}} \big)$. Here, the norm of dual quaternion $\hat{\vec{a}}$ is $\norm{\hat{\vec{a}}} = \norm{\vec{a}_0} + \epsilon \frac{<\vec{a}_0, \vec{a}_\epsilon>}{\norm{\vec{a}_0}}$. Looking into $<\vec{a}_0, \vec{a}_\epsilon>$ and $\norm{\vec{a}_0}$,
 	\begin{align}
 		<\vec{a}_0, \vec{a}_\epsilon> &= <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_\epsilon + \frac{t}{2} \theta_\epsilon \vec{s}_0> \\
-		&= <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_\epsilon> + <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_\epsilon \vec{s}_0> \\[0.5cm] 
+		&= <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_\epsilon> + <\frac{t}{2} \theta_0\vec{s}_0, \frac{t}{2} \theta_\epsilon \vec{s}_0> \label{eq:2}  \\[0.5cm] 
 		\norm{\vec{a}_0} &= \sqrt{<\vec{a}_0, \vec{a}_0>} \\
-		&= \sqrt{<\frac{t}{2} \theta_0 \vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_0>} 
+		&= \sqrt{<\frac{t}{2} \theta_0 \vec{s}_0, \frac{t}{2} \theta_0 \vec{s}_0>} \label{eq:3} 
 	\end{align}
 	
-	Note that $<\vec{s}_0, \vec{s}_0> = 1$ and $<\vec{s}_0, \vec{s}_\epsilon> = 0$. Thus equation (1.10) and (1.12) can be expressed as follows: 
+	Note that $<\vec{s}_0, \vec{s}_0> = 1$ and $<\vec{s}_0, \vec{s}_\epsilon> = 0$. Thus equation \ref{eq:2} and \ref{eq:3} can be expressed as follows: 
 	\begin{align}
-		<\vec{a}_0, \vec{a}_\epsilon> &= \Big(\frac{t}{2}\Big)^2 \theta_0 \theta_\epsilon \\[0.5cm]
-		\norm{\vec{a}_0} &= \sqrt{\Big(\frac{t}{2} \theta_0 \Big)^2} = \frac{t}{2} \theta_0 
+		<\vec{a}_0, \vec{a}_\epsilon> &= \Big(\frac{t}{2}\Big)^2 \theta_0 \theta_\epsilon \label{eq:a0ae} \\[0.5cm]
+		\norm{\vec{a}_0} &= \sqrt{\Big(\frac{t}{2} \theta_0 \Big)^2} = \frac{t}{2} \theta_0 \label{eq:a0norm} 
 	\end{align}
 	
-	Plug (1.13) and (1.14) into $\norm{\hat{\vec{a}}} = \norm{\vec{a}_0} + \epsilon \frac{<\vec{a}_0, \vec{a}_\epsilon>}{\norm{\vec{a}_0}}$:
+	Plug \ref{eq:a0ae} and \ref{eq:a0norm} into $\norm{\hat{\vec{a}}} = \norm{\vec{a}_0} + \epsilon \frac{<\vec{a}_0, \vec{a}_\epsilon>}{\norm{\vec{a}_0}}$:
 	\begin{align}
 		\norm{\hat{\vec{a}}} &= \frac{t}{2} \theta_0 + \epsilon \frac{\Big(\frac{t}{2}\Big)^2 \theta_0 \theta_\epsilon}{\frac{t}{2} \theta_0}	\\
 		&= \frac{t}{2} \theta_0 + \epsilon \frac{t}{2} \theta_\epsilon \\
-		&= \frac{t}{2} (\theta_0 + \epsilon \theta_\epsilon) = \frac{t}{2} \hat{\theta}
+		&= \frac{t}{2} (\theta_0 + \epsilon \theta_\epsilon) = \frac{t}{2} \hat{\theta} \label{eq:anorm}
 	\end{align}
 	
-	Finally, by (1.4), (1.17) and $e^{\hat{\vec{a}}} = \text{cos} \big( \norm{\hat{\vec{a}}} \big) + \frac{\hat{\vec{a}}}{\norm{\hat{\vec{a}}}} \text{sin} \big( \norm{\hat{\vec{a}}} \big)$, 
+	Finally, by \ref{eq:qhattothet}, \ref{eq:anorm} and $e^{\hat{\vec{a}}} = \text{cos} \big( \norm{\hat{\vec{a}}} \big) + \frac{\hat{\vec{a}}}{\norm{\hat{\vec{a}}}} \text{sin} \big( \norm{\hat{\vec{a}}} \big)$, 
 	\begin{align}
 		\hat{\vec{q}}^t &= e^{\hat{\vec{a}}} \\
 		&= \text{cos} \Big( \frac{t}{2} \hat{\theta} \Big) + \frac{\hat{\vec{a}}}{\frac{t}{2}\hat{\theta}} \text{sin} \Big( \frac{t}{2} \hat{\theta} \Big) \\
@@ -239,27 +240,27 @@ Dual quaternions causes "flipping artifacts" which occurs with joint rotations o
 	
 	The proof has been done.
 	
-	\item Consider rigid transformations in the 2D $xy$-plane. For these transformations, the rotation is always around the $z$ (or $-z$)-axis, i.e. $\vec{s}_0$ is fixed to the $z$-axis. On the other hand, a dual quaternion encodes translations only along $\vec{s}_0$, which are in this case always zero, since we can only translate in the $xy$-plane. Then, how can a dual quaternion represent a rotation and translation in the $xy$-plane, such as the one depicted in Figure 1.1 (a)? 
+	\item Consider rigid transformations in the 2D $xy$-plane. For these transformations, the rotation is always around the $z$ (or $-z$)-axis, i.e. $\vec{s}_0$ is fixed to the $z$-axis. On the other hand, a dual quaternion encodes translations only along $\vec{s}_0$, which are in this case always zero, since we can only translate in the $xy$-plane. Then, how can a dual quaternion represent a rotation and translation in the $xy$-plane, such as the one depicted in Figure \ref{fig:2ddualquaterniana}? 
 	
 	\begin{figure}[H]
-	\caption{Dual quaternion (or screw) representation of 2D translation\label{fig:simple}}
+	\caption{Dual quaternion (or screw) representation of 2D translation}
 	\centering
 	\begin{subfigure}[b]{0.675\textwidth}
 		\noindent\makebox[\textwidth]{
 		  \includegraphics[width=\textwidth]{task2-fig.png}
 		}
-	\caption{An object (left) is first rotated around its center of mass (middle) and then translated (right)}
+	\caption{An object (left) is first rotated around its center of mass (middle) and then translated (right) \label{fig:2ddualquaterniana}}
 	\end{subfigure}
 %	\hspace{0mm}
 	\begin{subfigure}[b]{0.225\textwidth}
 		\begin{overpic}[width=\textwidth]{task2-fig-2.png}
 			\put (25,70) {$\vec{r}$}
 		\end{overpic}
-	\caption{Shifting the screw axis}
+	\caption{Shifting the screw axis \label{fig:2ddualquaternianb}}
 	\end{subfigure}
 	\end{figure}
 	
-	For the 2D case of Figure 1.1, if the axis of dual quaternion(screw) is shifted to point $\vec{r}$ as shown in Figure 1.1 (b), such transformation can be represented as a screw axis i.e. dual quaternion. In this case, $\vec{s}_\epsilon = \vec{r} \times \vec{s}_0$.
+	For the 2D case of Figure \ref{fig:2ddualquaterniana}, if the axis of dual quaternion(screw) is shifted to point $\vec{r}$ as shown in Figure \ref{fig:2ddualquaternianb}, such transformation can be represented as a screw axis i.e. dual quaternion. In this case, $\vec{s}_\epsilon = \vec{r} \times \vec{s}_0$. \cite{kavan2008geometric}
 	
 \end{itemize}
 
@@ -276,27 +277,20 @@ In this section, three different denoising methods(filtering, heat diffusion and
 \graphicspath{{results/}}
 \vspace{-2mm}
 \begin{figure}[H]
-	\caption{Original images and noised image\label{fig:simple}}
-	\centering
+	\caption{Original images and noised image \label{fig:sim}}
 	\begin{subfigure}[b]{0.3\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{lotr.jpg}
-		}
-	\caption{Original image}
+		\includegraphics[width=\textwidth]{lotr.jpg}
+		\caption{Original image}
 	\end{subfigure}
 	\hspace{5mm}
 	\begin{subfigure}[b]{0.3\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{gray_image.jpg}
-		}
-	\caption{Grayscale image}
+		\includegraphics[width=\textwidth]{gray_image.jpg}
+		\caption{Grayscale image}
 	\end{subfigure}
 	\hspace{5mm}
 	\begin{subfigure}[b]{0.3\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{noisy_image.jpg}
-		}
-	\caption{Noised image}
+		\includegraphics[width=\textwidth]{noisy_image.jpg}
+		\caption{Noised image}
 	\end{subfigure}
 \end{figure}
 
@@ -310,34 +304,26 @@ By convolution with Gaussian filter($\sigma = 0.5$), the gaussian noise was deno
 
 \vspace{-2mm}
 \begin{figure}[H]
-	\caption{Denoised image after filtering multiple time ($\sigma = 0.5$)\label{fig:simple}}
+	\caption{Denoised image after filtering multiple time ($\sigma = 0.5$) \label{fig:gf}}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{gf_8.jpg}
-		}
-	\caption{Filtered 8 times}
+		\includegraphics[width=\textwidth]{gf_8.jpg}
+		\caption{Filtered 8 times}
 	\end{subfigure}
 	\hspace{5mm}
 	\vspace{5mm}
 	\begin{subfigure}[b]{0.45\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{gf_16.jpg}
-		}
-	\caption{Filtered 16 times}
+		\includegraphics[width=\textwidth]{gf_16.jpg}
+		\caption{Filtered 16 times}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.45\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{gf_24.jpg}
-		}
-	\caption{Filtered 24 times}
+		\includegraphics[width=\textwidth]{gf_24.jpg}
+		\caption{Filtered 24 times}
 	\end{subfigure}
 	\hspace{5mm}
 	\begin{subfigure}[b]{0.45\textwidth}
-		\noindent\makebox[\textwidth]{
-		  \includegraphics[width=\textwidth]{gf_32.jpg}
-		}
-	\caption{Filtered 32 times}
+		\includegraphics[width=\textwidth]{gf_32.jpg}
+		\caption{Filtered 32 times}
 	\end{subfigure}
 \end{figure}
 
@@ -346,15 +332,15 @@ By convolution with Gaussian filter($\sigma = 0.5$), the gaussian noise was deno
 	\noindent\makebox[0.6\textwidth]{
 	  \includegraphics[width=\textwidth]{gf_errors.png}
 	}
-\caption{Mean square error evolution of Gaussian filtering ($\sigma = 0.5$)}
+\caption{Mean square error evolution of Gaussian filtering ($\sigma = 0.5$) \label{fig:gfmse}}
 \end{figure}
 
-As the iteration goes on, mean square error(MSE) changes as Figure 2.5. For $\sigma = 0.5$, the MSE is the smallest when the number of filtering is 10. \\ 
+As the iteration goes on, mean square error(MSE) changes as Figure \ref{fig:gfmse}. For $\sigma = 0.5$, the MSE is the smallest when the number of filtering is 10. \\ 
 
-The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determines level of smoothing. If $\sigma$ is too small or too large, filtering does not show effective denoising.
+Results with different value of $\sigma$ are as Figure \ref{fig:gfsigma}. $\sigma$ determines level of smoothing. If $\sigma$ is too small or too large, filtering does not show effective denoising.
 
 \begin{figure}[b]
-	\caption{Denoised image with different $\sigma$\label{fig:simple}}
+	\caption{Denoised image with different $\sigma$\label{fig:gfsigma}}
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
 		\noindent\makebox[\textwidth]{
@@ -385,9 +371,29 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 
 \subsection{Task 2: Heat diffusion}
 
+Let $I_t$ the image at scale $t$, then heat equation is defined as follows:
+
+\begin{equation} \label{eq:heateq}
+	\frac{\partial I_t}{\partial t} - \Delta I_t = 0
+\end{equation}
+
+where $\Delta$ is the discrete 2D laplacian operator. For discretizing and solving \ref{eq:heateq}, forward finite differences were used:
+
+\begin{align}
+	\frac{I_{t+1} - I_t}{\tau} &= \Delta I_t \\
+	I_{t+1} &= I_t + \tau \cdot \Delta I_t \label{eq:dichd}
+\end{align}
+
+For 2D Laplacian at pixel $(x, y)$, the following was used:
+
+\begin{equation}
+	\Delta I(x, y) = I(x+1, y) + I(x-1, y) + I(x, y+1) + I(x, y - 1) - 4 \cdot I(x, y) \label{eq:laplace}
+\end{equation}
+
+Figure \ref{fig:hd} shows the result images with different number of iteration of equation \ref{eq:dichd}. Neumann boundary condition was used for boundary padding.
 
 \begin{figure}[H]
-	\caption{Denoised image after diffusion\label{fig:simple}}
+	\caption{Denoised image after diffusion\label{fig:hd}}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\noindent\makebox[\textwidth]{
@@ -396,7 +402,6 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 	\caption{Diffusion at time 25}
 	\end{subfigure}
 	\hspace{5mm}
-	\vspace{5mm}
 	\begin{subfigure}[b]{0.45\textwidth}
 		\noindent\makebox[\textwidth]{
 		  \includegraphics[width=\textwidth]{hd_50.jpg}
@@ -424,13 +429,15 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 	\noindent\makebox[0.6\textwidth]{
 	  \includegraphics[width=\textwidth]{hd_errors.png}
 	}
-\caption{Mean square error evolution of Gaussian filtering ($\sigma = 0.5$)}
+\caption{Mean square error evolution of heat diffusion ($\tau = 0.1$) \label{hdmse}}
 \end{figure}
 
+As the iteration goes on, mean square error(MSE) evolves as Figure \ref{hdmse}. For $\tau = 0.1$, the MSE is the smallest when the number of iteration is 11. (MSE $= 279.9$) \\ 
 
+Results with different value of $\tau$ are as Figure \ref{fig:hdtau}. MSE evolution is as \ref{fig:hdtaumse}. If $\tau$ is too small, it takes longer time to find a optimal solution. In contrast, if $\tau$ is too large, the MSE diverges as Figure \ref{fig:hdtauc} and \ref{fig:hdtaumseb}}. 
 
-\begin{figure}[H]
-	\caption{Denoised image with different $\tau$\label{fig:simple}}
+\begin{figure}[b]
+	\caption{Denoised image with different $\tau$ \label{fig:hdtau}}
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
 		\noindent\makebox[\textwidth]{
@@ -450,14 +457,12 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 		\noindent\makebox[\textwidth]{
 		  \includegraphics[width=\textwidth]{hd_25_t05.jpg}
 		}
-	\caption{$\tau = 0.5$ (25 iter)}
+	\caption{$\tau = 0.5$ (25 iter) \label{fig:hdtauc}}
 	\end{subfigure}
 \end{figure}
 
-
-
 \begin{figure}[H]
-	\caption{Denoised image with different $\tau$\label{fig:simple}}
+	\caption{Denoised image with different $\tau$ \label{fig:hdtaumse}}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\noindent\makebox[\textwidth]{
@@ -469,10 +474,9 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 		\noindent\makebox[\textwidth]{
 		  \includegraphics[width=\textwidth]{hd_errors_t05.png}
 		}
-	\caption{$\tau = 0.5$ (diverged)}
+	\caption{$\tau = 0.5$ (diverged) \label{fig:hdtaumseb}}
 	\end{subfigure}
 \end{figure}
-
 
 
 %----------------------------------------------------------------------------------------
@@ -485,7 +489,6 @@ The result with different value of $\sigma$ is as Figure 2.6. $\sigma$ determine
 \subsubsection{Description}
 
 Finally, variational approach was implemented. This method considers the image as function of the space of all images. 
-TODO
 
 \paragraph{Derivation of Euler-Lagrange equation}
 
@@ -498,7 +501,7 @@ where, $\Omega = \mathbb{R}^2$ is the domain of the 2D image, $I_0$ the noisy im
 
 Let's define the function $L(I, \nabla_{\vec{x}} I, \vec{x})$ as follows: 
 \begin{align}
-	L(I, \nabla_{\vec{x}} I, \vec{x}) = \Big[\big(I(\vec{x}) - I_0(\vec{x})\big)^2 + \lambda \norm{\nabla_{\vec{x}} I(\vec{x})}^2 \Big]
+	L(I, \nabla_{\vec{x}} I, \vec{x}) = \Big[\big(I(\vec{x}) - I_0(\vec{x})\big)^2 + \lambda \norm{\nabla_{\vec{x}} I(\vec{x})}^2 \Big] \label{eq:energy}
 \end{align}
 
 Then the G\^ateaux derivative is given by 
@@ -508,50 +511,71 @@ Then the G\^ateaux derivative is given by
 	\shortintertext{apply matrix Taylor expansion:} 
 	&= \lim_{\alpha \to 0} \frac{1}{\alpha} \int_\Omega \Big( \cancel{L(I, \nabla_{\vec{x}} I, \vec{x})} + \alpha h \cdot \frac{\partial L}{\partial I} + \alpha \nabla_{\vec{x}} h \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} + o(\alpha^2) - \cancel{L(I, \nabla_{\vec{x}} I, \vec{x})} \Big) d\vec{x} \\
 	&= \int_\Omega \Big( h \cdot \frac{\partial L}{\partial I} + \nabla_{\vec{x}} h \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Big) d\vec{x} \\
-	\shortintertext{apply integration by parts and $h = 0$ on boundary :} 
+	\shortintertext{apply integration by parts\cite{wikiintegration} and $h = 0$ on boundary :} 
 	&= \int_\Omega h \cdot \frac{\partial L}{\partial I} \, d\vec{x} + \cancelto{0}{h \cdot \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Bigg|_\Omega}  - \int_\Omega h \cdot \nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \, d\vec{x} \\
-	&= \int_\Omega h(\vec{x}) \cdot \Big( \frac{\partial L}{\partial I} - \nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Big) \, d\vec{x}
+	&= \int_\Omega h(\vec{x}) \cdot \Big( \frac{\partial L}{\partial I} - \nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Big) \, d\vec{x} \label{eq:gateauxderivative} 
 \end{align} \\
 
 Remark following theorem:
 
-\begin{theorem}
+\begin{theorem} \label{thm:thm1}
 	If $\hat{u}$ is an extremum of a functional $E : \mathcal{V} \rightarrow \mathbb{R}$, then \\
 	\begin{equation*}
 		\delta E(\hat{u}, h) = 0 \quad \forall h \in \mathcal{V}.
-	\end{equation*} \\
+	\end{equation*} 
 \end{theorem}
 
-By (2.8) and \textbf{Theorem 1}, 
-\begin{equation}
+By equation \ref{eq:gateauxderivative} and \textbf{Theorem \ref{thm:thm1}}, 
+\begin{equation} \label{eq:eulereq}
 	\frac{\partial L}{\partial I} - \nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} = 0	
 \end{equation}
 
 
-Plug (2.2) into (2.9): 
+Plug \ref{eq:energy} into \ref{eq:eulereq}: 
 \begin{align}
 	\frac{\partial L}{\partial I} &= 2 \big(I - I_0) \\
 	\nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} &= 2 \lambda \, \nabla_{\vec{x}} \bullet (\nabla_{\vec{x}} I) \\ 
 	&= 2 \lambda \, \textbf{div}(\nabla_{\vec{x}} I)
 \end{align}
 
-
-
+Thus,
+\begin{gather}
+	2(I - I_0) - 2 \lambda \, \textbf{div} (\nabla_{\vec{x}} I) = 0 \\
+	I_0 = I - \lambda \, \textbf{div} (\nabla_{\vec{x}} I) \label{eq:eula}
+\end{gather}
 
 \paragraph{Vectorization and Linear operation}
 
+Let $I$ is a 2D image which of height ($h$) $\times$ width ($w$). As 2D Laplacian is defined as equation \ref{eq:laplace}, equation \ref{eq:eula} can be described as follows:
+\begin{equation}
+	I_0(x, y) = I(x, y) - \lambda \big[ I(x + 1, y) + I(x - 1, y) + I(x, y + 1) + I(x, y - 1) - 4 \cdot I(x, y) \big] \label{eq:2d}
+\end{equation}
+
+In order to make \ref{eq:2d} as a linear equation, reshape $I$ and $I_0$ as a 1D: $\bar{I}$ and $\bar{I_0}$:
+\begin{align}
+	\bar{I_0}(\bar{x}) &= \bar{I}(\bar{x}) - \lambda \big[ \bar{I}(\bar{x} + h) + \bar{I}(\bar{x} - h) + \bar{I}(\bar{x} + 1) + \bar{I}(\bar{x} - 1) - 4 \cdot \bar{I}(\bar{x}) \big] \\
+	&= (1 + 4 \lambda) \bar{I}(\bar{x}) - \lambda \bar{I}(\bar{x} + h) - \lambda \bar{I}(\bar{x} - h) - \lambda \bar{I}(\bar{x} + 1) \lambda \bar{I}(\bar{x} - 1)
+\end{align}
+
+Thus, for matrix A which is defined on the manual, following equation is valid (boundary condition is ignored):
+
+\begin{equation}
+	\bar{I_0} = A \bar{I}
+\end{equation}
 
 %----------------------------------------------------------------------------------------
 \subsubsection{Results}
 
+Figure \ref{fig:vadenoised} is a denoised image by variational method with $\lambda = 2$
+
 \begin{figure}[H]
-	\caption{Denoised image with variational method\label{fig:simple}}
+	\caption{Denoised image with variational method}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\noindent\makebox[\textwidth]{
 		  \includegraphics[width=\textwidth]{noisy_image.jpg}
 		}
-	\caption{Noisy image}
+	\caption{Noisy image \label{fig:vaorig}}
 	\end{subfigure}
 	\hspace{5mm}
 	\vspace{5mm}
@@ -559,11 +583,36 @@ Plug (2.2) into (2.9):
 		\noindent\makebox[\textwidth]{
 		  \includegraphics[width=\textwidth]{va.jpg}
 		}
-	\caption{Variational denoising}
+	\caption{Variational denoising \label{fig:vadenoised}}
 	\end{subfigure}
 \end{figure}
 
+The results with different values of $\lambda$ are as Figure \ref{fig:valambda}.
 
+\begin{figure}[H]
+	\caption{Denoised image with different $\lambda$\label{fig:valambda}}
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va_l01.jpg}
+		}
+	\caption{$\lambda = 0.1$ (MSE $= 530.9$)}
+	\end{subfigure}
+	\hspace{5mm}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va.jpg}
+		}
+	\caption{$\lambda = 2$ (MSE $= 311.5$)}
+	\end{subfigure}
+	\hspace{5mm}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\noindent\makebox[\textwidth]{
+		  \includegraphics[width=\textwidth]{va_l20.jpg}
+		}
+	\caption{$\lambda = 20$ (MSE $= 1416.4$)}
+	\end{subfigure}
+\end{figure}
 
 
 %----------------------------------------------------------------------------------------
@@ -573,9 +622,90 @@ Plug (2.2) into (2.9):
 \subsection{Task 4: Comparison}
 
 \begin{itemize}
-	\item How can you describe the results? Does any of these methods give better results than the others? 
+	\item How can you describe the results? Does any of these methods give better results than the others? \\
+	
+	\begin{itemize}
+		\item For given $\sigma = 0.5$, the minimum MSE result by Gaussian filtering is when the number of iteration is 10. (MSE $= 279.2$) More iteration leads to blurred image.
+		\item For given $\tau = 0.1$, 11 iteration follows minimum MSE $= 279.9$. More iteration leads to blurred image.
+		\item For given $\lambda = 2$, MSE $= 311.5$.
+		\item As Figure \ref{fig:minmse}, denoising results with the best number of iterations are very similar. However, the result of variational method preserves edges more. 
+		\item Additionally for filtering and heat diffusion methods, it is crucial to determine the number of iterations since as iteration goes on, image is getting blurred. But since $\sigma$ and $\tau$ are hidden parameter it's hard to optimize those parameters. Besides, variational method is not iterative method, thus it does not need to determine the number of iteration. Only one for a clear result is a proper value of $\lambda$ thus easy to choose.
+	
+	\begin{figure}[H]
+		\caption{The best denoised images by each method \label{fig:minmse}}
+		\centering
+		\begin{subfigure}[b]{0.3\textwidth}
+			\noindent\makebox[\textwidth]{
+			  \includegraphics[width=\textwidth]{gf_iter_10.jpg}
+			}
+		\caption{Gaussian filtering $\sigma = 0.5$ \\(iter $= 10$, MSE $= 279.2$)}
+		\end{subfigure}
+		\hspace{5mm}
+		\begin{subfigure}[b]{0.3\textwidth}
+			\noindent\makebox[\textwidth]{
+			  \includegraphics[width=\textwidth]{hd_iter_11.jpg}
+			}
+		\caption{Heat diffusion $\tau = 0.1$ \\(iter $= 11$, MSE $= 279.9$)}
+		\end{subfigure}
+		\hspace{5mm}
+		\begin{subfigure}[b]{0.3\textwidth}
+			\noindent\makebox[\textwidth]{
+			  \includegraphics[width=\textwidth]{va.jpg}
+			}
+		\caption{Variational method $\lambda = 2$ \\(MSE $= 311.5$)}
+		\end{subfigure}
+	\end{figure}
+	
+	\end{itemize} 
+	
 	\item What are the benefits and drawbacks of each methods?
+
+	\begin{itemize}
+		\item Gaussian filtering 
+			\begin{itemize}
+				\item Simple and intuitive way for denoising (+)
+				\item \textbf{Edges (gradient of images) are not preserved. (-)}
+				\item \textbf{Kernel size $\sigma$ is crucial. Which is a hidden parameter. (-)}
+				\item \textbf{It's hard to define criterion of global optimal solution of denoising. (-)}
+				\item Boundary condition is not intuitive. (-)
+				\item \textbf{Iterative method i.e. time consuming and hard to determine the number of iterations. (-)} 
+			\end{itemize}
+		\item Heat diffusion 
+			\begin{itemize}
+				\item Boundary condition is more intuitive. Neumann boundary condition is reasonable assumption. (+)
+				\item \textbf{Edges (gradient of images) are not preserved. (-)}
+				\item \textbf{It's hard to define criterion of global optimal solution of denoising. (-)}
+				\item \textbf{Time step $\tau$ is crucial. Small value leads to huge amount of time. Even error diverges with large value of $\tau$. Moreover, it is a hidden parameter. (-)}
+				\item \textbf{Iterative method i.e. time consuming and hard to determine the number of iterations. (-)} 
+			\end{itemize}
+		\item Variational method
+			\begin{itemize}
+				\item \textbf{Edges are preserved. (relatively) (+)}
+				\item \textbf{Transparent formulation with global optimal solution criterion. (+)}
+				\item \textbf{No $\sigma$ or $\tau$. $\lambda$ is easy to optimize. (+)}
+				\item \textbf{Not iterative method but linear equation. Much faster. (+)}
+				\item Non-linear diffusivity (e.g. edge preservation.) (+)
+				\item Big image requires big size of matrix $A$. (-) 
+				\item Mathematically complicate. (-)
+			\end{itemize}
+	\end{itemize}
+
 	\item Can you explain the motivations behind each of the methods? 
+	
+	\begin{itemize}
+		\item Gaussian filtering
+		
+		Using a Gaussian kernel is the simplest and the most intuitive way for denoising, since it works as a low pass filter in frequency domain and noise is mostly high frequency. Thus only low frequency elements remain.
+		 
+		\item Heat diffusion 
+
+		Well-known heat diffusion equation can be adapted to the problem. As times goes, noised pixel with high intensity values which correspond to "high temperature area", is denoised by "heat transfer". 
+		
+		\item Variational method
+		
+		The variational principle is a generalization of the necessary condition for extrema for function spaces. For denoising problem, the energy defined as sum of smoothing term and data similarity term. With a smoothing parameter $\lambda$, a denoised image with preserved edges can be computed by minimizing the energy. Since variational method finding an extrema, the minimizer is the global optimal solution of the convex problem.   
+		
+	\end{itemize}
 \end{itemize}
 
 
