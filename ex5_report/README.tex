@@ -511,7 +511,7 @@ Then the G\^ateaux derivative is given by
 	\shortintertext{apply matrix Taylor expansion:} 
 	&= \lim_{\alpha \to 0} \frac{1}{\alpha} \int_\Omega \Big( \cancel{L(I, \nabla_{\vec{x}} I, \vec{x})} + \alpha h \cdot \frac{\partial L}{\partial I} + \alpha \nabla_{\vec{x}} h \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} + o(\alpha^2) - \cancel{L(I, \nabla_{\vec{x}} I, \vec{x})} \Big) d\vec{x} \\
 	&= \int_\Omega \Big( h \cdot \frac{\partial L}{\partial I} + \nabla_{\vec{x}} h \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Big) d\vec{x} \\
-	\shortintertext{apply integration by parts and $h = 0$ on boundary :} 
+	\shortintertext{apply integration by parts\cite{wikiintegration} and $h = 0$ on boundary :} 
 	&= \int_\Omega h \cdot \frac{\partial L}{\partial I} \, d\vec{x} + \cancelto{0}{h \cdot \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Bigg|_\Omega}  - \int_\Omega h \cdot \nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \, d\vec{x} \\
 	&= \int_\Omega h(\vec{x}) \cdot \Big( \frac{\partial L}{\partial I} - \nabla_{\vec{x}} \bullet \frac{\partial L}{\partial (\nabla_{\vec{x}} I)} \Big) \, d\vec{x} \label{eq:gateauxderivative} 
 \end{align} \\
@@ -628,7 +628,8 @@ The results with different values of $\lambda$ are as Figure \ref{fig:valambda}.
 		\item For given $\sigma = 0.5$, the minimum MSE result by Gaussian filtering is when the number of iteration is 10. (MSE $= 279.2$) More iteration leads to blurred image.
 		\item For given $\tau = 0.1$, 11 iteration follows minimum MSE $= 279.9$. More iteration leads to blurred image.
 		\item For given $\lambda = 2$, MSE $= 311.5$.
-		\item As Figure \ref{fig:minmse}, denoising results with the best number of iterations are very similar. However, for filtering and heat diffusion methods, it is crucial to determine the number of iterations since as iteration goes on, image is getting blurred. Also since $\sigma$ and $\tau$ are hidden parameter, in other words, it's hard to adjust those parameters. Besides, variational method is not iterative method, thus it does not need to determine the number of iteration. Only one for a clear result is a proper value of $\lambda$ thus easy to choose.
+		\item As Figure \ref{fig:minmse}, denoising results with the best number of iterations are very similar. However, the result of variational method preserves edges more. 
+		\item Additionally for filtering and heat diffusion methods, it is crucial to determine the number of iterations since as iteration goes on, image is getting blurred. But since $\sigma$ and $\tau$ are hidden parameter it's hard to optimize those parameters. Besides, variational method is not iterative method, thus it does not need to determine the number of iteration. Only one for a clear result is a proper value of $\lambda$ thus easy to choose.
 	
 	\begin{figure}[H]
 		\caption{The best denoised images by each method \label{fig:minmse}}
@@ -663,6 +664,7 @@ The results with different values of $\lambda$ are as Figure \ref{fig:valambda}.
 		\item Gaussian filtering 
 			\begin{itemize}
 				\item Simple and intuitive way for denoising (+)
+				\item \textbf{Edges (gradient of images) are not preserved. (-)}
 				\item \textbf{Kernel size $\sigma$ is crucial. Which is a hidden parameter. (-)}
 				\item \textbf{It's hard to define criterion of global optimal solution of denoising. (-)}
 				\item Boundary condition is not intuitive. (-)
@@ -671,12 +673,14 @@ The results with different values of $\lambda$ are as Figure \ref{fig:valambda}.
 		\item Heat diffusion 
 			\begin{itemize}
 				\item Boundary condition is more intuitive. Neumann boundary condition is reasonable assumption. (+)
+				\item \textbf{Edges (gradient of images) are not preserved. (-)}
 				\item \textbf{It's hard to define criterion of global optimal solution of denoising. (-)}
 				\item \textbf{Time step $\tau$ is crucial. Small value leads to huge amount of time. Even error diverges with large value of $\tau$. Moreover, it is a hidden parameter. (-)}
 				\item \textbf{Iterative method i.e. time consuming and hard to determine the number of iterations. (-)} 
 			\end{itemize}
 		\item Variational method
 			\begin{itemize}
+				\item \textbf{Edges are preserved. (relatively) (+)}
 				\item \textbf{Transparent formulation with global optimal solution criterion. (+)}
 				\item \textbf{No $\sigma$ or $\tau$. $\lambda$ is easy to optimize. (+)}
 				\item \textbf{Not iterative method but linear equation. Much faster. (+)}
@@ -699,8 +703,7 @@ The results with different values of $\lambda$ are as Figure \ref{fig:valambda}.
 		
 		\item Variational method
 		
-		The variational principle is a generalization of the necessary condition for extrema for function spaces. For denoising problem, the energy defined as sum of  
-		
+		The variational principle is a generalization of the necessary condition for extrema for function spaces. For denoising problem, the energy defined as sum of smoothing term and data similarity term. With a smoothing parameter $\lambda$, a denoised image with preserved edges can be computed by minimizing the energy. Since variational method finding an extrema, the minimizer is the global optimal solution of the convex problem.   
 		
 	\end{itemize}
 \end{itemize}
