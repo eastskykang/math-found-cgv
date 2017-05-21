@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  21 MAY 2017 00:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  21 MAY 2017 11:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1218,12 +1218,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 435--436
 
  []
 
-./README.tex:437: Too many }'s.
-l.437 ...\ref{fig:hdtauc} and \ref{fig:hdtaumseb}}
-                                                  .
-You've closed more groups than you opened.
-Such booboos are generally harmless, so keep going.
-
 <results/hd_25_t001.jpg, id=162, 652.4375pt x 471.7625pt>
 File: results/hd_25_t001.jpg Graphic file (type jpg)
  <use results/hd_25_t001.jpg>
@@ -1329,7 +1323,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 719.
 Here is how much of TeX's memory you used:
  33583 strings out of 493014
  760097 string characters out of 6133351
- 1106753 words of memory out of 5000000
+ 1106755 words of memory out of 5000000
  36359 multiletter control sequences out of 15000+600000
  132301 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
