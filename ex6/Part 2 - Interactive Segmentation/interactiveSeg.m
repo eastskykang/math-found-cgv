@@ -300,11 +300,16 @@ lambda = handles.lambda;
 
 %% Primal Dual Segmentation
 
+% add custom functions
+addpath(genpath('../functions'))
+
 % Compute the data costs using the color histograms that you computed.
 % In case you don't have a working code for the color histograms, uncomment
 % the following line.
 
-% load colorHist.mat;
+load colorHist.mat;
+% TODO my color hist
+
 
 % It loads the color histogram for foreground (resp. background) in hist_fg
 % (resp. hist_bg)
@@ -321,6 +326,18 @@ lambda = handles.lambda;
 
 % Initialize Ix, tau, sigma ...
 
+sigma = 0.35;
+tau = 0.35;
+theta = 1;
+
+% (x_0, y_0) in X x Y
+x = reshape(double(rgb2gray(I)), [], 1);
+y = grad(x, [h, w]);
+y = y ./ max(y(:));
+
+% x_bar_0 = x_0
+x_bar = x;
+
 for k = 1:2000
     
   fprintf('.');
@@ -329,12 +346,31 @@ for k = 1:2000
   end
   
   %% Primal Dual iterations
-  
-  % Your code here
-  
+   
+    % precalculate f
+    f = f_I(hist_fg, hist_bg, I);   % size: (w*h) x 1
+    
+        % y_n+1
+        grad_xn_bar = grad(x_bar, [h, w]);  % grad(x_bar_n) / size: (w*h) x 2 x ch
+        
+        y = (y + sigma * grad_xn_bar) ...
+            ./ max(1, sqrt(sum ((y + sigma * grad_xn_bar).^2, 2)));
+        
+        % x_n+1
+        div_y = div(y, [h, w]);             % div(y_n+1) / size: (w*h) x 1 x ch
+        x_n = x;                % x before update (save temporary for x_bar)
+        
+        x = min(1, max(0, x - tau * (- div_y) + tau * f));
+        
+        % x_bar_n+1
+        x_bar = x + theta * (x - x_n);
   %% Show evolution
   
   if(k<5 || ~mod(k,50))
+      
+      % reshape
+      Ix = reshape(x, h, w);
+      
       handles.imgPos = imshow(I,'Parent', a);
       hold on;
       bw = (Ix > 0.99);
