@@ -212,23 +212,105 @@ inpaintReg = handles.inpaintReg;
 %% Remove the inpainted region from the image
 
 % Your code here
+[~,~,c] = size(I);
 
+if c ~= 3 
+    error('input should be rgb image')
+end
+
+% index of inpainted region
+mask_idx = sub2ind([h, w], inpaintReg(:, 2), inpaintReg(:, 1));
+
+% mask 
+M = ones(h, w);
+M(mask_idx) = 0;
+M = logical(M);
+
+% remove inpainted region
+I0 = uint8(repmat(M,1,1,3).*double(I));
 
 %% Primal dual inpainting
 
-% Your code here
+% parameters
+max_iter = 2000;
+sigma = 1;
+tau = 1;
+lambda = 0.75;
+theta = 1;
+
+% recovered image
+Ix = zeros(h, w, c);
+
+disp('-------------------------------------------------------------------')
+disp('inpainting with following parameters')
+disp(['max_iter = ', num2str(max_iter)])
+disp(['sigma    = ', num2str(sigma)])
+disp(['tau      = ', num2str(tau)])
+disp(['lambda   = ', num2str(lambda)])
+disp(['theta    = ', num2str(theta)])
+
+disp('-------------------------------------------------------------------')
+disp('primal dual algorithm... (in parallel for each RGB channel)')
+
+% parallel for each channel 
+tic
+parfor ch_idx = 1:c        
+
+    % initialization
+    I_ch = double(I0(:,:,ch_idx));
+    
+    % (x_0, y_0) in X x Y
+    x = reshape(double(I0(:,:,ch_idx)), [], 1);
+    y = grad(x, [h, w]);
+    y = y ./ max(y(:));
+    
+    % x_bar_0 = x_0
+    x_bar = x;
+    
+    % mask (vectorize)
+    m = M; 
+    m = m(:);
+    
+    % iteration
+    for i=1:max_iter
+        % TODO: termination condition
+        
+        if(~mod(i,50))
+            fprintf(sprintf('(%5d / %5d) for channel %d.\n', i, max_iter, ch_idx));
+        end
+        
+        % y_n+1
+        grad_xn_bar = grad(x_bar, [h, w]);  % grad(x_bar_n) / size: (w*h) x 2 x c
+        
+        y = (y + sigma * grad_xn_bar) ...
+            ./ max(1, sqrt(sum ((y + sigma * grad_xn_bar).^2, 2)));
+        
+        % x_n+1
+        div_y = div(y, [h, w]);             % div(y_n+1) / size: (w*h) x 1 x c
+        x_n = x;                % x before update (save temporary for x_bar)
+        
+        % case 1 (missing pixels)
+        % for convenience, just update all first
+        x = x - tau * (- div_y);
+        
+        % case 2 (otherwise)
+        % update only not missing pixels
+        x(m) = (x(m) + tau * lambda * I_ch(m)) / (1 + tau * lambda);  
+        
+        % x_bar_n+1
+        x_bar = x + theta * (x - x_n);
+    end
+    
+    Ix(:,:,ch_idx) = reshape(x, h, w);
+end
+toc;
 
 % Note: if you want to show your inpainted results on the interface, use
 % the following code
 
-% handles.imgPos = imshow(uint8(Ix), 'Parent', a);
+handles.imgPos = imshow(uint8(Ix), 'Parent', a);
 
 % where Ix is your unknown function. However, for simplicity, you can also
 % print the results on a separate figure. Be careful if you want to show
 % the evolution of the results, you need to always use the same figure, for
 % instance figure(2).
-
-
-
-
-

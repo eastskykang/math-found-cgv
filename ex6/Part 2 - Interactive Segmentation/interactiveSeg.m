@@ -346,24 +346,24 @@ for k = 1:2000
   end
   
   %% Primal Dual iterations
-   
-    % precalculate f
-    f = f_I(hist_fg, hist_bg, I);   % size: (w*h) x 1
-    
-        % y_n+1
-        grad_xn_bar = grad(x_bar, [h, w]);  % grad(x_bar_n) / size: (w*h) x 2 x ch
-        
-        y = (y + sigma * grad_xn_bar) ...
-            ./ max(1, sqrt(sum ((y + sigma * grad_xn_bar).^2, 2)));
-        
-        % x_n+1
-        div_y = div(y, [h, w]);             % div(y_n+1) / size: (w*h) x 1 x ch
-        x_n = x;                % x before update (save temporary for x_bar)
-        
-        x = min(1, max(0, x - tau * (- div_y) + tau * f));
-        
-        % x_bar_n+1
-        x_bar = x + theta * (x - x_n);
+  
+  % precalculate f
+  f = f_I(hist_fg, hist_bg, I);   % size: (w*h) x 1
+  
+  % y_n+1
+  grad_xn_bar = grad(x_bar, [h, w]);  % grad(x_bar_n) / size: (w*h) x 2 x ch
+  
+  y = (y + sigma * grad_xn_bar) ...
+      ./ max(1, sqrt(sum ((y + sigma * grad_xn_bar).^2, 2)));
+  
+  % x_n+1
+  div_y = div(y, [h, w]);             % div(y_n+1) / size: (w*h) x 1 x ch
+  x_n = x;                % x before update (save temporary for x_bar)
+  
+  x = min(1, max(0, x - tau * (- div_y) + tau * f));
+  
+  % x_bar_n+1
+  x_bar = x + theta * (x - x_n);
   %% Show evolution
   
   if(k<5 || ~mod(k,50))

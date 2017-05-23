@@ -1,4 +1,4 @@
-%% EXERCISE X - PART X
+%% EXERCISE 6 - PART 2
 clc
 close all
 clear all
@@ -7,16 +7,12 @@ clear all
 addpath(genpath('Part 2 - Interactive Segmentation'))
 addpath(genpath('functions'))
 
-% parameters
-
 % debug
-debug = true;
+debug = false;
 
 %% MAIN
 disp('===================================================================')
-disp('data loading...')
-
-disp('-------------------------------------------------------------------')
+disp('PART 2')
 
 if debug
     
@@ -28,12 +24,15 @@ if debug
     color_hist_implemented = false;
     
     % get image (batman)
+    disp('-------------------------------------------------------------------')
+    disp('load image...')
     I = imread('Part 2 - Interactive Segmentation/batman.jpg');
     
     % size of the image
     [h, w, ~] = size(I);
     
     % load scribbles
+    disp('load scribbles...')
     load('Part 2 - Interactive Segmentation/scribbles2.mat');
     
     % show image with scribbles
@@ -58,8 +57,11 @@ if debug
         hist_fg = getColorHistogram(I, seed_fg, 32);
         hist_bg = getColorHistogram(I, seed_bg, 32);
     end
-    
+
     % primal dual algorithm
+    disp('-------------------------------------------------------------------')
+    disp('primal dual algorithm...')
+    
     % initialization
     sigma = 0.35;
     tau = 0.35;
@@ -74,9 +76,9 @@ if debug
     end
     
     % (x_0, y_0) in X x Y
-    x = reshape(double(rgb2gray(I)), [], 1);
-    y = grad(x, [h, w]);    
-    y = y ./ max(y(:)); 
+    x = reshape(double(rgb2gray(I)), [], 1);    % initialize with grayscale image
+    y = grad(x, [h, w]);        
+    y = y ./ max(y(:));                         % initialize with normalized gradient                
     
     % x_bar_0 = x_0
     x_bar = x;
@@ -102,12 +104,19 @@ if debug
         
         % x_bar_n+1
         x_bar = x + theta * (x - x_n);
+        
     end
     
     % result of iteration (minimizer)
+    disp('-------------------------------------------------------------------')
+    disp('show the result')
+    
     x = reshape(x, h, w);
     
     figure(fig_idx)
     imshow(uint8(x))
     fig_idx = fig_idx + 1;
+else
+    % gui
+    interactiveSeg;
 end
