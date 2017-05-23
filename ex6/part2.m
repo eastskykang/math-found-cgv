@@ -8,7 +8,7 @@ addpath(genpath('Part 2 - Interactive Segmentation'))
 addpath(genpath('functions'))
 
 % debug
-debug = false;
+debug = true;
 
 %% MAIN
 disp('===================================================================')
@@ -114,7 +114,7 @@ if debug
     x = reshape(x, h, w);
     
     figure(fig_idx)
-    imshow(uint8(x))
+    imshow(x)
     fig_idx = fig_idx + 1;
 else
     % gui
