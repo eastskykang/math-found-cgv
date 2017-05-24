@@ -1,3 +1,8 @@
+% for get parameters from part3_1.m script
+
+% close all
+% clear all
+
 %% Initialize everything
 
 Iorig = imread('oz2.jpg'); % Load the image
@@ -56,9 +61,11 @@ disp('primal dual algorithm...')
 I_double = double(I0);
 
 % (x_0, y_0) in X x Y
-x = reshape(I_double, [], 1, c);
-y = grad(x, [h, w]);
-y = y ./ max(y(:));
+% x = reshape(I_double, [], 1, c);
+% y = grad(x, [h, w]);
+% y = y ./ max(y(:));
+x = zeros(h * w, 1, c);
+y = zeros(h * w, 2, c);
 
 % x_bar_0 = x_0
 x_bar = x;
@@ -68,9 +75,7 @@ m = repmat(M, 1, 1, 3);
 m = m(:);
 
 % iteration
-for i=1:max_iter
-    % TODO: termination condition
-    
+for i=1:max_iter    
     if(~mod(i,50))
         fprintf(sprintf('(%5d / %5d)\n', i, max_iter));
     end

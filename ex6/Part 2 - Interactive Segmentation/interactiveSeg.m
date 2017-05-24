@@ -276,7 +276,7 @@ function segment_ClickedCallback(hObject, eventdata, handles)
 
 handles = guidata( ancestor(hObject, 'figure') ); % recover the handles
 a = get(handles.imgPos,'Parent'); % axis of the image
-set(a, 'Units', 'pixels');false
+set(a, 'Units', 'pixels');
 
 % Set all drawing options to 
 handles.fgDrawer = false;
@@ -301,18 +301,28 @@ lambda = handles.lambda;
 %% Primal Dual Segmentation
 
 % add custom functions
-addpath(genpath('../functions'))
+addpath(genpath('../functions'));
 
 % Compute the data costs using the color histograms that you computed.
 % In case you don't have a working code for the color histograms, uncomment
 % the following line.
 
-load colorHist.mat;
-% TODO my color hist
-
+% load colorHist.mat;
 
 % It loads the color histogram for foreground (resp. background) in hist_fg
 % (resp. hist_bg)
+
+% use my color histogram.
+% 
+% NOTE! 
+% my color histograms are smoothed by Gaussian filter thus different with
+% colorHist.mat
+
+disp('-------------------------------------------------------------------')
+disp('get color histogram from my function (smoothed)')
+
+hist_fg = getColorHistogram(I, seed_fg, 32);
+hist_bg = getColorHistogram(I, seed_bg, 32);
 
 % We call Ix the unknown function which gives a value between 0 and 1 for 
 % every pixel. You can of course use another notation, but be careful in
@@ -325,10 +335,19 @@ load colorHist.mat;
 % matlab.
 
 % Initialize Ix, tau, sigma ...
-
 sigma = 0.35;
 tau = 0.35;
 theta = 1;
+
+disp('-------------------------------------------------------------------')
+disp('segmentation with following parameters')
+disp(['sigma    = ', num2str(sigma)])
+disp(['tau      = ', num2str(tau)])
+disp(['lambda   = ', num2str(lambda)])
+disp(['theta    = ', num2str(theta)])
+
+disp('-------------------------------------------------------------------')
+disp('primal dual algorithm...')
 
 % (x_0, y_0) in X x Y
 x = reshape(double(rgb2gray(I)), [], 1);
@@ -338,6 +357,10 @@ y = y ./ max(y(:));
 % x_bar_0 = x_0
 x_bar = x;
 
+% precalculate f
+f = f_I(hist_fg, hist_bg, I);   % size: (w*h) x 1  
+
+% iteration
 for k = 1:2000
     
   fprintf('.');
@@ -347,9 +370,6 @@ for k = 1:2000
   
   %% Primal Dual iterations
   
-  % precalculate f
-  f = f_I(hist_fg, hist_bg, I);   % size: (w*h) x 1
-  
   % y_n+1
   grad_xn_bar = grad(x_bar, [h, w]);  % grad(x_bar_n) / size: (w*h) x 2 x ch
   
@@ -358,14 +378,15 @@ for k = 1:2000
   
   % x_n+1
   div_y = div(y, [h, w]);             % div(y_n+1) / size: (w*h) x 1 x ch
-  x_n = x;                % x before update (save temporary for x_bar)
+  x_n = x;                    % x before update (save temporary for x_bar)
   
-  x = min(1, max(0, x - tau * (- div_y) + tau * f));
+  x = min(1, max(0, x - tau * (- div_y) + tau * lambda * f));
   
   % x_bar_n+1
   x_bar = x + theta * (x - x_n);
-  %% Show evolution
   
+  %% Show evolution
+
   if(k<5 || ~mod(k,50))
       
       % reshape
@@ -389,5 +410,6 @@ for k = 1:2000
 end
 
 %% Show the results
+disp('segmentation finished.')
 
 guidata(hObject, handles);

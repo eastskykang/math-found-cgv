@@ -7,16 +7,8 @@ clear all
 addpath(genpath('Part 3 - Inpainting'))
 addpath(genpath('functions'))
 
-% parameters
-
-% debug
-debug = true;
 
 %% MAIN
 disp('===================================================================')
-disp('data loading...')
-
-disp('-------------------------------------------------------------------')
-
-if debug
-end
+disp('PART 3-2')
+Inpainter;

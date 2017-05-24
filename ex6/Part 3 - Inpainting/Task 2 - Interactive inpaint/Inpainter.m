@@ -256,9 +256,11 @@ disp('primal dual algorithm...')
 I_double = double(I0);
 
 % (x_0, y_0) in X x Y
-x = reshape(I_double, [], 1, c);
-y = grad(x, [h, w]);
-y = y ./ max(y(:));
+% x = reshape(I_double, [], 1, c);
+% y = grad(x, [h, w]);
+% y = y ./ max(y(:));
+x = zeros(h * w, 1, c);
+y = zeros(h * w, 2, c);
 
 % x_bar_0 = x_0
 x_bar = x;
