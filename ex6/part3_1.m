@@ -17,6 +17,8 @@ lambda = 5;
 theta = 1;
 
 %% MAIN
+% should be run with this script.
+
 disp('===================================================================')
 disp('PART 3-1')
 inpainting;

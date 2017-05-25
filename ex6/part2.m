@@ -8,14 +8,14 @@ addpath(genpath('Part 2 - Interactive Segmentation'))
 addpath(genpath('functions'))
 
 % debug
-debug = false;
+debug = true;      % do not change
 
 %% MAIN
 disp('===================================================================')
 disp('PART 2')
 
 if debug
-    
+
     % figure idx
     fig_idx = 1;
     
@@ -51,12 +51,39 @@ if debug
         load('Part 2 - Interactive Segmentation/colorHist.mat');
     else
         % get color hist from my function (getColorHistogram)
-        
-        % TODO check if two color histograms are same
         disp('calculate color histogram')
         hist_fg = getColorHistogram(I, seed_fg, 32);
         hist_bg = getColorHistogram(I, seed_bg, 32);
     end
+    
+    % color histogram show 
+    % foreground
+    figure(fig_idx)
+    hist_fg_v = double(squeeze(hist_fg));
+    hist_fg_v(hist_fg_v==0)=nan;
+    h1 = slice(hist_fg_v, [], [], 1:size(hist_fg_v,3));
+    set(h1, 'EdgeColor','none', 'FaceColor','interp')
+    title('Foreground Color Histogram')
+    xlabel('Red')
+    ylabel('Green')
+    zlabel('Blue')
+    alpha(0.4)    
+    fig_idx = fig_idx + 1;
+    
+    % color histogram show 
+    % background
+    figure(fig_idx)
+    hist_bg_v = double(squeeze(hist_bg));
+    hist_bg_v(hist_bg_v==0)=nan;
+    h2 = slice(hist_bg_v, [], [], 1:size(hist_bg_v,3));
+    set(h2, 'EdgeColor','none', 'FaceColor','interp')
+    title('Background Color Histogram')
+    xlabel('Red')
+    ylabel('Green')
+    zlabel('Blue')
+    alpha(0.4)
+    fig_idx = fig_idx + 1;
+    
 
     % primal dual algorithm
     disp('-------------------------------------------------------------------')
@@ -76,9 +103,12 @@ if debug
     end
     
     % (x_0, y_0) in X x Y
-    x = reshape(double(rgb2gray(I)), [], 1);    % initialize with grayscale image
-    y = grad(x, [h, w]);        
-    y = y ./ max(y(:));                         % initialize with normalized gradient                
+%     x = reshape(double(rgb2gray(I)), [], 1);    % initialize with grayscale image
+%     y = grad(x, [h, w]);        
+%     y = y ./ max(y(:));                         % initialize with normalized gradient                
+    
+    x = zeros(h * w, 1);
+    y = zeros(h * w, 2);
     
     % x_bar_0 = x_0
     x_bar = x;
@@ -88,7 +118,6 @@ if debug
     
     % iteration
     for i=1:max_iter
-        % TODO: termination condition
         
         % y_n+1
         grad_xn_bar = grad(x_bar, [h, w]);  % grad(x_bar_n) / size: (w*h) x 2 x ch
@@ -100,7 +129,7 @@ if debug
         div_y = div(y, [h, w]);             % div(y_n+1) / size: (w*h) x 1 x ch
         x_n = x;                % x before update (save temporary for x_bar)
         
-        x = min(1, max(0, x - tau * (- div_y) + tau * f));
+        x = min(1, max(0, x - tau * (- div_y) + tau * lambda * f));
         
         % x_bar_n+1
         x_bar = x + theta * (x - x_n);
@@ -114,7 +143,7 @@ if debug
     x = reshape(x, h, w);
     
     figure(fig_idx)
-    imshow(uint8(x))
+    imshow(x)
     fig_idx = fig_idx + 1;
 else
     % gui
