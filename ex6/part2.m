@@ -8,7 +8,7 @@ addpath(genpath('Part 2 - Interactive Segmentation'))
 addpath(genpath('functions'))
 
 % debug
-debug = true;      % do not change
+debug = false;      % do not change
 
 %% MAIN
 disp('===================================================================')
@@ -20,8 +20,8 @@ if debug
     fig_idx = 1;
     
     % options & params
-    max_iter = 100;
-    color_hist_implemented = false;
+    max_iter = 2000;
+    color_hist_implemented = true;
     
     % get image (batman)
     disp('-------------------------------------------------------------------')
@@ -144,6 +144,18 @@ if debug
     
     figure(fig_idx)
     imshow(x)
+    fig_idx = fig_idx + 1;
+    
+    figure(fig_idx)
+    imshow(I)
+    bw = (x > 0.99);
+    B = bwboundaries(bw,'holes');
+    hold on;
+    for l=1:length(B)
+        boundary = B{l};
+        plot(boundary(:,2), boundary(:,1), 'y', 'linewidth', 2.0);
+    end
+    hold off;
     fig_idx = fig_idx + 1;
 else
     % gui

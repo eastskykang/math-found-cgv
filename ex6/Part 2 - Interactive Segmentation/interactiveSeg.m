@@ -300,9 +300,6 @@ lambda = handles.lambda;
 
 %% Primal Dual Segmentation
 
-% add custom functions
-addpath(genpath('../functions'));
-
 % Compute the data costs using the color histograms that you computed.
 % In case you don't have a working code for the color histograms, uncomment
 % the following line.

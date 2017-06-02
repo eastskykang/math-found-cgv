@@ -43,6 +43,13 @@ if ~exist('theta', 'var')
     theta = 1;
 end
 
+% save images
+results_dir = './results';
+save_jpg = false;
+
+% path 
+addpath(genpath('./functions'))
+
 % recovered image
 Ix = zeros(h, w, c);
 
@@ -106,6 +113,10 @@ for i=1:max_iter
         
         % reshape
         Ix = reshape(x, h, w, c);
+        
+        if save_jpg
+            imwrite(uint8(Ix), fullfile(results_dir, ['inp', num2str(i), '.jpg']))
+        end
         
         figure(2)
         imshow(uint8(Ix));

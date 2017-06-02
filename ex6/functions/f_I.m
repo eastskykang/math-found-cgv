@@ -10,9 +10,9 @@ function [ f ] = f_I( hist_fg, hist_bg, I )
     histRes = size(hist_fg, 1);
     
     % calculate f_i
-    r_bin = idivide(I_r(:), (256 / histRes)) + 1;
-    g_bin = idivide(I_g(:), (256 / histRes)) + 1;
-    b_bin = idivide(I_b(:), (256 / histRes)) + 1;
+    r_bin = idivide(I_r(:), uint8(256 / histRes)) + 1;
+    g_bin = idivide(I_g(:), uint8(256 / histRes)) + 1;
+    b_bin = idivide(I_b(:), uint8(256 / histRes)) + 1;
     
     % change sub to ind
     idx = sub2ind(size(hist_fg), r_bin, g_bin, b_bin);

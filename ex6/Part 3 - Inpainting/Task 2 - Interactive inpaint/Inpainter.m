@@ -221,6 +221,13 @@ end
 % index of inpainted region
 mask_idx = sub2ind([h, w], inpaintReg(:, 2), inpaintReg(:, 1));
 
+% for debugging
+% figure(100)
+% imshow(I)
+% hold on 
+% plot(inpaintReg(:, 1), inpaintReg(:, 2), '*r')
+% hold off
+
 % mask 
 M = ones(h, w);
 M(mask_idx) = 0;
@@ -271,7 +278,6 @@ m = m(:);
 
 % iteration
 for i=1:max_iter
-    % TODO: termination condition
     
     if(~mod(i,50))
         fprintf(sprintf('(%5d / %5d)\n', i, max_iter));
